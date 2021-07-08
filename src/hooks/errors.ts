@@ -27,8 +27,15 @@ export const useHandleErrors = () => {
           // ログインエラー処理
           console.log("ログインエラー");
           break;
+        default:
+          toast.show("何らかのエラーが発生しました", {
+            type: "danger",
+            style: {
+              width: bottomToastWidth,
+            },
+          });
       }
-      dispatch(resetError());
+      // dispatch(resetError());
     }
   }, [error]);
 };

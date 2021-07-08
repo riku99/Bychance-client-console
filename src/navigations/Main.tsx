@@ -4,8 +4,6 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
-import { useHandleErrors } from "~/hooks/errors";
-
 export type MainStackParamList = {
   SignUp: undefined;
   SignIn: undefined;
@@ -15,8 +13,6 @@ export type MainStackParamList = {
 const MainStack = createStackNavigator<MainStackParamList>();
 
 export const MainStackScreen = React.memo(() => {
-  useHandleErrors();
-
   return (
     <MainStack.Navigator>
       <MainStack.Screen name="Tab" component={() => null} />
