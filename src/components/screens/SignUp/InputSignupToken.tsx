@@ -14,7 +14,11 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
   const { verifySignupToken } = useSignupToken();
 
   const onSend = async () => {
-    await verifySignupToken(input);
+    const result = await verifySignupToken(input);
+    if (result) {
+      console.log("ok");
+      setEnabledSignup(true);
+    }
   };
 
   return (
