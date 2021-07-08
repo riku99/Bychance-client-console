@@ -14,7 +14,11 @@ export const App = () => {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <ToastProvider placement="bottom" offset={bottomToastOffset}>
+          <ToastProvider
+            placement="bottom"
+            offset={bottomToastOffset}
+            duration={2000}
+          >
             <Root />
           </ToastProvider>
         </NavigationContainer>

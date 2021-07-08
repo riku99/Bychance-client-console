@@ -35,7 +35,7 @@ export const useHandleErrors = () => {
             },
           });
       }
-      // dispatch(resetError());
+      dispatch(resetError());
     }
   }, [error]);
 };

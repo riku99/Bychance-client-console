@@ -23,6 +23,7 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
         label="サインアップのための暗号を入力してください"
         containerStyle={styles.inputContainer}
         onChangeText={(t) => setInput(t)}
+        errorMessage={!input ? "入力してください" : undefined}
       />
       <Button
         title="送信"
@@ -30,6 +31,7 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
         titleStyle={styles.buttonTitle}
         activeOpacity={1}
         onPress={onSend}
+        disabled={!input}
       />
     </>
   );

@@ -12,9 +12,9 @@ const errorsSlice = createSlice({
   name: "errors",
   initialState,
   reducers: {
-    setApiError: (state, action: PayloadAction<ApiError>) => {
-      return { apiError: action.payload };
-    },
+    setApiError: (state, action: PayloadAction<ApiError>) => ({
+      apiError: action.payload,
+    }),
     resetError: () => ({
       apiError: undefined,
     }),
