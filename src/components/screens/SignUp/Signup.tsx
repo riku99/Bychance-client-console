@@ -8,6 +8,7 @@ import {
 import { Button } from "react-native-elements";
 
 import { EmailForm } from "~/components/utils/EmailForm";
+import { PasswordForm } from "~/components/utils/PasswordForm";
 
 export const Signup = React.memo(() => {
   return (
@@ -16,6 +17,9 @@ export const Signup = React.memo(() => {
         <View style={styles.section}>
           <View style={styles.formContainer}>
             <EmailForm />
+          </View>
+          <View style={[styles.formContainer, { marginTop: "10%" }]}>
+            <PasswordForm />
           </View>
         </View>
         <Button
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
   },
   section: {
     width: "100%",
-    height: "30%",
+    height: "35%",
     backgroundColor: "white",
     marginTop: 40,
     alignItems: "center",
@@ -51,5 +55,6 @@ const styles = StyleSheet.create({
   formContainer: {
     width: "95%",
     height: 30,
+    marginTop: "10%",
   },
 });
