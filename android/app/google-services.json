@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "945566384287",
+    "project_id": "bychance-r-client-console-dev",
+    "storage_bucket": "bychance-r-client-console-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945566384287:android:6ac7559b01e1ad733122aa",
+        "android_client_info": {
+          "package_name": "co.jp.bychance.bychanceclientconsole"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945566384287-qugmi6eoodu7snfjv2btu4fif6sg6qud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcdaRuPXlhRA3f0UC9-FVbWWuda0nvbJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945566384287-qugmi6eoodu7snfjv2btu4fif6sg6qud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
