@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { useToast } from "react-native-fast-toast";
 
@@ -18,9 +18,10 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
 
   const onSend = async () => {
     const result = await verifySignupToken(input);
+    setEnabledSignup(true);
     if (result) {
       toast.show("確認しました", { type: "success" });
-      setEnabledSignup(true);
+      // setEnabledSignup(true);
     }
   };
 
