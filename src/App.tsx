@@ -18,6 +18,7 @@ export const App = () => {
             placement="bottom"
             offset={bottomToastOffset}
             duration={2000}
+            style={{ width: bottomToastWidth }}
           >
             <Root />
           </ToastProvider>
@@ -27,6 +28,8 @@ export const App = () => {
   );
 };
 
-const { height } = Dimensions.get("screen");
+const { height, width } = Dimensions.get("screen");
 
 const bottomToastOffset = height * 0.1;
+
+const bottomToastWidth = width * 0.9;

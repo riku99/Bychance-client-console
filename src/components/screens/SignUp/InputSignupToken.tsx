@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Input, Button } from "react-native-elements";
+import { useToast } from "react-native-fast-toast";
 
 import { useSignupToken } from "~/hooks/signupToken";
 
@@ -11,12 +12,14 @@ type Props = {
 export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
   const [input, setInput] = useState("");
 
+  const toast = useToast();
+
   const { verifySignupToken } = useSignupToken();
 
   const onSend = async () => {
     const result = await verifySignupToken(input);
     if (result) {
-      console.log("ok");
+      toast.show("確認しました", { type: "success" });
       setEnabledSignup(true);
     }
   };
