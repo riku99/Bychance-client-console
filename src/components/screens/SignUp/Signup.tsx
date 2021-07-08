@@ -5,7 +5,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Input } from "react-native-elements";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
@@ -18,12 +19,18 @@ export const Signup = React.memo(() => {
           <View style={styles.formContainer}>
             <EmailForm />
           </View>
-          <View style={[styles.formContainer, { marginTop: "10%" }]}>
+          <View style={styles.formContainer}>
             <PasswordForm />
+          </View>
+          <View style={styles.formContainer}>
+            <Input
+              placeholder="名前"
+              leftIcon={<Icon name="account-box" size={20} color="gray" />}
+            />
           </View>
         </View>
         <Button
-          title="送信"
+          title="登録する"
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
         />
@@ -40,10 +47,10 @@ const styles = StyleSheet.create({
   },
   section: {
     width: "100%",
-    height: "35%",
     backgroundColor: "white",
     marginTop: 40,
     alignItems: "center",
+    padding: 5,
   },
   buttonTitle: {
     fontWeight: "500",
@@ -53,8 +60,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   formContainer: {
-    width: "95%",
-    height: 30,
-    marginTop: "10%",
+    height: 60,
+    width: "100%",
   },
 });
