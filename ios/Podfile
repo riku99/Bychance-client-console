@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'HelloWorld' do
+target 'BychanceClientConsole' do
   config = use_native_modules!
 
   use_react_native!(
@@ -14,7 +14,7 @@ target 'HelloWorld' do
 
 
 
-  target 'HelloWorldTests' do
+  target 'BychanceClientConsoleTests' do
     inherit! :complete
     # Pods for testing
   end
