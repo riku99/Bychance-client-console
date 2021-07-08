@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+  View,
+} from "react-native";
 import { Input, Button } from "react-native-elements";
 import { useToast } from "react-native-fast-toast";
 
@@ -26,22 +31,24 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
   };
 
   return (
-    <>
-      <Input
-        label="サインアップのための暗号を入力してください"
-        containerStyle={styles.inputContainer}
-        onChangeText={(t) => setInput(t)}
-        errorMessage={!input ? "入力してください" : undefined}
-      />
-      <Button
-        title="送信"
-        containerStyle={styles.buttonContainer}
-        titleStyle={styles.buttonTitle}
-        activeOpacity={1}
-        onPress={onSend}
-        disabled={!input}
-      />
-    </>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{ width: "100%", height: "100%" }}>
+        <Input
+          label="サインアップのための暗号を入力してください"
+          containerStyle={styles.inputContainer}
+          onChangeText={(t) => setInput(t)}
+          errorMessage={!input ? "入力してください" : undefined}
+        />
+        <Button
+          title="送信"
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonTitle}
+          activeOpacity={1}
+          onPress={onSend}
+          disabled={!input}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 });
 
@@ -52,6 +59,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 40,
     width: "80%",
+    alignSelf: "center",
   },
   buttonTitle: {
     fontWeight: "500",
