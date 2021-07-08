@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { InputSignupToken } from "./InputSignupToken";
-import { Signin } from "./Signin";
+import { Signup } from "./Signup";
 
 export const SignUp = React.memo(() => {
   const [enabledSignup, setEnabledSignup] = useState(false);
@@ -10,7 +10,7 @@ export const SignUp = React.memo(() => {
   return (
     <View style={styles.container}>
       {enabledSignup ? (
-        <Signin />
+        <Signup />
       ) : (
         <InputSignupToken setEnabledSignup={setEnabledSignup} />
       )}
