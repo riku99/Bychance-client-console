@@ -39,7 +39,6 @@ export const useHandleApiErrors = () => {
   const dispatch = useCustomDispatch();
 
   const handleError = useCallback((e: any) => {
-    console.log(e);
     if (e && e.response) {
       const axiosError = e as BasicAxiosError;
       if (axiosError.response?.data) {
