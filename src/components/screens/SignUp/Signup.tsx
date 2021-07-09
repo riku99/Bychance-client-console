@@ -10,8 +10,15 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
+import { useCreateUser } from "~/hooks/users";
 
 export const Signup = React.memo(() => {
+  const { createFirebaseUser } = useCreateUser();
+
+  const onRegisterButtonPress = () => {
+    //createFirebaseUser()
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
