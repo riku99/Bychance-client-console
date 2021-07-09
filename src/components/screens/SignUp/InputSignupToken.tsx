@@ -22,11 +22,14 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
   const { verifySignupToken } = useSignupToken();
 
   const onSend = async () => {
+    console.log("press");
     const result = await verifySignupToken(input);
-    setEnabledSignup(true);
+    // setEnabledSignup(true);
+    console.log(result);
+
     if (result) {
       toast.show("確認しました", { type: "success" });
-      // setEnabledSignup(true);
+      setEnabledSignup(true);
     }
   };
 

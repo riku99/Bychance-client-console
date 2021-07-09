@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useToast } from "react-native-fast-toast";
 import { useSelector } from "react-redux";
 
@@ -38,7 +38,8 @@ export const useHandleErrors = () => {
 export const useHandleApiErrors = () => {
   const dispatch = useCustomDispatch();
 
-  const handleError = (e: any) => {
+  const handleError = useCallback((e: any) => {
+    console.log(e);
     if (e && e.response) {
       const axiosError = e as BasicAxiosError;
       if (axiosError.response?.data) {
@@ -47,7 +48,7 @@ export const useHandleApiErrors = () => {
         dispatch(setApiError({ errorType: "someError" }));
       }
     }
-  };
+  }, []);
 
   return {
     handleError,
