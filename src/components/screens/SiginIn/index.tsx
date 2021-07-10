@@ -4,10 +4,17 @@ import { Button } from "react-native-elements";
 
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
+import { useSignin } from "~/hooks/auth";
 
 export const Signin = React.memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { signin } = useSignin();
+
+  const onLoginButtonPress = () => {
+    signin(email, password);
+  };
 
   return (
     <View style={styles.container}>
@@ -24,6 +31,8 @@ export const Signin = React.memo(() => {
         titleStyle={styles.buttonTitle}
         containerStyle={styles.buttonContainer}
         disabled={!email || !password || password.length < 8}
+        onPress={onLoginButtonPress}
+        activeOpacity={1}
       />
     </View>
   );

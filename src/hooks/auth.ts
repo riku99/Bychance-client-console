@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Alert } from "react-native";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
@@ -93,6 +94,26 @@ export const useSignup = () => {
   };
 };
 
-const useSignin = () => {
-  const signin = useCallback((email: string, password: string) => {}, []);
+export const useSignin = () => {
+  const signin = useCallback(async (email: string, password: string) => {
+    let idToken: string;
+    try {
+      const { user: firebaseUser } = await auth().signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      idToken = await firebaseUser.getIdToken();
+    } catch (e) {
+      Alert.alert("エラー", "メールアドレスまたはパスワードが間違っています");
+    }
+
+    try {
+      // 検証
+    } catch (e) {}
+  }, []);
+
+  return {
+    signin,
+  };
 };
