@@ -9,10 +9,13 @@ export const useAuthSubscribe = () => {
   const dispatch = useCustomDispatch();
 
   const onAuthStateChanged = useCallback(
-    (user: FirebaseAuthTypes.User | null) => {
+    async (user: FirebaseAuthTypes.User | null) => {
       console.log(user);
       if (user) {
-        dispatch(setLogin(true));
+        // firebaseへの登録が完了したらここ実行される
+        const token = await user.getIdToken();
+        console.log(token);
+        //dispatch(setLogin(true)); // firbaseに登録完了しただけでなく、取得したtokenをサーバ側で検証してユーザー作成も完了したらtrueにしたい
       }
       if (initializing) setInitializing(false);
     },
@@ -20,9 +23,9 @@ export const useAuthSubscribe = () => {
   );
 
   useEffect(() => {
-    const unsbscribe = auth().onAuthStateChanged(onAuthStateChanged);
+    const unsubscribe = auth().onAuthStateChanged(onAuthStateChanged);
 
-    return unsbscribe;
+    return unsubscribe;
   }, []);
 
   return {

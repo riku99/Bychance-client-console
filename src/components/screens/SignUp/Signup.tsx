@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -17,25 +17,36 @@ export const Signup = React.memo(() => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const onRegisterButtonPress = () => {
-    createFirebaseUser(email, password);
+    createFirebaseUser(email, password, name);
   };
+
+  const error = useMemo(() => {
+    if (!email || !password || password.length < 8 || !name) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [email, password, name]);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <View style={styles.section}>
           <View style={styles.formContainer}>
-            <EmailForm setInputText={setEmail} />
+            <EmailForm setInputText={setEmail} input={email} />
           </View>
           <View style={styles.formContainer}>
-            <PasswordForm setInputText={setPassword} />
+            <PasswordForm setInputText={setPassword} input={password} />
           </View>
           <View style={styles.formContainer}>
             <Input
               placeholder="名前"
               leftIcon={<Icon name="account-box" size={20} color="gray" />}
+              onChangeText={setName}
+              errorMessage={!name ? "入力してください" : undefined}
             />
           </View>
         </View>
@@ -44,6 +55,7 @@ export const Signup = React.memo(() => {
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           onPress={onRegisterButtonPress}
+          disabled={error}
         />
       </View>
     </TouchableWithoutFeedback>
@@ -71,7 +83,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   formContainer: {
-    height: 60,
+    height: 70,
     width: "100%",
   },
 });
