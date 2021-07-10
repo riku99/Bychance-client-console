@@ -13,9 +13,10 @@ export const Root = React.memo(() => {
 
   useHandleErrors();
 
-  useSessionLogin();
+  const { isLoading } = useSessionLogin();
 
   // loadingの際のsplashscreen
+  if (isLoading) return null;
 
   return <>{login ? <MainStackScreen /> : <AuthStackScreen />}</>;
 });

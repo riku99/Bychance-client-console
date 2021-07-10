@@ -44,6 +44,8 @@ export const useSessionLogin = () => {
   const { handleError } = useHandleApiErrors();
   const dispatch = useCustomDispatch();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const get = async () => {
       const user = auth().currentUser;
@@ -60,9 +62,12 @@ export const useSessionLogin = () => {
           handleError(e);
         }
       }
+      setIsLoading(false);
     };
     get();
   }, []);
+
+  return { isLoading };
 };
 
 export const useSignup = () => {
