@@ -19,7 +19,7 @@ export const AuthStackScreen = React.memo(() => {
       <AuthStack.Screen
         name="SignUp"
         component={SignUp}
-        options={{ headerTitle: "サインアップ" }}
+        options={{ headerTitle: "登録" }}
       />
       <AuthStack.Screen name="SignIn" component={() => null} />
     </AuthStack.Navigator>
