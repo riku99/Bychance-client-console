@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type User = {
   id: string;
   name: string;
-  image: string | null;
-  lat: number | null;
-  lng: number | null;
-  address: string | null;
-  instagram: string | null;
-  twitter: string | null;
-  url: string | null;
+  image?: string | null;
+  lat?: number | null;
+  lng?: number | null;
+  address?: string | null;
+  instagram?: string | null;
+  twitter?: string | null;
+  url?: string | null;
 };
 
 type InitialState = {

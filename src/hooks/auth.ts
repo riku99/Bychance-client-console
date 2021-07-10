@@ -45,17 +45,28 @@ export const useSignup = () => {
 
   const { handleError } = useHandleApiErrors();
 
+  const dispatch = useCustomDispatch();
+
   const createUser = useCallback(
     async (email: string, password: string, name: string) => {
-      let idToken: string;
-
       try {
         const { user: firebaseUser } =
           await auth().createUserWithEmailAndPassword(email, password);
-        idToken = await firebaseUser.getIdToken();
-      } catch (error) {
-        console.log(error);
+        const idToken = await firebaseUser.getIdToken();
 
+        try {
+          const result = await axios.post<{ id: string; name: string }>(
+            `${baseUrl}/recommendationClients`,
+            { name },
+            addBearer(idToken!)
+          );
+
+          dispatch(setUser(result.data));
+          dispatch(setLogin(true));
+        } catch (e) {
+          handleError(e);
+        }
+      } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           toast.show("メールアドレスは既に使用されています", {
             type: "danger",
@@ -75,17 +86,6 @@ export const useSignup = () => {
 
         toast.show("何らかのエラーが発生しました", { type: "danger" });
       }
-
-      try {
-        const result = await axios.post(
-          `${baseUrl}/recommendationClients`,
-          { name },
-          addBearer(idToken!)
-        );
-        console.log(result);
-      } catch (e) {
-        handleError(e);
-      }
     },
     []
   );
@@ -101,27 +101,27 @@ export const useSignin = () => {
   const dispatch = useCustomDispatch();
 
   const signin = useCallback(async (email: string, password: string) => {
-    let idToken: string;
     try {
       const { user: firebaseUser } = await auth().signInWithEmailAndPassword(
         email,
         password
       );
 
-      idToken = await firebaseUser.getIdToken();
+      const idToken = await firebaseUser.getIdToken();
+
+      try {
+        const result = await axios.get<User>(
+          `${baseUrl}/recommendationClient`,
+          addBearer(idToken!)
+        );
+
+        dispatch(setUser(result.data));
+        dispatch(setLogin(true));
+      } catch (e) {
+        handleError(e);
+      }
     } catch (e) {
       Alert.alert("エラー", "メールアドレスまたはパスワードが間違っています");
-    }
-
-    try {
-      const result = await axios.get<User>(
-        `${baseUrl}/recommendationClient`,
-        addBearer(idToken!)
-      );
-
-      dispatch(setUser(result.data));
-    } catch (e) {
-      handleError(e);
     }
   }, []);
 
