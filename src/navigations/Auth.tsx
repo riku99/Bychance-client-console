@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/stack";
 
 import { SignUp } from "~/components/screens/SignUp";
+import { Signin } from "~/components/screens/SiginIn";
 
 export type AuthStackParamList = {
   SignUp: undefined;
@@ -23,7 +24,7 @@ export const AuthStackScreen = React.memo(() => {
       />
       <AuthStack.Screen
         name="SignIn"
-        component={() => null}
+        component={Signin}
         options={{ headerTitle: "ログイン" }}
       />
     </AuthStack.Navigator>
