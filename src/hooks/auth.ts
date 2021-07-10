@@ -9,6 +9,7 @@ import { setLogin } from "~/stores/sessions";
 import { baseUrl } from "~/constants";
 import { addBearer } from "~/helpers/api";
 import { useHandleApiErrors } from "./errors";
+import Toast from "react-native-fast-toast/lib/typescript/toast";
 
 export const useAuthSubscribe = () => {
   const [initializing, setInitializing] = useState(true);
@@ -95,6 +96,8 @@ export const useSignup = () => {
 };
 
 export const useSignin = () => {
+  const { handleError } = useHandleApiErrors();
+
   const signin = useCallback(async (email: string, password: string) => {
     let idToken: string;
     try {
@@ -110,7 +113,14 @@ export const useSignin = () => {
 
     try {
       // 検証
-    } catch (e) {}
+      const result = await axios.get(
+        `${baseUrl}/recommendationClient`,
+        addBearer(idToken!)
+      );
+      console.log(result.data);
+    } catch (e) {
+      handleError(e);
+    }
   }, []);
 
   return {
