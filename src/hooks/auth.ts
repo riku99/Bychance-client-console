@@ -40,6 +40,31 @@ export const useAuthSubscribe = () => {
   };
 };
 
+export const useSessionLogin = () => {
+  const { handleError } = useHandleApiErrors();
+  const dispatch = useCustomDispatch();
+
+  useEffect(() => {
+    const get = async () => {
+      const user = auth().currentUser;
+      if (user) {
+        const idToken = await user.getIdToken();
+        try {
+          const result = await axios.get<User>(
+            `${baseUrl}/recommendationClient`,
+            addBearer(idToken)
+          );
+          dispatch(setUser(result.data));
+          dispatch(setLogin(true));
+        } catch (e) {
+          handleError(e);
+        }
+      }
+    };
+    get();
+  }, []);
+};
+
 export const useSignup = () => {
   const toast = useToast();
 
@@ -58,7 +83,7 @@ export const useSignup = () => {
           const result = await axios.post<{ id: string; name: string }>(
             `${baseUrl}/recommendationClients`,
             { name },
-            addBearer(idToken!)
+            addBearer(idToken)
           );
 
           dispatch(setUser(result.data));
@@ -112,7 +137,7 @@ export const useSignin = () => {
       try {
         const result = await axios.get<User>(
           `${baseUrl}/recommendationClient`,
-          addBearer(idToken!)
+          addBearer(idToken)
         );
 
         dispatch(setUser(result.data));
