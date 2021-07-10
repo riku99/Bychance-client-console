@@ -35,7 +35,7 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ width: "100%", height: "100%" }}>
         <Input
-          label="サインアップのための暗号を入力してください"
+          label="登録のための暗号を入力してください"
           containerStyle={styles.inputContainer}
           onChangeText={(t) => setInput(t)}
           errorMessage={!input ? "入力してください" : undefined}

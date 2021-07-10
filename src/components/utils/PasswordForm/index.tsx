@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 

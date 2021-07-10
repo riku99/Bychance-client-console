@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { InputSignupToken } from "./InputSignupToken";
 import { Signup } from "./Signup";
+import { ToSignin } from "./ToSignin";
 
 export const SignUp = React.memo(() => {
   const [enabledSignup, setEnabledSignup] = useState(false);
@@ -14,6 +15,9 @@ export const SignUp = React.memo(() => {
       ) : (
         <InputSignupToken setEnabledSignup={setEnabledSignup} />
       )}
+      <View style={styles.toSigninContainer}>
+        <ToSignin />
+      </View>
     </View>
   );
 });
@@ -22,5 +26,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  toSigninContainer: {
+    width: "80%",
+    height: 60,
+    position: "absolute",
+    bottom: "20%",
   },
 });
