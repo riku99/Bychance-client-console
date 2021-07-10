@@ -15,8 +15,11 @@ import { useCreateUser } from "~/hooks/users";
 export const Signup = React.memo(() => {
   const { createFirebaseUser } = useCreateUser();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const onRegisterButtonPress = () => {
-    //createFirebaseUser()
+    createFirebaseUser(email, password);
   };
 
   return (
@@ -24,10 +27,10 @@ export const Signup = React.memo(() => {
       <View style={styles.container}>
         <View style={styles.section}>
           <View style={styles.formContainer}>
-            <EmailForm />
+            <EmailForm setInputText={setEmail} />
           </View>
           <View style={styles.formContainer}>
-            <PasswordForm />
+            <PasswordForm setInputText={setPassword} />
           </View>
           <View style={styles.formContainer}>
             <Input
@@ -40,6 +43,7 @@ export const Signup = React.memo(() => {
           title="登録する"
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
+          onPress={onRegisterButtonPress}
         />
       </View>
     </TouchableWithoutFeedback>

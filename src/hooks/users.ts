@@ -10,6 +10,7 @@ export const useCreateUser = () => {
       try {
         await auth().createUserWithEmailAndPassword(email, password);
       } catch (error) {
+        console.log(error);
         if (error.code === "auth/email-already-in-use") {
           toast.show("メールアドレスは既に使用されています", {
             type: "danger",
