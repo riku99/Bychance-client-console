@@ -10,17 +10,17 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
-import { useCreateUser } from "~/hooks/users";
+import { useSignup } from "~/hooks/auth";
 
 export const Signup = React.memo(() => {
-  const { createFirebaseUser } = useCreateUser();
+  const { createUser } = useSignup();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   const onRegisterButtonPress = () => {
-    createFirebaseUser(email, password, name);
+    createUser(email, password, name);
   };
 
   const error = useMemo(() => {
