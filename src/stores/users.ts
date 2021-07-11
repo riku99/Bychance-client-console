@@ -10,6 +10,7 @@ export type User = {
   instagram?: string | null;
   twitter?: string | null;
   url?: string | null;
+  enablePushNotification?: boolean;
 };
 
 type InitialState = {

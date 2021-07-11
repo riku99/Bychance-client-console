@@ -1,11 +1,12 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Text } from "react-native-elements";
+import { View, StyleSheet, Text } from "react-native";
+import { Button } from "react-native-elements";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { Section } from "~/components/utils/Section";
 import { ProfileImage } from "./ProfileImage";
 import { RootState } from "~/stores";
+import { defaultTheme } from "~/styles";
 
 type _Props = {
   title: string;
@@ -23,8 +24,9 @@ const InfoItems = React.memo(({ title, value }: _Props) => {
 
 export const Profile = React.memo(() => {
   const profile = useSelector((state: RootState) => {
-    const { name, url, instagram, twitter, address } = state.usersReducer.user!;
-    return { name, url, instagram, twitter, address };
+    const { name, url, instagram, twitter, address, enablePushNotification } =
+      state.usersReducer.user!;
+    return { name, url, instagram, twitter, address, enablePushNotification };
   }, shallowEqual);
 
   return (
@@ -47,6 +49,17 @@ export const Profile = React.memo(() => {
         <InfoItems title="URL" value={profile.url} />
         <InfoItems title="instagram" value={profile.instagram} />
         <InfoItems title="twitter" value={profile.twitter} />
+        <InfoItems
+          title="プッシュ通知"
+          value={profile.enablePushNotification ? "可" : "不可"}
+        />
+        <Button
+          activeOpacity={1}
+          containerStyle={styles.editButtonContainer}
+          buttonStyle={styles.editButton}
+          title="編集"
+          titleStyle={styles.editTitle}
+        />
       </Section>
     </>
   );
@@ -75,7 +88,19 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#424242",
   },
-  itemText: {
-    // marginTop: 10,
+  itemText: {},
+  editButtonContainer: {
+    marginTop: 35,
+  },
+  editButton: {
+    width: 150,
+    backgroundColor: "transparent",
+    borderColor: defaultTheme.mainColor,
+    borderWidth: 1,
+  },
+  editTitle: {
+    fontSize: 13,
+    fontWeight: "500",
+    color: defaultTheme.mainColor,
   },
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import { Section } from "~/components/utils/Section";
 import { Profile } from "./Profile";
 
 export const Home = React.memo(() => {
