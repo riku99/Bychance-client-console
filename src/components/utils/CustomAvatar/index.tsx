@@ -18,6 +18,7 @@ export const CustomAvatar = React.memo(({ url, onPress }: Props) => {
       size={60}
       containerStyle={{ backgroundColor: "lightgray" }}
       onPress={onPress ? onPress : undefined}
+      activeOpacity={1}
     />
   );
 });

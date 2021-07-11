@@ -1,24 +1,27 @@
-import React, { useCallback, useState } from "react";
-import { View } from "react-native";
+import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { launchImageLibrary } from "react-native-image-picker";
 
 import { RootState } from "~/stores";
 import { CustomAvatar } from "~/components/utils/CustomAvatar";
 
-export const ProfileImage = React.memo(() => {
-  const url = useSelector((state: RootState) => state.usersReducer.user!.image);
+type Props = {
+  imageUri: string;
+  setImageUri: (s: string) => void;
+};
 
-  const [imageUrl, setImageUrl] = useState(url);
+export const ProfileImage = React.memo(({ imageUri, setImageUri }: Props) => {
+  const url = useSelector((state: RootState) => state.usersReducer.user!.image);
 
   const onPress = useCallback(() => {
     launchImageLibrary({ mediaType: "photo" }, ({ assets, didCancel }) => {
       if (didCancel) return;
 
-      console.log(assets[0].uri);
-      setImageUrl(assets[0].uri);
+      if (assets[0].uri) {
+        setImageUri(assets[0].uri);
+      }
     });
   }, []);
 
-  return <CustomAvatar url={imageUrl} onPress={onPress} />;
+  return <CustomAvatar url={imageUri ? imageUri : url} onPress={onPress} />;
 });
