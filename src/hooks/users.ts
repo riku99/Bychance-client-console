@@ -15,7 +15,7 @@ export const useEditUser = () => {
       let ext: string | null = null;
       let newImageUrl: string | null = null;
 
-      console.log("ok");
+      console.log(name);
       if (image) {
         ext = getExtention(image);
         const base64 = await fs.readFile(image, "base64");

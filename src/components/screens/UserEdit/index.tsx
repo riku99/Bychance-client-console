@@ -1,4 +1,9 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import {
   View,
   StyleSheet,
@@ -75,6 +80,19 @@ export const UserEdit = React.memo(() => {
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
 
+  useEffect(() => console.log(name), [name]);
+
+  const onCompButtonPress = useCallback(() => {
+    editUser({
+      name,
+      address,
+      image: imageUri,
+      instagram,
+      twitter,
+      url,
+    });
+  }, [name, address, url, instagram, twitter, imageUri]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -83,20 +101,11 @@ export const UserEdit = React.memo(() => {
           buttonStyle={{ backgroundColor: "transparent" }}
           titleStyle={{ color: defaultTheme.mainColor, fontWeight: "500" }}
           activeOpacity={1}
-          onPress={() => {
-            editUser({
-              name,
-              address,
-              image: imageUri,
-              instagram,
-              twitter,
-              url,
-            });
-          }}
+          onPress={onCompButtonPress}
         />
       ),
     });
-  }, []);
+  }, [onCompButtonPress]);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

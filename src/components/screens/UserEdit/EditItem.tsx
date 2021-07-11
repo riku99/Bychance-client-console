@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     width: "50%",
   },
   buttonTitle: {
-    // width: "70%",
     fontSize: 15,
     fontWeight: "500",
   },
