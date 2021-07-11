@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { Home } from "~/components/screens/Home";
-import { UserEdit } from "~/components/screens/UserEdit";
+import { UserEditStackScreen } from "./UserEdit";
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -21,7 +21,7 @@ export const HomeStackScreen = React.memo(() => {
       />
       <HomeStack.Screen
         name="Edit"
-        component={UserEdit}
+        component={UserEditStackScreen}
         options={{ headerTitle: "編集" }}
       />
     </HomeStack.Navigator>

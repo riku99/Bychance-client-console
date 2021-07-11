@@ -16,6 +16,7 @@ import { ProfileImage } from "./ProfileImage";
 import { Section } from "~/components/utils/Section";
 import { RootState } from "~/stores";
 import { defaultTheme } from "~/styles";
+import { useEditUser } from "~/hooks/users";
 
 type _Props = {
   style?: ViewStyle;
@@ -47,18 +48,7 @@ const EidtItem = React.memo(({ style, title, value, setValue }: _Props) => {
 export const UserEdit = React.memo(() => {
   const navigation = useNavigation();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          title="完了"
-          buttonStyle={{ backgroundColor: "transparent" }}
-          titleStyle={{ color: defaultTheme.mainColor, fontWeight: "500" }}
-          activeOpacity={1}
-        />
-      ),
-    });
-  }, []);
+  const { editUser } = useEditUser();
 
   const [imageUri, setImageUri] = useState("");
 
@@ -72,6 +62,29 @@ export const UserEdit = React.memo(() => {
   const [url, setUrl] = useState(user.url);
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          title="完了"
+          buttonStyle={{ backgroundColor: "transparent" }}
+          titleStyle={{ color: defaultTheme.mainColor, fontWeight: "500" }}
+          activeOpacity={1}
+          onPress={() => {
+            editUser({
+              name,
+              address,
+              image: imageUri,
+              instagram,
+              twitter,
+              url,
+            });
+          }}
+        />
+      ),
+    });
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -125,7 +138,7 @@ const styles = StyleSheet.create({
   EditItem: {
     flexDirection: "row",
     width: "80%",
-    marginTop: 30,
+    marginTop: 20,
   },
   EditItemTitle: {
     fontSize: 15,
