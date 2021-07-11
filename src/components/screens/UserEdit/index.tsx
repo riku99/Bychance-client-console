@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,10 +9,13 @@ import {
   Keyboard,
 } from "react-native";
 import { shallowEqual, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "react-native-elements";
 
 import { ProfileImage } from "./ProfileImage";
 import { Section } from "~/components/utils/Section";
 import { RootState } from "~/stores";
+import { defaultTheme } from "~/styles";
 
 type _Props = {
   style?: ViewStyle;
@@ -42,6 +45,21 @@ const EidtItem = React.memo(({ style, title, value, setValue }: _Props) => {
 });
 
 export const UserEdit = React.memo(() => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          title="完了"
+          buttonStyle={{ backgroundColor: "transparent" }}
+          titleStyle={{ color: defaultTheme.mainColor, fontWeight: "500" }}
+          activeOpacity={1}
+        />
+      ),
+    });
+  }, []);
+
   const [imageUri, setImageUri] = useState("");
 
   const user = useSelector(
