@@ -1,12 +1,14 @@
 import { useEffect, useCallback } from "react";
+import { Alert } from "react-native";
 import { useToast } from "react-native-fast-toast";
 import { useSelector } from "react-redux";
 
 import { RootState } from "~/stores";
 import { useCustomDispatch } from "~/hooks/stores";
-import { resetError } from "~/stores/errors";
+import { resetError, setApiError } from "~/stores/errors";
 import { BasicAxiosError } from "~/types";
-import { setApiError } from "~/stores/errors";
+import { setUser } from "~/stores/users";
+import { setLogin } from "~/stores/sessions";
 
 export const useHandleErrors = () => {
   const toast = useToast();
@@ -22,8 +24,16 @@ export const useHandleErrors = () => {
           });
           break;
         case "loginError":
-          // ログインエラー処理
           console.log("ログインエラー");
+          Alert.alert("ログインが無効です", "ログインし直してください", [
+            {
+              text: "OK",
+              onPress: () => {
+                dispatch(setUser(undefined));
+                dispatch(setLogin(false));
+              },
+            },
+          ]);
           break;
         default:
           toast.show("何らかのエラーが発生しました", {

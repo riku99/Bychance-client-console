@@ -4,6 +4,8 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
+import { Tabs } from "./Tab";
+
 export type MainStackParamList = {
   SignUp: undefined;
   SignIn: undefined;
@@ -15,7 +17,11 @@ const MainStack = createStackNavigator<MainStackParamList>();
 export const MainStackScreen = React.memo(() => {
   return (
     <MainStack.Navigator>
-      <MainStack.Screen name="Tab" component={() => null} />
+      <MainStack.Screen
+        name="Tab"
+        component={Tabs}
+        options={{ headerShown: false }}
+      />
     </MainStack.Navigator>
   );
 });
