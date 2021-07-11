@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { defaultTheme } from "~/styles";
+import { HomeStackScreen } from "./Home";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,7 @@ export const Tabs = React.memo(() => {
       />
       <Tab.Screen
         name="home"
-        component={() => null}
+        component={HomeStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="home" size={27} color={color} />
