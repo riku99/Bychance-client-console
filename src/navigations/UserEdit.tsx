@@ -10,6 +10,7 @@ import { EditItem } from "~/components/screens/UserEdit/EditItem";
 export type UserEditParamList = {
   EditMain: undefined;
   EditItem: {
+    value?: string | null;
     setValue: (v: string) => void;
     title: string;
   };

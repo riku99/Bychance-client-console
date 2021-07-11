@@ -39,19 +39,13 @@ const EidtItem = React.memo(({ style, title, value, setValue }: _Props) => {
     navigation.navigate("EditItem", {
       title,
       setValue,
+      value,
     });
   };
 
   return (
     <View style={styles.EditItem}>
       <Text style={styles.EditItemTitle}>{title}</Text>
-      {/* <TextInput
-        defaultValue={value ? value : undefined}
-        style={styles.EditItemInput}
-        editable={title === "住所" ? false : true}
-        onPressOut={onAddressPress}
-        onChangeText={setValue}
-      /> */}
       <TouchableOpacity
         style={styles.EditItemInput}
         activeOpacity={1}
