@@ -21,9 +21,8 @@ export const EditItem = React.memo(() => {
 
   const onPress = () => {
     setValue(input ? input : "");
+    navigation.goBack();
   };
-
-  console.log(input);
 
   return (
     <View style={styles.container}>

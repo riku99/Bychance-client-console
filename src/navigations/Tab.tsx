@@ -16,7 +16,7 @@ export const Tabs = React.memo(() => {
         activeTintColor: defaultTheme.mainColor,
       }}
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="setting"
         component={() => null}
         options={{
@@ -25,7 +25,7 @@ export const Tabs = React.memo(() => {
             <Icon name="settings" size={27} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="home"
         component={HomeStackScreen}
