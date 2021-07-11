@@ -22,7 +22,7 @@ export const HomeStackScreen = React.memo(() => {
       <HomeStack.Screen
         name="Edit"
         component={UserEditStackScreen}
-        options={{ headerTitle: "編集" }}
+        options={{ headerShown: false }}
       />
     </HomeStack.Navigator>
   );
