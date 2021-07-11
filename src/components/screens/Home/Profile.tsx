@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Button } from "react-native-elements";
 import { shallowEqual, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import { Section } from "~/components/utils/Section";
 import { ProfileImage } from "./ProfileImage";
@@ -28,6 +29,12 @@ export const Profile = React.memo(() => {
       state.usersReducer.user!;
     return { name, url, instagram, twitter, address, enablePushNotification };
   }, shallowEqual);
+
+  const navigation = useNavigation();
+
+  const onEditPress = () => {
+    navigation.navigate("Edit");
+  };
 
   return (
     <>
@@ -59,6 +66,7 @@ export const Profile = React.memo(() => {
           buttonStyle={styles.editButton}
           title="編集"
           titleStyle={styles.editTitle}
+          onPress={onEditPress}
         />
       </Section>
     </>
