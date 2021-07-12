@@ -37,7 +37,7 @@ export const EditItem = React.memo(() => {
         </>
       ) : (
         <View style={styles.mapContainer}>
-          <MapForAddress />
+          <MapForAddress setValue={setInput} />
         </View>
       )}
       <Button
