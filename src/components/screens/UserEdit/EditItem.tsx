@@ -4,6 +4,7 @@ import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-elements";
 
 import { UserEditParamList } from "~/navigations/UserEdit";
+import { MapForAddress } from "./MapForAddress";
 
 export const EditItem = React.memo(() => {
   const route = useRoute<RouteProp<UserEditParamList, "EditItem">>();
@@ -26,11 +27,19 @@ export const EditItem = React.memo(() => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        defaultValue={value ? value : undefined}
-        onChangeText={setInput}
-      />
+      {title !== "住所" ? (
+        <>
+          <TextInput
+            style={styles.input}
+            defaultValue={value ? value : undefined}
+            onChangeText={setInput}
+          />
+        </>
+      ) : (
+        <View style={styles.mapContainer}>
+          <MapForAddress />
+        </View>
+      )}
       <Button
         containerStyle={styles.buttonContainer}
         title="保存"
@@ -62,5 +71,9 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 15,
     fontWeight: "500",
+  },
+  mapContainer: {
+    width: "100%",
+    height: "60%",
   },
 });
