@@ -1,14 +1,8 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import {
   View,
   StyleSheet,
   ViewStyle,
-  TextInput,
   Text,
   TouchableWithoutFeedback,
   Keyboard,
@@ -24,6 +18,7 @@ import { RootState } from "~/stores";
 import { defaultTheme } from "~/styles";
 import { useEditUser } from "~/hooks/users";
 import { UserEidtNavigationProp } from "~/navigations/UserEdit";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 type _Props = {
   style?: ViewStyle;
@@ -65,7 +60,7 @@ const EidtItem = React.memo(({ style, title, value, setValue }: _Props) => {
 export const UserEdit = React.memo(() => {
   const navigation = useNavigation();
 
-  const { editUser } = useEditUser();
+  const { editUser, isLoading } = useEditUser();
 
   const [imageUri, setImageUri] = useState("");
 
@@ -80,10 +75,8 @@ export const UserEdit = React.memo(() => {
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
 
-  useEffect(() => console.log(name), [name]);
-
-  const onCompButtonPress = useCallback(() => {
-    editUser({
+  const onCompButtonPress = useCallback(async () => {
+    await editUser({
       name,
       address,
       image: imageUri,
@@ -91,6 +84,7 @@ export const UserEdit = React.memo(() => {
       twitter,
       url,
     });
+    navigation.goBack();
   }, [name, address, url, instagram, twitter, imageUri]);
 
   useLayoutEffect(() => {
@@ -135,6 +129,7 @@ export const UserEdit = React.memo(() => {
             />
           </View>
         </Section>
+        {isLoading && <ToastLoading />}
       </View>
     </TouchableWithoutFeedback>
   );

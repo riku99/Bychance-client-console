@@ -28,7 +28,7 @@ export const useSessionLogin = () => {
             addBearer(idToken)
           );
           dispatch(setUser(result.data));
-          dispatch(setLogin(false));
+          dispatch(setLogin(true));
         } catch (e) {
           handleError(e);
         }

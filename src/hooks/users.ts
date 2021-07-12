@@ -1,17 +1,15 @@
-import { useCallback } from "react";
-import { User } from "~/stores/users";
+import { useCallback, useState } from "react";
 import fs from "react-native-fs";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
-import auth from "@react-native-firebase/auth";
 
 import { getExtention } from "~/utils";
 import { useIdToken } from "./auth";
 import { useHandleApiErrors } from "./errors";
 import { useCustomDispatch } from "./stores";
-import { setApiError } from "~/stores/errors";
 import { addBearer } from "~/helpers/api";
 import { baseUrl } from "~/constants";
+import { setUser, User } from "~/stores/users";
 
 type UserEdit = Pick<
   User,
@@ -24,8 +22,11 @@ export const useEditUser = () => {
   const { getIdToken } = useIdToken();
   const { handleError } = useHandleApiErrors();
 
+  const [isLoading, setIsloading] = useState(false);
+
   const editUser = useCallback(
     async ({ name, address, image, instagram, twitter, url }: UserEdit) => {
+      setIsloading(true);
       let ext: string | null = null;
       let imageData: string | null = null;
 
@@ -33,11 +34,13 @@ export const useEditUser = () => {
         ext = getExtention(image);
         if (!ext) {
           toast.show("無効なデータです", { type: "danger" });
+          setIsloading(false);
           return;
         }
         imageData = await fs.readFile(image, "base64");
         if (!imageData) {
           toast.show("無効なデータです", { type: "danger" });
+          setIsloading(false);
           return;
         }
       }
@@ -45,7 +48,7 @@ export const useEditUser = () => {
       const idToken = await getIdToken();
 
       try {
-        await axios.patch(
+        const resut = await axios.patch<User>(
           `${baseUrl}/recommendationClients`,
           {
             name: name ? name : undefined,
@@ -58,8 +61,13 @@ export const useEditUser = () => {
           },
           addBearer(idToken)
         );
+
+        dispatch(setUser(resut.data));
+        toast.show("更新しました", { type: "success" });
       } catch (e) {
         handleError(e);
+      } finally {
+        setIsloading(false);
       }
     },
     []
@@ -67,5 +75,6 @@ export const useEditUser = () => {
 
   return {
     editUser,
+    isLoading,
   };
 };
