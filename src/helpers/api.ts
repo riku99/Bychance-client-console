@@ -1,4 +1,4 @@
-export const addBearer = (token: string) => ({
+export const addBearer = (token?: string) => ({
   headers: {
     Authorization: "Bearer " + token,
   },

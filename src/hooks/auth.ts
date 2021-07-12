@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
 
@@ -128,5 +128,21 @@ export const useSignin = () => {
 
   return {
     signin,
+  };
+};
+
+export const useIdToken = () => {
+  const getIdToken = useCallback(async () => {
+    const user = auth().currentUser;
+
+    if (!user) return;
+
+    const idToken = await user.getIdToken();
+
+    return idToken;
+  }, []);
+
+  return {
+    getIdToken,
   };
 };
