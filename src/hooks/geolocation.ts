@@ -8,8 +8,11 @@ export const useGetGeolocation = () => {
 
   useEffect(() => {
     const getPosition = async () => {
-      const permission = await Geolocation.requestAuthorization("whenInUse");
-      if (permission === "granted" || "restricted") {
+      const permission =
+        Platform.OS === "ios"
+          ? await Geolocation.requestAuthorization("whenInUse")
+          : "android";
+      if (permission === "granted" || "restricted" || "android") {
         Geolocation.getCurrentPosition(
           (position) => {
             setPosition({

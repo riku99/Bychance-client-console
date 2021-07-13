@@ -36,8 +36,8 @@ export const MapForAddress = React.memo(({}: Props) => {
       return {
         latitude: position?.latitude,
         longitude: position?.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
       };
     }
   }, [position]);
