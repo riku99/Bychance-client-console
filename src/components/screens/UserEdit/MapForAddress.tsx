@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import {
   View,
   StyleSheet,
@@ -9,12 +9,15 @@ import {
 import MapView, { MapEvent, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { Section } from "~/components/utils/Section";
+import { useGetGeolocation } from "~/hooks/geolocation";
 
 type Props = {
   setValue: (v: string) => void;
 };
 
 export const MapForAddress = React.memo(({}: Props) => {
+  const { position } = useGetGeolocation();
+
   const [selectedCoordinate, setSelectedCoordinate] = useState<{
     lat: number;
     lng: number;
@@ -28,20 +31,21 @@ export const MapForAddress = React.memo(({}: Props) => {
     });
   };
 
-  //35.681015330713834, 139.76697891862133
-  const region = useMemo(
-    () => ({
-      latitude: 35.681015330713834,
-      longitude: 139.76697891862133,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1,
-    }),
-    []
-  );
+  const region = useMemo(() => {
+    if (position?.latitude && position.longitude) {
+      return {
+        latitude: position?.latitude,
+        longitude: position?.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
+    }
+  }, [position]);
 
   return (
     <Section style={styles.container}>
       <MapView
+        region={region}
         onMapReady={() => {
           Platform.OS === "android"
             ? PermissionsAndroid.request(

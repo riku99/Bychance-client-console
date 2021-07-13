@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		32DCDED52697C1F400062D11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32DCDED42697C1F400062D11 /* GoogleService-Info.plist */; };
+		32DCE14E269D162F00062D11 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DCE14D269D162F00062D11 /* file.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		835628FFB246DD540F552B73 /* libPods-BychanceClientConsole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BB5574153082853C14D332 /* libPods-BychanceClientConsole.a */; };
 		B154EC46C86D626F0341D01D /* libPods-BychanceClientConsole-BychanceClientConsoleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8FFB543C75CF984073C541E /* libPods-BychanceClientConsole-BychanceClientConsoleTests.a */; };
@@ -39,6 +40,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BychanceClientConsole/main.m; sourceTree = "<group>"; };
 		21679BEDF4FD7271B75D1F0B /* Pods-BychanceClientConsole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BychanceClientConsole.debug.xcconfig"; path = "Target Support Files/Pods-BychanceClientConsole/Pods-BychanceClientConsole.debug.xcconfig"; sourceTree = "<group>"; };
 		32DCDED42697C1F400062D11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		32DCE14C269D162F00062D11 /* BychanceClientConsole-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BychanceClientConsole-Bridging-Header.h"; sourceTree = "<group>"; };
+		32DCE14D269D162F00062D11 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BychanceClientConsole/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81BB5574153082853C14D332 /* libPods-BychanceClientConsole.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BychanceClientConsole.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2BF36299EE152CF1F852F2 /* Pods-BychanceClientConsole.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BychanceClientConsole.release.xcconfig"; path = "Target Support Files/Pods-BychanceClientConsole/Pods-BychanceClientConsole.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				32DCE14D269D162F00062D11 /* file.swift */,
 				32DCDED42697C1F400062D11 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* BychanceClientConsole */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -144,6 +148,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3DBD654BFA76043ECB8E38C9 /* Pods */,
 				3550A75529524228A49E1221 /* Resources */,
+				32DCE14C269D162F00062D11 /* BychanceClientConsole-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -219,7 +224,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -437,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				32DCE14E269D162F00062D11 /* file.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +462,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9AC6C081EFDD1BFDFC3BC4B1 /* Pods-BychanceClientConsole-BychanceClientConsoleTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -483,6 +490,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFCAE01C343D29992CE3982C /* Pods-BychanceClientConsole-BychanceClientConsoleTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = BychanceClientConsoleTests/Info.plist;
@@ -523,6 +531,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.jp.bychance.bychanceclientconsole;
 				PRODUCT_NAME = BychanceClientConsole;
+				SWIFT_OBJC_BRIDGING_HEADER = "BychanceClientConsole-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -548,6 +557,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.jp.bychance.bychanceclientconsole;
 				PRODUCT_NAME = BychanceClientConsole;
+				SWIFT_OBJC_BRIDGING_HEADER = "BychanceClientConsole-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
