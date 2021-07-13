@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useMemo, useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
+import { Button, Text } from "react-native-elements";
 
 import { UserEditParamList } from "~/navigations/UserEdit";
 import { MapForAddress } from "./MapForAddress";
@@ -25,12 +25,24 @@ export const EditItem = React.memo(() => {
     navigation.goBack();
   };
 
+  const notes = useMemo(
+    () => title === "instagram" || title === "twitter",
+    [title]
+  );
+
   return (
     <View style={styles.container}>
       {title !== "住所" ? (
         <>
+          {notes && (
+            <Text style={styles.note}>
+              {title === "instagram"
+                ? "ユーザーネームを入力してください"
+                : "ユーザー名を入力してください (@はいらないです)"}
+            </Text>
+          )}
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginTop: notes ? 20 : 40 }]}
             defaultValue={value ? value : undefined}
             onChangeText={setInput}
           />
@@ -57,9 +69,11 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
+  note: {
+    marginTop: 20,
+  },
   input: {
     width: "80%",
-    marginTop: 30,
     height: 40,
     backgroundColor: "white",
     fontSize: 17,
