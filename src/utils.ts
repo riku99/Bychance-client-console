@@ -8,3 +8,10 @@ export const getExtention = (uri?: string | null) => {
 
   return ext;
 };
+
+export const formatAddress = (addr: string) => {
+  return addr
+    .replace(/^日本、/, "")
+    .replace(/〒\d+-\d+/, "")
+    .trim();
+};
