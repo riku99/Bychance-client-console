@@ -12,14 +12,14 @@ import Geocoder from "react-native-geocoding";
 import { Section } from "~/components/utils/Section";
 import { useGetGeolocation } from "~/hooks/geolocation";
 import { formatAddress } from "~/utils";
+import { GOOGLE_API_KEY } from "~/credentials";
 
 type Props = {
   setValue: (v: string) => void;
   setPosition?: (v: { lat: number; lng: number }) => void;
 };
 
-// AIzaSyBtxyRxUb6pHnav1B9TGeufmM0hqp0yHGg
-Geocoder.init("AIzaSyBtxyRxUb6pHnav1B9TGeufmM0hqp0yHGg", { language: "ja" });
+Geocoder.init(GOOGLE_API_KEY, { language: "ja" });
 
 export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
   const { position } = useGetGeolocation();
