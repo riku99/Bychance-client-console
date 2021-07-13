@@ -10,7 +10,7 @@ export const EditItem = React.memo(() => {
   const route = useRoute<RouteProp<UserEditParamList, "EditItem">>();
   const navigation = useNavigation();
 
-  const { title, setValue, value } = route.params;
+  const { title, setValue, setPosition, value } = route.params;
 
   const [input, setInput] = useState(value);
 
@@ -37,7 +37,7 @@ export const EditItem = React.memo(() => {
         </>
       ) : (
         <View style={styles.mapContainer}>
-          <MapForAddress setValue={setInput} />
+          <MapForAddress setValue={setInput} setPosition={setPosition} />
         </View>
       )}
       <Button

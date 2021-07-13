@@ -15,12 +15,13 @@ import { formatAddress } from "~/utils";
 
 type Props = {
   setValue: (v: string) => void;
+  setPosition?: (v: { lat: number; lng: number }) => void;
 };
 
 // AIzaSyBtxyRxUb6pHnav1B9TGeufmM0hqp0yHGg
 Geocoder.init("AIzaSyBtxyRxUb6pHnav1B9TGeufmM0hqp0yHGg", { language: "ja" });
 
-export const MapForAddress = React.memo(({}: Props) => {
+export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
   const { position } = useGetGeolocation();
 
   const [selectedCoordinate, setSelectedCoordinate] = useState<{
@@ -30,17 +31,21 @@ export const MapForAddress = React.memo(({}: Props) => {
 
   const onSelectMap = async (e: MapEvent) => {
     const { coordinate } = e.nativeEvent;
-    setSelectedCoordinate({
+    const latlingData = {
       lat: coordinate.latitude,
       lng: coordinate.longitude,
-    });
+    };
+    setSelectedCoordinate(latlingData);
 
     const addressData = await Geocoder.from(
       coordinate.latitude,
       coordinate.longitude
     );
-    const _address = formatAddress(addressData.results[0].formatted_address);
-    console.log(_address);
+    const address = formatAddress(addressData.results[0].formatted_address);
+    setValue(address);
+    if (setPosition) {
+      setPosition(latlingData);
+    }
   };
 
   const region = useMemo(() => {

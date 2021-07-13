@@ -25,37 +25,41 @@ type _Props = {
   title: string;
   value?: string | null;
   setValue: (v: string) => void;
+  setPosition?: (v: { lat: number; lng: number }) => void;
 };
-const EidtItem = React.memo(({ style, title, value, setValue }: _Props) => {
-  const onAddressPress = () => {
-    if (title === "住所") {
-      console.log("address");
-    }
-  };
+const EidtItem = React.memo(
+  ({ style, title, value, setValue, setPosition }: _Props) => {
+    const onAddressPress = () => {
+      if (title === "住所") {
+        console.log("address");
+      }
+    };
 
-  const navigation = useNavigation<UserEidtNavigationProp<"EditMain">>();
+    const navigation = useNavigation<UserEidtNavigationProp<"EditMain">>();
 
-  const onPress = () => {
-    navigation.navigate("EditItem", {
-      title,
-      setValue,
-      value,
-    });
-  };
+    const onPress = () => {
+      navigation.navigate("EditItem", {
+        title,
+        setValue,
+        setPosition,
+        value,
+      });
+    };
 
-  return (
-    <View style={styles.EditItem}>
-      <Text style={styles.EditItemTitle}>{title}</Text>
-      <TouchableOpacity
-        style={styles.EditItemInput}
-        activeOpacity={1}
-        onPress={onPress}
-      >
-        <Text>{value}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-});
+    return (
+      <View style={styles.EditItem}>
+        <Text style={styles.EditItemTitle}>{title}</Text>
+        <TouchableOpacity
+          style={styles.EditItemInput}
+          activeOpacity={1}
+          onPress={onPress}
+        >
+          <Text>{value}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+);
 
 export const UserEdit = React.memo(() => {
   const navigation = useNavigation();
@@ -71,6 +75,7 @@ export const UserEdit = React.memo(() => {
 
   const [name, setName] = useState(user.name);
   const [address, setAddress] = useState(user.address);
+  const [position, setPosition] = useState<{ lat: number; lng: number }>();
   const [url, setUrl] = useState(user.url);
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
@@ -113,6 +118,7 @@ export const UserEdit = React.memo(() => {
               value={address}
               key="住所"
               setValue={setAddress}
+              setPosition={setPosition}
             />
             <EidtItem title="URL" value={url} key="URL" setValue={setUrl} />
             <EidtItem

@@ -12,6 +12,7 @@ export type UserEditParamList = {
   EditItem: {
     value?: string | null;
     setValue: (v: string) => void;
+    setPosition?: (v: { lat: number; lng: number }) => void;
     title: string;
   };
 };
