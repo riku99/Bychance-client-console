@@ -29,6 +29,8 @@ export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
     lng: number;
   }>();
 
+  const [address, setAddress] = useState("");
+
   const onSelectMap = async (e: MapEvent) => {
     const { coordinate } = e.nativeEvent;
     const latlingData = {
@@ -41,8 +43,9 @@ export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
       coordinate.latitude,
       coordinate.longitude
     );
-    const address = formatAddress(addressData.results[0].formatted_address);
-    setValue(address);
+    const _address = formatAddress(addressData.results[0].formatted_address);
+    setValue(_address);
+    setAddress(_address);
     if (setPosition) {
       setPosition(latlingData);
     }
@@ -60,35 +63,40 @@ export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
   }, [position]);
 
   return (
-    <Section style={styles.container}>
-      <MapView
-        region={region}
-        onMapReady={() => {
-          Platform.OS === "android"
-            ? PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-              )
-            : "";
-        }}
-        style={styles.map}
-        onPress={onSelectMap}
-        showsUserLocation
-        provider={Platform.OS === "android" ? PROVIDER_GOOGLE : undefined}
-      >
-        {selectedCoordinate && (
-          <Marker
-            coordinate={{
-              latitude: selectedCoordinate.lat,
-              longitude: selectedCoordinate.lng,
-            }}
-          />
-        )}
-      </MapView>
-      <View style={styles.addressContainer}>
-        <Text style={styles.addressTitle}>選択された住所</Text>
-        <Text style={styles.address}>千葉県千葉市1-1</Text>
-      </View>
-    </Section>
+    <View style={styles.container}>
+      <Text style={styles.selectAddressText}>
+        マップ上から住所を選択してください
+      </Text>
+      <Section style={{ marginTop: 10 }}>
+        <MapView
+          region={region}
+          onMapReady={() => {
+            Platform.OS === "android"
+              ? PermissionsAndroid.request(
+                  PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+                )
+              : "";
+          }}
+          style={styles.map}
+          onPress={onSelectMap}
+          showsUserLocation
+          provider={Platform.OS === "android" ? PROVIDER_GOOGLE : undefined}
+        >
+          {selectedCoordinate && (
+            <Marker
+              coordinate={{
+                latitude: selectedCoordinate.lat,
+                longitude: selectedCoordinate.lng,
+              }}
+            />
+          )}
+        </MapView>
+        <View style={styles.addressContainer}>
+          <Text style={styles.addressTitle}>選択された住所</Text>
+          <Text style={styles.address}>{address}</Text>
+        </View>
+      </Section>
+    </View>
   );
 });
 
@@ -99,7 +107,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: "75%",
+    height: "70%",
   },
   addressContainer: {
     paddingLeft: 8,
@@ -110,5 +118,10 @@ const styles = StyleSheet.create({
   },
   address: {
     marginTop: 8,
+  },
+  selectAddressText: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginTop: 20,
   },
 });

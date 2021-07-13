@@ -13,7 +13,7 @@ import { setUser, User } from "~/stores/users";
 
 type UserEdit = Pick<
   User,
-  "name" | "address" | "image" | "instagram" | "twitter" | "url"
+  "name" | "address" | "image" | "instagram" | "twitter" | "url" | "lat" | "lng"
 >;
 
 export const useEditUser = () => {
@@ -25,7 +25,16 @@ export const useEditUser = () => {
   const [isLoading, setIsloading] = useState(false);
 
   const editUser = useCallback(
-    async ({ name, address, image, instagram, twitter, url }: UserEdit) => {
+    async ({
+      name,
+      address,
+      image,
+      instagram,
+      twitter,
+      url,
+      lat,
+      lng,
+    }: UserEdit) => {
       setIsloading(true);
       let ext: string | null = null;
       let imageData: string | null = null;
@@ -58,6 +67,8 @@ export const useEditUser = () => {
             instagram: instagram ? instagram : undefined,
             twitter: twitter ? twitter : undefined,
             url: url ? url : undefined,
+            lat: lat ? lat : undefined,
+            lng: lng ? lng : undefined,
           },
           addBearer(idToken)
         );

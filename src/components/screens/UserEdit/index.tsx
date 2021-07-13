@@ -88,6 +88,8 @@ export const UserEdit = React.memo(() => {
       instagram,
       twitter,
       url,
+      lat: position?.lat,
+      lng: position?.lng,
     });
     navigation.goBack();
   }, [name, address, url, instagram, twitter, imageUri]);
