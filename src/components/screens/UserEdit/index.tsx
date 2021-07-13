@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -80,7 +81,7 @@ export const UserEdit = React.memo(() => {
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
 
-  const onCompButtonPress = useCallback(async () => {
+  const edit = useCallback(async () => {
     await editUser({
       name,
       address,
@@ -91,8 +92,32 @@ export const UserEdit = React.memo(() => {
       lat: position?.lat,
       lng: position?.lng,
     });
-    navigation.goBack();
-  }, [name, address, url, instagram, twitter, imageUri]);
+  }, [name, address, url, instagram, twitter, imageUri, position]);
+
+  const onCompButtonPress = useCallback(async () => {
+    if (address) {
+      Alert.alert(
+        "位置情報について",
+        "位置情報は一度登録したら基本的に変更することができません。完了してよろしいですか?",
+        [
+          {
+            text: "完了",
+            style: "destructive",
+            onPress: async () => {
+              await edit();
+              navigation.goBack();
+            },
+          },
+          {
+            text: "キャンセル",
+          },
+        ]
+      );
+    } else {
+      await edit();
+      navigation.goBack();
+    }
+  }, [edit]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
