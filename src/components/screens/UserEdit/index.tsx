@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -77,6 +77,8 @@ export const UserEdit = React.memo(() => {
   const [instagram, setInstagram] = useState(user.instagram);
   const [twitter, setTwitter] = useState(user.twitter);
 
+  const initialAddress = useRef(user.address).current;
+
   const edit = useCallback(async () => {
     await editUser({
       name,
@@ -91,7 +93,7 @@ export const UserEdit = React.memo(() => {
   }, [name, address, url, instagram, twitter, imageUri, position]);
 
   const onCompButtonPress = useCallback(async () => {
-    if (address) {
+    if (!initialAddress && address) {
       Alert.alert(
         "位置情報について",
         "位置情報は一度登録したら基本的に変更することができません。完了してよろしいですか?",
