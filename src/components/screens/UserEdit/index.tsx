@@ -30,15 +30,11 @@ type _Props = {
 };
 const EidtItem = React.memo(
   ({ style, title, value, setValue, setPosition }: _Props) => {
-    const onAddressPress = () => {
-      if (title === "住所") {
-        console.log("address");
-      }
-    };
-
     const navigation = useNavigation<UserEidtNavigationProp<"EditMain">>();
 
     const onPress = () => {
+      if (title === "住所" && value) return;
+
       navigation.navigate("EditItem", {
         title,
         setValue,
