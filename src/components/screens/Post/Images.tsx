@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
 
-import { Image } from "./Image";
+import { ImageLayout } from "./Image";
 
 type Props = {
   images: string[];
@@ -28,7 +28,12 @@ export const Images = React.memo(({ images, setImages }: Props) => {
     let list = [];
     for (let i = 0; i < 4; i++) {
       list.push(
-        <Image onPress={onImagePress} key={i} disabled={i > images.length} />
+        <ImageLayout
+          onPress={onImagePress}
+          key={i}
+          disabled={i > images.length}
+          uri={images[i]}
+        />
       );
     }
     return list;

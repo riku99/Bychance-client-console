@@ -1,13 +1,14 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 type Props = {
   onPress?: () => void;
   disabled: boolean;
+  uri?: string;
 };
 
-export const Image = React.memo(({ onPress, disabled }: Props) => {
+export const ImageLayout = React.memo(({ onPress, disabled, uri }: Props) => {
   return (
     <TouchableOpacity
       style={styles.image}
@@ -15,7 +16,11 @@ export const Image = React.memo(({ onPress, disabled }: Props) => {
       onPress={onPress ? onPress : undefined}
       disabled={disabled}
     >
-      {!disabled && <Icon name="image" size={24} color="gray" />}
+      {uri ? (
+        <Image source={{ uri }} style={{ width: "100%", height: "100%" }} />
+      ) : (
+        !disabled && <Icon name="image" size={24} color="gray" />
+      )}
     </TouchableOpacity>
   );
 });
