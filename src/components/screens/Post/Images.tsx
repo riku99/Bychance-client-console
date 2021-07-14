@@ -3,28 +3,28 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
+import { Image } from "./Image";
+
 type Props = {};
 
 export const Images = React.memo(() => {
+  const onImagePress = () => {
+    launchImageLibrary(
+      { mediaType: "photo", quality: 0.8 },
+      ({ assets, didCancel }) => {
+        if (didCancel) return;
+      }
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={{ color: "gray" }}>最低1枚、最大4枚まで選択可能です</Text>
       <View style={styles.images}>
-        <TouchableOpacity style={styles.image} activeOpacity={1}>
-          <Icon name="image" size={24} color="gray" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.image}
-          activeOpacity={1}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={styles.image}
-          activeOpacity={1}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={styles.image}
-          activeOpacity={1}
-        ></TouchableOpacity>
+        <Image onPress={onImagePress} />
+        <Image />
+        <Image />
+        <Image />
       </View>
     </View>
   );
