@@ -1,12 +1,20 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 
 import { defaultTheme } from "~/styles";
+import { HomeNavigationProp } from "~/navigations/Home";
 
 type Props = {};
 
 export const CreateButton = React.memo(() => {
+  const navigation = useNavigation<HomeNavigationProp<"Home">>();
+
+  const onPress = () => {
+    navigation.navigate("Post");
+  };
+
   return (
     <Button
       containerStyle={styles.container}
@@ -14,6 +22,7 @@ export const CreateButton = React.memo(() => {
       activeOpacity={1}
       raised
       icon={{ name: "add", color: "white" }}
+      onPress={onPress}
     />
   );
 });
