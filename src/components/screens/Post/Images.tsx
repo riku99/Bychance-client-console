@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const Images = React.memo(({ images, setImages }: Props) => {
-  const onImagePress = useCallback(() => {
+  const onImagePress = useCallback((index: number) => {
     launchImageLibrary(
       { mediaType: "photo", quality: 0.8 },
       ({ assets, didCancel }) => {
@@ -18,7 +18,21 @@ export const Images = React.memo(({ images, setImages }: Props) => {
 
         const uri = assets[0].uri;
         if (uri) {
-          setImages((current) => [...current, uri]);
+          setImages((uris) => {
+            let l = [];
+            if (uris[index]) {
+              l = uris.map((u, i) => {
+                if (i === index) {
+                  return uri;
+                }
+
+                return u;
+              });
+            } else {
+              l = [...uris, uri];
+            }
+            return l;
+          });
         }
       }
     );
@@ -29,7 +43,7 @@ export const Images = React.memo(({ images, setImages }: Props) => {
     for (let i = 0; i < 4; i++) {
       list.push(
         <ImageLayout
-          onPress={onImagePress}
+          onPress={() => onImagePress(i)}
           key={i}
           disabled={i > images.length}
           uri={images[i]}
@@ -37,7 +51,7 @@ export const Images = React.memo(({ images, setImages }: Props) => {
       );
     }
     return list;
-  }, [onImagePress, images.length]);
+  }, [onImagePress, images]);
 
   return (
     <View style={styles.container}>
