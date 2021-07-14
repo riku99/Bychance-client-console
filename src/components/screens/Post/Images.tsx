@@ -1,13 +1,12 @@
 import React, { useCallback } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
-import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { Image } from "./Image";
 
 type Props = {
   images: string[];
-  setImages: (v: string[]) => void;
+  setImages: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const Images = React.memo(({ images, setImages }: Props) => {
@@ -16,6 +15,11 @@ export const Images = React.memo(({ images, setImages }: Props) => {
       { mediaType: "photo", quality: 0.8 },
       ({ assets, didCancel }) => {
         if (didCancel) return;
+
+        const uri = assets[0].uri;
+        if (uri) {
+          setImages((current) => [...current, uri]);
+        }
       }
     );
   }, []);
@@ -23,10 +27,12 @@ export const Images = React.memo(({ images, setImages }: Props) => {
   const showList = useCallback(() => {
     let list = [];
     for (let i = 0; i < 4; i++) {
-      list.push(<Image onPress={onImagePress} key={i} />);
+      list.push(
+        <Image onPress={onImagePress} key={i} disabled={i > images.length} />
+      );
     }
     return list;
-  }, [onImagePress]);
+  }, [onImagePress, images.length]);
 
   return (
     <View style={styles.container}>

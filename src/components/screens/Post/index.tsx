@@ -5,6 +5,7 @@ import { Images } from "./Images";
 
 export const Post = React.memo(() => {
   const [images, setImages] = useState<string[]>([]);
+  console.log(images);
 
   return (
     <View style={styles.container}>

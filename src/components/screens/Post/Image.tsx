@@ -4,16 +4,18 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 type Props = {
   onPress?: () => void;
+  disabled: boolean;
 };
 
-export const Image = React.memo(({ onPress }: Props) => {
+export const Image = React.memo(({ onPress, disabled }: Props) => {
   return (
     <TouchableOpacity
       style={styles.image}
       activeOpacity={1}
       onPress={onPress ? onPress : undefined}
+      disabled={disabled}
     >
-      <Icon name="image" size={24} color="gray" />
+      {!disabled && <Icon name="image" size={24} color="gray" />}
     </TouchableOpacity>
   );
 });
