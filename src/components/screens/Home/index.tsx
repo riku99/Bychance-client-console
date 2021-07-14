@@ -28,10 +28,9 @@ const styles = StyleSheet.create({
   createButton: {
     position: "absolute",
     right: "10%",
-    bottom: "7%",
+    bottom: "6%",
     height: 55,
     width: 55,
-    // backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
   },
