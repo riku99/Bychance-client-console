@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
 import { Images } from "./Images";
 
 export const Post = React.memo(() => {
+  const [images, setImages] = useState<string[]>([]);
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.imagesContainer}>
-          <Images />
+          <Images images={images} setImages={setImages} />
         </View>
       </ScrollView>
     </View>
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
   imagesContainer: {
     marginTop: 25,
     width: "100%",
-    // height: 60,
   },
   image: {
     backgroundColor: "white",
