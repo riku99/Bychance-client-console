@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   titleInput: {
     marginTop: 10,
-    height: 30,
+    height: 40,
     fontSize: 15,
     backgroundColor: "white",
   },
@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   },
   selectDateButton: {
     width: 80,
-    height: 30,
     marginTop: 10,
     backgroundColor: subColor,
   },
