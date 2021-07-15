@@ -73,6 +73,9 @@ export const Post = React.memo(() => {
         </View>
         <View style={styles.endTimeContainer}>
           <Text style={styles.title}>表示終了日時</Text>
+          <Text style={styles.title}>
+            ※指定しない場合は削除するまで表示され続けます
+          </Text>
           <View style={styles.endTime}>
             {endTime ? (
               <TouchableOpacity
@@ -92,6 +95,13 @@ export const Post = React.memo(() => {
             )}
           </View>
         </View>
+        <Button
+          title="投稿する"
+          containerStyle={{ marginTop: 40 }}
+          buttonStyle={{ backgroundColor: defaultTheme.mainColor }}
+          titleStyle={{ fontWeight: "bold" }}
+          activeOpacity={1}
+        />
       </ScrollView>
       <DateTimePickerModal
         isVisible={datePickerVisible}
