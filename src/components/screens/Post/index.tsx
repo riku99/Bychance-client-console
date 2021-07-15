@@ -9,10 +9,14 @@ import {
 import { Text, Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
+import icon from "react-native-vector-icons";
 
 import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
 import { useCreatePost } from "~/hooks/posts";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+Icon.loadFont();
 
 export const Post = React.memo(() => {
   const [images, setImages] = useState<string[]>([]);
@@ -92,12 +96,21 @@ export const Post = React.memo(() => {
           </Text>
           <View style={styles.endTime}>
             {endTime ? (
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => setDatePickerVisible(true)}
-              >
-                <Text>{format(endTime, "M月d日H時mm分")}</Text>
-              </TouchableOpacity>
+              <View style={styles.et}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => setDatePickerVisible(true)}
+                >
+                  <Text>{format(endTime, "M月d日H時mm分")}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginLeft: 15 }}
+                  activeOpacity={1}
+                  onPress={() => setEndTime(undefined)}
+                >
+                  <Icon name="trash-can-outline" color="red" size={20} />
+                </TouchableOpacity>
+              </View>
             ) : (
               <Button
                 title="選択"
@@ -199,5 +212,9 @@ const styles = StyleSheet.create({
     height: 30,
     marginTop: 10,
     backgroundColor: defaultTheme.mainColor,
+  },
+  et: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
