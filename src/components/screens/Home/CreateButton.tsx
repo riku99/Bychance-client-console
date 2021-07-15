@@ -4,12 +4,10 @@ import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 import { defaultTheme } from "~/styles";
-import { HomeNavigationProp } from "~/navigations/Home";
-
-type Props = {};
+import { MainNavigationProp } from "~/navigations/Main";
 
 export const CreateButton = React.memo(() => {
-  const navigation = useNavigation<HomeNavigationProp<"Home">>();
+  const navigation = useNavigation<MainNavigationProp<"Tab">>();
 
   const onPress = () => {
     navigation.navigate("Post");

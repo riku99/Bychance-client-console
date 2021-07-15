@@ -6,12 +6,10 @@ import {
 
 import { Home } from "~/components/screens/Home";
 import { UserEditStackScreen } from "./UserEdit";
-import { Post } from "~/components/screens/Post";
 
 export type HomeStackParamList = {
   Home: undefined;
   Edit: undefined;
-  Post: undefined;
 };
 
 export type HomeNavigationProp<T extends keyof HomeStackParamList> =
@@ -31,11 +29,6 @@ export const HomeStackScreen = React.memo(() => {
         name="Edit"
         component={UserEditStackScreen}
         options={{ headerShown: false }}
-      />
-      <HomeStack.Screen
-        name="Post"
-        component={Post}
-        options={{ headerTitle: "掲載" }}
       />
     </HomeStack.Navigator>
   );
