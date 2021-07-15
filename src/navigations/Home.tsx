@@ -35,7 +35,7 @@ export const HomeStackScreen = React.memo(() => {
       <HomeStack.Screen
         name="Post"
         component={Post}
-        options={{ headerTitle: "投稿" }}
+        options={{ headerTitle: "掲載" }}
       />
     </HomeStack.Navigator>
   );
