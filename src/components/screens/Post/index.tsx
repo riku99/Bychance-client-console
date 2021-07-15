@@ -17,7 +17,7 @@ export const Post = React.memo(() => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [coupon, setCoupon] = useState(false);
-  const [endTime, setEndTime] = useState();
+  const [endTime, setEndTime] = useState<Date>();
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -84,10 +84,13 @@ export const Post = React.memo(() => {
       <DateTimePickerModal
         isVisible={datePickerVisible}
         mode="datetime"
-        locale="en_GB"
+        locale="ja_JP"
         confirmTextIOS="OK"
         cancelTextIOS="キャンセル"
-        onConfirm={() => {}}
+        onConfirm={(date) => {
+          setEndTime(date);
+          setDatePickerVisible(false);
+        }}
         onCancel={() => setDatePickerVisible(false)}
       />
     </View>
