@@ -12,6 +12,7 @@ import { format } from "date-fns";
 
 import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
+import { useCreatePost } from "~/hooks/posts";
 
 export const Post = React.memo(() => {
   const [images, setImages] = useState<string[]>([]);
@@ -22,6 +23,12 @@ export const Post = React.memo(() => {
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
+  const { createPost } = useCreatePost();
+
+  const onPostButtonPress = async () => {
+    await createPost({ title, text, coupon, endTime, images });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -30,11 +37,18 @@ export const Post = React.memo(() => {
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>タイトル</Text>
-          <TextInput style={styles.titleInput} />
+          <TextInput
+            style={styles.titleInput}
+            onChangeText={(t) => setTitle(t)}
+          />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>本文</Text>
-          <TextInput style={styles.textInput} multiline={true} />
+          <TextInput
+            style={styles.textInput}
+            multiline={true}
+            onChangeText={(t) => setText(t)}
+          />
         </View>
         <View style={styles.couponContainer}>
           <Text style={styles.title}>クーポンの有無</Text>
@@ -101,6 +115,8 @@ export const Post = React.memo(() => {
           buttonStyle={{ backgroundColor: defaultTheme.mainColor }}
           titleStyle={{ fontWeight: "bold" }}
           activeOpacity={1}
+          onPress={onPostButtonPress}
+          disabled={!title || !images.length}
         />
       </ScrollView>
       <DateTimePickerModal
