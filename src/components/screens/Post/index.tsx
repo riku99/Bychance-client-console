@@ -68,7 +68,7 @@ export const Post = React.memo(() => {
               buttonStyle={[
                 styles.couponButton,
                 {
-                  backgroundColor: coupon ? defaultTheme.mainColor : undefined,
+                  backgroundColor: coupon ? subColor : undefined,
                 },
               ]}
             />
@@ -83,7 +83,7 @@ export const Post = React.memo(() => {
               buttonStyle={[
                 styles.couponButton,
                 {
-                  backgroundColor: coupon ? undefined : defaultTheme.mainColor,
+                  backgroundColor: coupon ? undefined : subColor,
                 },
               ]}
             />
@@ -148,6 +148,8 @@ export const Post = React.memo(() => {
   );
 });
 
+const subColor = "#4a4a4a";
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 30,
     marginTop: 10,
-    backgroundColor: defaultTheme.mainColor,
+    backgroundColor: subColor,
   },
   et: {
     flexDirection: "row",
