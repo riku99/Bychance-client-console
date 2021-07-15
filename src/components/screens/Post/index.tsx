@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Text, Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { format } from "date-fns";
 
 import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
@@ -72,13 +73,24 @@ export const Post = React.memo(() => {
         </View>
         <View style={styles.endTimeContainer}>
           <Text style={styles.title}>表示終了日時</Text>
-          <Button
-            title="選択"
-            buttonStyle={styles.selectDateButton}
-            titleStyle={{ fontSize: 14, fontWeight: "500" }}
-            activeOpacity={1}
-            onPress={() => setDatePickerVisible(true)}
-          />
+          <View style={styles.endTime}>
+            {endTime ? (
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => setDatePickerVisible(true)}
+              >
+                <Text>{format(endTime, "M月d日H時mm分")}</Text>
+              </TouchableOpacity>
+            ) : (
+              <Button
+                title="選択"
+                buttonStyle={styles.selectDateButton}
+                titleStyle={{ fontSize: 14, fontWeight: "500" }}
+                activeOpacity={1}
+                onPress={() => setDatePickerVisible(true)}
+              />
+            )}
+          </View>
         </View>
       </ScrollView>
       <DateTimePickerModal
@@ -152,6 +164,9 @@ const styles = StyleSheet.create({
   },
   endTimeContainer: {
     marginTop: 30,
+  },
+  endTime: {
+    marginTop: 10,
   },
   selectDateButton: {
     width: 80,
