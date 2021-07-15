@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, TextInput } from "react-native";
-import { Text } from "react-native-elements";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { Text, Button } from "react-native-elements";
 
 import { Images } from "./Images";
+import { defaultTheme } from "~/styles";
 
 export const Post = React.memo(() => {
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [coupon, setCoupon] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -19,8 +28,43 @@ export const Post = React.memo(() => {
           <TextInput style={styles.titleInput} />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>説明</Text>
+          <Text style={styles.title}>本文</Text>
           <TextInput style={styles.textInput} multiline={true} />
+        </View>
+        <View style={styles.couponContainer}>
+          <Text style={styles.title}>クーポンの有無</Text>
+          <View style={styles.couponSelect}>
+            <Button
+              title="あり"
+              titleStyle={[
+                styles.couponTitle,
+                { color: coupon ? "white" : "black" },
+              ]}
+              activeOpacity={1}
+              onPress={() => setCoupon(true)}
+              buttonStyle={[
+                styles.couponButton,
+                {
+                  backgroundColor: coupon ? defaultTheme.mainColor : undefined,
+                },
+              ]}
+            />
+            <Button
+              title="なし"
+              titleStyle={[
+                styles.couponTitle,
+                { color: coupon ? "black" : "white" },
+              ]}
+              activeOpacity={1}
+              onPress={() => setCoupon(false)}
+              buttonStyle={[
+                styles.couponButton,
+                {
+                  backgroundColor: coupon ? undefined : defaultTheme.mainColor,
+                },
+              ]}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -63,5 +107,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginTop: 10,
     textAlignVertical: "top",
+  },
+  couponContainer: {
+    marginTop: 30,
+  },
+  couponSelect: {
+    flexDirection: "row",
+    marginTop: 10,
+    width: 100,
+    justifyContent: "space-between",
+  },
+  couponTitle: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  couponButton: {
+    borderRadius: 20,
   },
 });
