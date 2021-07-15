@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
-import { Post } from "~/components/screens/Post";
+import { Post } from "~/components/screens/CreatePost";
 
 import { Tabs } from "./Tab";
 
