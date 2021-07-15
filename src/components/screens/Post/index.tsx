@@ -17,6 +17,8 @@ export const Post = React.memo(() => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [coupon, setCoupon] = useState(false);
+  const [endTime, setEndTime] = useState();
+
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   return (
@@ -70,6 +72,13 @@ export const Post = React.memo(() => {
         </View>
         <View style={styles.endTimeContainer}>
           <Text style={styles.title}>表示終了日時</Text>
+          <Button
+            title="選択"
+            buttonStyle={styles.selectDateButton}
+            titleStyle={{ fontSize: 14, fontWeight: "500" }}
+            activeOpacity={1}
+            onPress={() => setDatePickerVisible(true)}
+          />
         </View>
       </ScrollView>
       <DateTimePickerModal
@@ -79,7 +88,7 @@ export const Post = React.memo(() => {
         confirmTextIOS="OK"
         cancelTextIOS="キャンセル"
         onConfirm={() => {}}
-        onCancel={() => {}}
+        onCancel={() => setDatePickerVisible(false)}
       />
     </View>
   );
@@ -140,5 +149,11 @@ const styles = StyleSheet.create({
   },
   endTimeContainer: {
     marginTop: 30,
+  },
+  selectDateButton: {
+    width: 80,
+    height: 30,
+    marginTop: 10,
+    backgroundColor: defaultTheme.mainColor,
   },
 });
