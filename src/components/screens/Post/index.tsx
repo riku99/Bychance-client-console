@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Text, Button } from "react-native-elements";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
@@ -16,6 +17,7 @@ export const Post = React.memo(() => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [coupon, setCoupon] = useState(false);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -66,7 +68,19 @@ export const Post = React.memo(() => {
             />
           </View>
         </View>
+        <View style={styles.endTimeContainer}>
+          <Text style={styles.title}>表示終了日時</Text>
+        </View>
       </ScrollView>
+      <DateTimePickerModal
+        isVisible={datePickerVisible}
+        mode="datetime"
+        locale="en_GB"
+        confirmTextIOS="OK"
+        cancelTextIOS="キャンセル"
+        onConfirm={() => {}}
+        onCancel={() => {}}
+      />
     </View>
   );
 });
@@ -123,5 +137,8 @@ const styles = StyleSheet.create({
   },
   couponButton: {
     borderRadius: 20,
+  },
+  endTimeContainer: {
+    marginTop: 30,
   },
 });
