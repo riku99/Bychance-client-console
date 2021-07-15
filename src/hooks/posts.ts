@@ -22,7 +22,7 @@ const createImageData = async (uri: string) => {
 };
 
 export const useCreatePost = () => {
-  const { toast, dispatch, getIdToken, handleError } = useApikit();
+  const { toast, getIdToken, handleError, navigation } = useApikit();
 
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +41,7 @@ export const useCreatePost = () => {
       const idToken = await getIdToken();
 
       try {
-        const result = await axios.post(
+        await axios.post(
           `${baseUrl}/recommendations`,
           {
             title,
@@ -52,7 +52,14 @@ export const useCreatePost = () => {
           },
           addBearer(idToken)
         );
-      } catch (e) {}
+
+        toast.show("作成しました", { type: "success" });
+        navigation.goBack();
+      } catch (e) {
+        handleError(e);
+      } finally {
+        setLoading(false);
+      }
     },
     []
   );

@@ -9,12 +9,12 @@ import {
 import { Text, Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
-import icon from "react-native-vector-icons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
 import { useCreatePost } from "~/hooks/posts";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 Icon.loadFont();
 
@@ -27,7 +27,7 @@ export const Post = React.memo(() => {
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
-  const { createPost } = useCreatePost();
+  const { createPost, loading } = useCreatePost();
 
   const onPostButtonPress = async () => {
     await createPost({ title, text, coupon, endTime, images });
@@ -144,6 +144,7 @@ export const Post = React.memo(() => {
         }}
         onCancel={() => setDatePickerVisible(false)}
       />
+      {loading && <ToastLoading />}
     </View>
   );
 });
