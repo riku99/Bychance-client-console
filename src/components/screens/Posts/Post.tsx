@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Platform } from "react-native";
-import { Text, Avatar, SocialIcon } from "react-native-elements";
+import { Text, Avatar } from "react-native-elements";
 
 import { Images } from "./Images";
 import { SocialIcons } from "./SocialIcons";
