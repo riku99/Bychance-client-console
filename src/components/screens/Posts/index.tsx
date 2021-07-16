@@ -1,7 +1,9 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
-import { Text } from "react-native-elements";
+import { Text, Avatar } from "react-native-elements";
 import FastImage from "react-native-fast-image";
+
+const logo = require("../../../assets/coffee_logo.jpeg");
 
 export const Posts = React.memo(() => {
   return (
@@ -20,6 +22,10 @@ export const Posts = React.memo(() => {
                 <Text style={styles.title}>
                   ラテの美味しいオシャレなカフェでゆったりしませんか??
                 </Text>
+                <View style={styles.imageAndNameContainer}>
+                  <Avatar source={logo} size={40} rounded />
+                  <Text style={styles.name}>cafe newTokyo</Text>
+                </View>
               </View>
             </View>
           </View>
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   mainSection: {
-    height: "50%",
+    height: 350,
     width: "100%",
     backgroundColor: "white",
     borderRadius: 5,
@@ -63,5 +69,15 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 22,
+  },
+  imageAndNameContainer: {
+    marginTop: 8,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  name: {
+    fontSize: 16,
+    marginLeft: 5,
   },
 });
