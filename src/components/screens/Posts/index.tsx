@@ -1,6 +1,12 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
-import { Text, Avatar } from "react-native-elements";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Platform,
+} from "react-native";
+import { Text, Avatar, SocialIcon } from "react-native-elements";
 import FastImage from "react-native-fast-image";
 
 const logo = require("../../../assets/coffee_logo.jpeg");
@@ -26,6 +32,23 @@ export const Posts = React.memo(() => {
                   <Avatar source={logo} size={40} rounded />
                   <Text style={styles.name}>cafe newTokyo</Text>
                 </View>
+                <Text style={styles.coupon}>※クーポンあり!✨</Text>
+                <View style={styles.distanceAndIconContainer}>
+                  <Text>500m</Text>
+                  <View style={styles.icons}>
+                    <SocialIcon
+                      type="instagram"
+                      style={{ width: 30, height: 30, backgroundColor: "pink" }}
+                      iconSize={17}
+                      underlayColor="pink"
+                    />
+                    <SocialIcon
+                      type="twitter"
+                      style={{ width: 30, height: 30 }}
+                      iconSize={17}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
           </View>
@@ -48,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   mainSection: {
-    height: 350,
+    height: Platform.OS === "ios" ? 370 : 390,
     width: "100%",
     backgroundColor: "white",
     borderRadius: 5,
@@ -79,5 +102,18 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     marginLeft: 5,
+  },
+  coupon: {
+    fontSize: 14,
+    marginTop: 5,
+    color: "gray",
+  },
+  distanceAndIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  icons: {
+    flexDirection: "row",
   },
 });
