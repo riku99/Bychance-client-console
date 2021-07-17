@@ -5,8 +5,11 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Platform,
+  PermissionsAndroid,
 } from "react-native";
 import { Avatar } from "react-native-elements";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 import { Images } from "./Images";
 import { SocialIcons } from "./SoicialIcons";
@@ -44,6 +47,21 @@ export const PostDetail = React.memo(() => {
           </TouchableOpacity>
           <View style={styles.socialIcons}>
             <SocialIcons iconWidth={35} iconHeight={35} iconSize={19} />
+          </View>
+          <Text style={styles.address}>千葉県千葉市幕張1-1</Text>
+          <View style={styles.mapContainer}>
+            <MapView
+              showsUserLocation
+              style={{ width: "100%", height: "100%" }}
+              provider={Platform.OS === "android" ? PROVIDER_GOOGLE : undefined}
+              onMapReady={() => {
+                Platform.OS === "android"
+                  ? PermissionsAndroid.request(
+                      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+                    )
+                  : "";
+              }}
+            />
           </View>
         </View>
       </ScrollView>
@@ -90,5 +108,15 @@ const styles = StyleSheet.create({
   socialIcons: {
     marginTop: 18,
     width: 120,
+  },
+  address: {
+    marginTop: 25,
+    color: "gray",
+  },
+  mapContainer: {
+    backgroundColor: "gray",
+    width: "100%",
+    height: 200,
+    marginTop: 5,
   },
 });
