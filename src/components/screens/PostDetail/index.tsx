@@ -13,6 +13,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 import { Images } from "./Images";
 import { SocialIcons } from "./SoicialIcons";
+import { Map } from "./Map";
 
 export const PostDetail = React.memo(() => {
   return (
@@ -50,18 +51,7 @@ export const PostDetail = React.memo(() => {
           </View>
           <Text style={styles.address}>千葉県千葉市幕張1-1</Text>
           <View style={styles.mapContainer}>
-            <MapView
-              showsUserLocation
-              style={{ width: "100%", height: "100%" }}
-              provider={Platform.OS === "android" ? PROVIDER_GOOGLE : undefined}
-              onMapReady={() => {
-                Platform.OS === "android"
-                  ? PermissionsAndroid.request(
-                      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-                    )
-                  : "";
-              }}
-            />
+            <Map />
           </View>
         </View>
       </ScrollView>
