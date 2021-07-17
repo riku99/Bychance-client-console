@@ -28,7 +28,12 @@ export const PostsStackScreen = React.memo(() => {
       <Stack.Screen
         name="detail"
         component={PostDetail}
-        options={{ headerShown: false }}
+        options={{
+          headerTransparent: true,
+          headerBackTitleVisible: false,
+          headerTitle: "",
+          headerTintColor: "white",
+        }}
       />
     </Stack.Navigator>
   );
