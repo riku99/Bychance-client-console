@@ -5,8 +5,6 @@ import { Text, Avatar } from "react-native-elements";
 import { Images } from "./Images";
 import { SocialIcons } from "./SocialIcons";
 
-const logo = require("../../../assets/coffee_logo.jpeg");
-
 export type Item = {
   id: number;
   name: string;
@@ -32,18 +30,22 @@ type Props = {
 export const Post = React.memo(({ item, onItemPress }: Props) => {
   return (
     <View style={styles.mainSection}>
-      <Images />
+      <Images images={item.images} />
       <TouchableOpacity activeOpacity={1} onPress={onItemPress}>
         <View style={styles.introContainer}>
           <Text style={styles.title}>{item.title}</Text>
           <View style={styles.imageAndNameContainer}>
-            <Avatar source={logo} size={40} rounded />
+            <Avatar
+              source={{ uri: item.avatar ? item.avatar : undefined }}
+              size={35}
+              rounded
+            />
             <Text style={styles.name}>{item.name}</Text>
           </View>
           <Text style={styles.coupon}>{item.coupon && "※クーポンあり!✨"}</Text>
           <View style={styles.distanceAndIconContainer}>
             <Text>{item.distance && item.distance + "m"}</Text>
-            <SocialIcons />
+            <SocialIcons instagram={item.instagram} twitter={item.twitter} />
           </View>
         </View>
       </TouchableOpacity>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    marginLeft: 5,
+    marginLeft: 9,
   },
   coupon: {
     fontSize: 14,
