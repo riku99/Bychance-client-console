@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import { Text, Avatar } from "react-native-elements";
 
 import { Images } from "./Images";
@@ -9,25 +9,29 @@ const logo = require("../../../assets/coffee_logo.jpeg");
 
 export const Post = React.memo(() => {
   return (
-    <View style={styles.mainSection}>
+    <View style={styles.mainSection} onLayout={() => console.log("show")}>
       <Images />
-      <View style={styles.introContainer}>
-        <Text style={styles.title}>
-          ラテの美味しいオシャレなカフェでゆったりしませんか??
-        </Text>
-        <View style={styles.imageAndNameContainer}>
-          <Avatar source={logo} size={40} rounded />
-          <Text style={styles.name}>cafe newTokyo</Text>
+      <TouchableOpacity activeOpacity={1}>
+        <View style={styles.introContainer}>
+          <Text style={styles.title}>
+            ラテの美味しいオシャレなカフェでゆったりしませんか??
+          </Text>
+          <View style={styles.imageAndNameContainer}>
+            <Avatar source={logo} size={40} rounded />
+            <Text style={styles.name}>cafe newTokyo</Text>
+          </View>
+          <Text style={styles.coupon}>※クーポンあり!✨</Text>
+          <View style={styles.distanceAndIconContainer}>
+            <Text>500m</Text>
+            <SocialIcons />
+          </View>
         </View>
-        <Text style={styles.coupon}>※クーポンあり!✨</Text>
-        <View style={styles.distanceAndIconContainer}>
-          <Text>500m</Text>
-          <SocialIcons />
-        </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 });
+
+export const itemHeight = Platform.OS === "ios" ? 370 : 390;
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   mainSection: {
-    height: Platform.OS === "ios" ? 370 : 390,
+    height: itemHeight,
     width: "100%",
     backgroundColor: "white",
     borderRadius: 5,
