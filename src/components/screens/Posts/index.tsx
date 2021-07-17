@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { RecommendationList } from "bychance-recommendation-list";
+import { PostsNavigationProp } from "~/navigations/Posts";
 
 const data = [
   {
@@ -106,7 +108,11 @@ const data = [
 ];
 
 export const Posts = React.memo(() => {
-  return (
-    <RecommendationList listData={data} onItemPress={() => console.log("ok")} />
-  );
+  const navigation = useNavigation<PostsNavigationProp<"list">>();
+
+  const onItemPress = useCallback(() => {
+    navigation.navigate("detail");
+  }, []);
+
+  return <RecommendationList listData={data} onItemPress={onItemPress} />;
 });
