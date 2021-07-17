@@ -7,22 +7,42 @@ import { SocialIcons } from "./SocialIcons";
 
 const logo = require("../../../assets/coffee_logo.jpeg");
 
-export const Post = React.memo(() => {
+export type Item = {
+  id: number;
+  name: string;
+  avatar: string | null;
+  title: string;
+  text: string;
+  images: string[];
+  coupon: boolean;
+  distance?: number;
+  url: string | null;
+  instagram: string | null;
+  twitter: string | null;
+  address: string;
+  lat: number;
+  lng: number;
+};
+
+type Props = {
+  item: Item;
+  onItemPress: () => void;
+};
+
+export const Post = React.memo(({ item, onItemPress }: Props) => {
   return (
     <View style={styles.mainSection}>
       <Images />
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity activeOpacity={1} onPress={onItemPress}>
         <View style={styles.introContainer}>
-          <Text style={styles.title}>
-            ラテの美味しいオシャレなカフェでゆったりしませんか??
-          </Text>
+          <Text style={styles.title}>{item.title}</Text>
           <View style={styles.imageAndNameContainer}>
             <Avatar source={logo} size={40} rounded />
-            <Text style={styles.name}>cafe newTokyo</Text>
+            <Text style={styles.name}>{item.name}</Text>
           </View>
-          <Text style={styles.coupon}>※クーポンあり!✨</Text>
+          <Text style={styles.coupon}>{item.coupon && "※クーポンあり!✨"}</Text>
           <View style={styles.distanceAndIconContainer}>
-            <Text>500m</Text>
+            <Text>{item.distance && item.distance + "m"}</Text>
             <SocialIcons />
           </View>
         </View>

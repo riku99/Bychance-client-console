@@ -1,33 +1,22 @@
 import React, { useCallback, useRef } from "react";
 import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 
-import { Post } from "./Post";
-
-type Recommendation = {
-  id: number;
-  name: string;
-  avatar: string | null;
-  title: string;
-  text: string;
-  images: string[];
-  coupon: boolean;
-  distance?: number;
-  url: string | null;
-  instagram: string | null;
-  twitter: string | null;
-  address: string;
-  lat: number;
-  lng: number;
-};
+import { Post, Item } from "./Post";
 
 export const List = React.memo(
-  ({ listData }: { listData: Recommendation[]; onItemPress: () => void }) => {
+  ({
+    listData,
+    onItemPress,
+  }: {
+    listData: Item[];
+    onItemPress: () => void;
+  }) => {
     const flatListRef = useRef<FlatList>(null);
 
     const renderItem = useCallback(
-      ({ item, index }: { item: Recommendation; index: number }) => (
+      ({ item, index }: { item: Item; index: number }) => (
         <View style={{ marginTop: 30 }}>
-          <Post key={item.id} />
+          <Post key={item.id} item={item} onItemPress={onItemPress} />
         </View>
       ),
       []
