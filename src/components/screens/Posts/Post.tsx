@@ -37,7 +37,7 @@ export const Post = React.memo(({ item, onItemPress }: Props) => {
           <View style={styles.imageAndNameContainer}>
             <Avatar
               source={{ uri: item.avatar ? item.avatar : undefined }}
-              size={35}
+              size={33}
               rounded
             />
             <Text style={styles.name}>{item.name}</Text>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   imageAndNameContainer: {
-    marginTop: 5,
+    marginTop: 9,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",

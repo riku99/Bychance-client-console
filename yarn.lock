@@ -2019,6 +2019,11 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
+bychance-recommendation-list@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bychance-recommendation-list/-/bychance-recommendation-list-1.0.1.tgz#cda258e21fc271b7f57b0281e0ddaabf4dd8edff"
+  integrity sha512-BHARUsDf1bEbKaIwSHhDf8oDzv4pMW7pV6lZvvbaqjdhBSS95QHiVg9QEENVPP8sAEAlLo6lmanfcAA2pSfqGg==
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
