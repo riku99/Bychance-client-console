@@ -9,7 +9,7 @@ const logo = require("../../../assets/coffee_logo.jpeg");
 
 export const Post = React.memo(() => {
   return (
-    <View style={styles.mainSection} onLayout={() => console.log("show")}>
+    <View style={styles.mainSection}>
       <Images />
       <TouchableOpacity activeOpacity={1}>
         <View style={styles.introContainer}>
@@ -31,7 +31,7 @@ export const Post = React.memo(() => {
   );
 });
 
-export const itemHeight = Platform.OS === "ios" ? 370 : 390;
+const itemHeight = Platform.OS === "ios" ? 370 : 390;
 
 const styles = StyleSheet.create({
   container: {
