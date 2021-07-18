@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
-
 import { RecommendationList } from "bychance-components";
+
 import { PostsNavigationProp } from "~/navigations/Posts";
 
 const data = [

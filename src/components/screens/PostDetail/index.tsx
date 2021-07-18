@@ -1,5 +1,7 @@
 import React from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { RecommendationDetail } from "bychance-components";
+import { Button } from "react-native-elements";
 
 const data = {
   id: 1,
@@ -23,5 +25,20 @@ const data = {
 };
 
 export const Detail = React.memo(() => {
-  return <RecommendationDetail data={data} />;
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+        <RecommendationDetail data={data} />
+      </ScrollView>
+    </View>
+  );
+});
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+  },
+  button: {},
 });
