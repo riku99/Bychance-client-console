@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList, Recommendation } from "bychance-components";
+import { RecommendationList } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 import { useGetPosts } from "~/hooks/posts";
@@ -118,7 +118,7 @@ export const Posts = React.memo(() => {
 
   const { data, loading } = useGetPosts();
 
-  const listData: Recommendation | undefined = useMemo(() => {
+  const listData = useMemo(() => {
     if (data) {
       return data.map((r) => {
         const { id, title, text, images, coupon, client } = r;
