@@ -1,6 +1,5 @@
 import React from "react";
-
-import { PostDetail } from "./Detail";
+import { RecommendationDetail } from "bychance-components";
 
 const data = {
   id: 1,
@@ -24,5 +23,5 @@ const data = {
 };
 
 export const Detail = React.memo(() => {
-  return <PostDetail data={data} />;
+  return <RecommendationDetail data={data} />;
 });

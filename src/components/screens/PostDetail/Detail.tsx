@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-elements";
 
 import { Images } from "./Images";
