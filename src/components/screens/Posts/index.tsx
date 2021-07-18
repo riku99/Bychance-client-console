@@ -3,8 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { RecommendationList } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
+import { useGetPosts } from "~/hooks/posts";
 
-const data = [
+const _data = [
   {
     id: 1,
     name: "cafe newTokyo",
@@ -114,5 +115,7 @@ export const Posts = React.memo(() => {
     navigation.navigate("detail");
   }, []);
 
-  return <RecommendationList listData={data} onItemPress={onItemPress} />;
+  const { data, loading } = useGetPosts();
+
+  return <RecommendationList listData={_data} onItemPress={onItemPress} />;
 });

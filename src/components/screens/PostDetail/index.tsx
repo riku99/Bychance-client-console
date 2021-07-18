@@ -1,7 +1,6 @@
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { RecommendationDetail } from "bychance-components";
-import { Button } from "react-native-elements";
 
 const data = {
   id: 1,
@@ -40,5 +39,4 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
   },
-  button: {},
 });

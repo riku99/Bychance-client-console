@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import fs from "react-native-fs";
 import { default as axios } from "axios";
 
@@ -6,6 +6,7 @@ import { useApikit } from "./apikit";
 import { getExtention } from "~/utils";
 import { baseUrl } from "~/constants";
 import { addBearer } from "~/helpers/api";
+import { ApiRecommendation } from "types";
 
 type CreateRecommendation = {
   title: string;
@@ -66,6 +67,38 @@ export const useCreatePost = () => {
 
   return {
     createPost,
+    loading,
+  };
+};
+
+export const useGetPosts = () => {
+  const { getIdToken, handleError } = useApikit();
+
+  const [data, setData] = useState<ApiRecommendation>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const get = async () => {
+      const idToken = await getIdToken();
+
+      try {
+        const result = await axios.get<ApiRecommendation>(
+          `${baseUrl}/recommendations/client`,
+          addBearer(idToken)
+        );
+
+        setData(result.data);
+      } catch (e) {
+        handleError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    get();
+  }, []);
+
+  return {
+    data,
     loading,
   };
 };
