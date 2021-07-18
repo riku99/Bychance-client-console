@@ -2020,9 +2020,9 @@ buffer-from@^1.0.0:
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
 bychance-components@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/bychance-components/-/bychance-components-1.0.4.tgz#573c854db3ad86c2627ba9761d1d7c31c3d33dc3"
-  integrity sha512-9ihafBO1K8rwPNgn09RukAqffe5by0Ar5HQJiEggo3DQ7kkm45UOaq54aPyE8BQ5ewJjvcUcf4g3FY6nE94Tcw==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/bychance-components/-/bychance-components-1.0.5.tgz#37044f660d2b8f40e4a25ae0c1214b98f8d7de0f"
+  integrity sha512-RYaILxV9eYzx0b1OJ3qigEr6ZLMu44wpaQ3FMvgTVY5kVix4TgzvDN3dwJarZ3GhV+MJeqpt/GbALFkqRFnP/A==
 
 bytes@3.0.0:
   version "3.0.0"

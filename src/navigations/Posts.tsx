@@ -3,13 +3,14 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
+import { Recommendation } from "bychance-components";
 
 import { Posts } from "~/components/screens/Posts";
 import { Detail } from "~/components/screens/PostDetail";
 
 export type PostsParamList = {
   list: undefined;
-  detail: undefined;
+  detail: Recommendation;
 };
 
 export type PostsNavigationProp<T extends keyof PostsParamList> =

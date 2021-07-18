@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList } from "bychance-components";
+import { RecommendationList, Recommendation } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 import { useGetPosts } from "~/hooks/posts";
@@ -10,10 +10,6 @@ import { Text } from "react-native-elements";
 
 export const Posts = React.memo(() => {
   const navigation = useNavigation<PostsNavigationProp<"list">>();
-
-  const onItemPress = useCallback(() => {
-    navigation.navigate("detail");
-  }, []);
 
   const { data, loading } = useGetPosts();
 
@@ -41,6 +37,10 @@ export const Posts = React.memo(() => {
       });
     }
   }, [data]);
+
+  const onItemPress = useCallback((data: Recommendation) => {
+    navigation.navigate("detail", data);
+  }, []);
 
   if (loading) {
     return (
