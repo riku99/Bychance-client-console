@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList } from "bychance-components";
+import { RecommendationList, Recommendation } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 import { useGetPosts } from "~/hooks/posts";
+import { StyleSheet, View } from "react-native";
 
 const _data = [
   {
@@ -117,5 +118,43 @@ export const Posts = React.memo(() => {
 
   const { data, loading } = useGetPosts();
 
-  return <RecommendationList listData={_data} onItemPress={onItemPress} />;
+  const listData: Recommendation | undefined = useMemo(() => {
+    if (data) {
+      return data.map((r) => {
+        const { id, title, text, images, coupon, client } = r;
+        const imagesData = images.map((d) => d.url);
+
+        return {
+          id,
+          title,
+          text,
+          images: imagesData,
+          coupon,
+          name: client.name,
+          address: client.address,
+          lat: client.lat,
+          lng: client.lng,
+          instagram: client.instagram,
+          twitter: client.twitter,
+          url: client.url,
+          avatar: client.image,
+        };
+      });
+    }
+  }, [data]);
+
+  return (
+    <View style={styles.container}>
+      {listData ? (
+        <RecommendationList listData={listData} onItemPress={onItemPress} />
+      ) : null}
+    </View>
+  );
+});
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+  },
 });
