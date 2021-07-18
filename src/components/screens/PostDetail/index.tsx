@@ -5,51 +5,60 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Platform,
-  PermissionsAndroid,
 } from "react-native";
 import { Avatar } from "react-native-elements";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 import { Images } from "./Images";
 import { SocialIcons } from "./SoicialIcons";
 import { Map } from "./Map";
 
-export const PostDetail = React.memo(() => {
+export type Item = {
+  id: number;
+  name: string;
+  avatar: string | null;
+  title: string;
+  text: string;
+  images: string[];
+  coupon: boolean;
+  distance?: number;
+  url: string | null;
+  instagram: string | null;
+  twitter: string | null;
+  address: string;
+  lat: number;
+  lng: number;
+};
+
+type Props = {
+  data: Item;
+};
+
+export const PostDetail = React.memo(({ data }: Props) => {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <View style={styles.imagesContainer}>
-          <Images />
+          <Images images={data.images} />
         </View>
         <View style={styles.introContainer}>
-          <Text style={styles.title}>
-            ラテの美味しいオシャレなカフェでゆったりしませんか??
-          </Text>
+          <Text style={styles.title}>{data.title}</Text>
           <View style={styles.imageAndNameContainer}>
             <Avatar
               source={{
-                uri: "https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/218410191_355142425985263_6733373022815732229_n.jpg?_nc_ht=scontent-nrt1-1.cdninstagram.com&_nc_cat=107&_nc_ohc=x1rPnadrd3oAX9KaDsm&edm=AP_V10EBAAAA&ccb=7-4&oh=1648087381dfc97a26a9b3b1e095beca&oe=60F8EF40&_nc_sid=4f375e",
+                uri: data.avatar ? data.avatar : undefined,
               }}
               rounded
             />
-            <Text style={styles.name}>cafe newTokyo</Text>
+            <Text style={styles.name}>{data.name}</Text>
           </View>
-          <Text style={styles.text}>
-            浅草駅から徒歩5分の場所にあるカフェです。3ヶ月ほど前にオープンしたばかりなので店内はすごく綺麗です!✨
-            {`\n`}
-            今大人気の抹茶ラテをアイスで飲むのがおすすめです😆
-            {`\n`}
-            この画面を表示して頂いた場合ドリンク1杯100円引きになります!
-            {`\n`}※ 1回の表示で複数人使うことはできません。1人1回までです。
-          </Text>
+          <Text style={styles.text}>{data.text}</Text>
           <TouchableOpacity activeOpacity={1}>
-            <Text style={styles.url}>https://reactnative.dev/</Text>
+            <Text style={styles.url}>{data.url}</Text>
           </TouchableOpacity>
           <View style={styles.socialIcons}>
             <SocialIcons iconWidth={35} iconHeight={35} iconSize={19} />
           </View>
-          <Text style={styles.address}>千葉県千葉市幕張1-1</Text>
+          <Text style={styles.address}>{data.address}</Text>
           <View style={styles.mapContainer}>
             <Map />
           </View>
