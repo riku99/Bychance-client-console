@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/stack";
 
 import { Posts } from "~/components/screens/Posts";
-import { PostDetail } from "~/components/screens/PostDetail";
+import { Detail } from "~/components/screens/PostDetail";
 
 export type PostsParamList = {
   list: undefined;
@@ -27,7 +27,7 @@ export const PostsStackScreen = React.memo(() => {
       />
       <Stack.Screen
         name="detail"
-        component={PostDetail}
+        component={Detail}
         options={{
           headerTransparent: true,
           headerBackTitleVisible: false,

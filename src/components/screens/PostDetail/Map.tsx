@@ -2,11 +2,16 @@ import React, { useMemo } from "react";
 import { Platform, PermissionsAndroid } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
-export const Map = React.memo(() => {
+type Props = {
+  lat: number;
+  lng: number;
+};
+
+export const Map = React.memo(({ lat, lng }: Props) => {
   const region = useMemo(() => {
     return {
-      latitude: 35.66263439775389,
-      longitude: 139.70312813997703,
+      latitude: lat,
+      longitude: lng,
       latitudeDelta: 0.005,
       longitudeDelta: 0.005,
     };

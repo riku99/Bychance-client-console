@@ -3,8 +3,8 @@ import { View, StyleSheet, Alert, Linking } from "react-native";
 import { SocialIcon } from "react-native-elements";
 
 type Props = {
-  // instagram: string | null;
-  // twitter: string | null;
+  instagram: string | null;
+  twitter: string | null;
   iconWidth?: number;
   iconHeight?: number;
   iconSize?: number;
@@ -15,7 +15,13 @@ const notSupportedAlert = () => {
 };
 
 export const SocialIcons = React.memo(
-  ({ iconWidth = 30, iconHeight = 30, iconSize = 17 }: Props) => {
+  ({
+    instagram,
+    twitter,
+    iconWidth = 30,
+    iconHeight = 30,
+    iconSize = 17,
+  }: Props) => {
     const onPress = async (link: string) => {
       try {
         const supported = await Linking.canOpenURL(link);
@@ -32,23 +38,27 @@ export const SocialIcons = React.memo(
 
     return (
       <View style={styles.icons}>
-        <SocialIcon
-          type="instagram"
-          style={{
-            width: iconWidth,
-            height: iconHeight,
-            backgroundColor: "pink",
-          }}
-          iconSize={iconSize}
-          underlayColor="pink"
-          // onPress={() => onPress(instagram)}
-        />
-        <SocialIcon
-          type="twitter"
-          style={{ width: iconWidth, height: iconHeight }}
-          iconSize={iconSize}
-          // onPress={() => onPress(twitter)}
-        />
+        {instagram && (
+          <SocialIcon
+            type="instagram"
+            style={{
+              width: iconWidth,
+              height: iconHeight,
+              backgroundColor: "pink",
+            }}
+            iconSize={iconSize}
+            underlayColor="pink"
+            onPress={() => onPress(instagram)}
+          />
+        )}
+        {twitter && (
+          <SocialIcon
+            type="twitter"
+            style={{ width: iconWidth, height: iconHeight }}
+            iconSize={iconSize}
+            onPress={() => onPress(twitter)}
+          />
+        )}
       </View>
     );
   }
