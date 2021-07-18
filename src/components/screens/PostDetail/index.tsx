@@ -8,8 +8,6 @@ import { PostsParamList } from "~/navigations/Posts";
 export const Detail = React.memo(() => {
   const data = useRoute<RouteProp<PostsParamList, "detail">>();
 
-  console.log(data.params);
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>

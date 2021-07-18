@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   },
   createButton: {
     position: "absolute",
-    right: "10%",
-    bottom: "6%",
+    right: "5%",
+    bottom: "3%",
     height: 55,
     width: 55,
     justifyContent: "center",
