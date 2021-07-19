@@ -7,7 +7,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList, Recommendation } from "bychance-components";
+import { RecommendationList, Recommendation } from "bychance-components/src";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 
@@ -36,7 +36,7 @@ export const Posts = React.memo(
 
     return (
       <View style={styles.container}>
-        {data ? (
+        {data && !!data.length ? (
           <RecommendationList
             listData={data}
             onItemPress={onItemPress}
