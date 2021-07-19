@@ -1,47 +1,56 @@
 import React, { useCallback } from "react";
 import {
   ActivityIndicator,
-  SafeAreaView,
   Text,
   StyleSheet,
   View,
+  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RecommendationList, Recommendation } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
-import { useGetPosts } from "~/hooks/posts";
 
 type Props = {
   data?: Recommendation[];
   loading: boolean;
+  refreshing: boolean;
+  onRefresh: () => void;
 };
 
-export const Posts = React.memo(({ data, loading }: Props) => {
-  const navigation = useNavigation<PostsNavigationProp<"list">>();
+export const Posts = React.memo(
+  ({ data, loading, refreshing, onRefresh }: Props) => {
+    const navigation = useNavigation<PostsNavigationProp<"list">>();
 
-  const onItemPress = useCallback((data: Recommendation) => {
-    navigation.navigate("detail", data);
-  }, []);
+    const onItemPress = useCallback((data: Recommendation) => {
+      navigation.navigate("detail", data);
+    }, []);
 
-  if (loading) {
+    if (loading) {
+      return (
+        <ActivityIndicator
+          style={{ position: "absolute", alignSelf: "center", top: "50%" }}
+        />
+      );
+    }
+
     return (
-      <ActivityIndicator
-        style={{ position: "absolute", alignSelf: "center", top: "50%" }}
-      />
+      <View style={styles.container}>
+        {data ? (
+          <RecommendationList
+            listData={data}
+            onItemPress={onItemPress}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        ) : (
+          <Text>データが存在しません</Text>
+        )}
+      </View>
     );
   }
-
-  return (
-    <View style={styles.container}>
-      {data ? (
-        <RecommendationList listData={data} onItemPress={onItemPress} />
-      ) : (
-        <Text>データが存在しません</Text>
-      )}
-    </View>
-  );
-});
+);
 
 const styles = StyleSheet.create({
   container: {

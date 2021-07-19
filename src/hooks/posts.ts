@@ -78,51 +78,53 @@ export const useGetPosts = (type: "now" | "past" = "past") => {
   const [data, setData] = useState<Recommendation[]>();
   const [loading, setLoading] = useState(true);
 
+  const getData = useCallback(async () => {
+    const idToken = await getIdToken();
+
+    try {
+      const result = await axios.get<ApiRecommendation[]>(
+        type === "now"
+          ? `${baseUrl}/recommendations/client?type=now`
+          : `${baseUrl}/recommendations/client`,
+        addBearer(idToken)
+      );
+
+      const formated = result.data.map((r) => {
+        const { id, title, text, images, coupon, client } = r;
+        const imagesData = images.map((d) => d.url);
+
+        return {
+          id,
+          title,
+          text,
+          images: imagesData,
+          coupon,
+          name: client.name,
+          address: client.address,
+          lat: client.lat,
+          lng: client.lng,
+          instagram: client.instagram,
+          twitter: client.twitter,
+          url: client.url,
+          avatar: client.image,
+        };
+      });
+
+      setData(formated);
+    } catch (e) {
+      handleError(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    const get = async () => {
-      const idToken = await getIdToken();
-
-      try {
-        const result = await axios.get<ApiRecommendation[]>(
-          type === "now"
-            ? `${baseUrl}/recommendations/client?type=now`
-            : `${baseUrl}/recommendations/client`,
-          addBearer(idToken)
-        );
-
-        const formated = result.data.map((r) => {
-          const { id, title, text, images, coupon, client } = r;
-          const imagesData = images.map((d) => d.url);
-
-          return {
-            id,
-            title,
-            text,
-            images: imagesData,
-            coupon,
-            name: client.name,
-            address: client.address,
-            lat: client.lat,
-            lng: client.lng,
-            instagram: client.instagram,
-            twitter: client.twitter,
-            url: client.url,
-            avatar: client.image,
-          };
-        });
-
-        setData(formated);
-      } catch (e) {
-        handleError(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-    get();
+    getData();
   }, []);
 
   return {
     data,
     loading,
+    getData,
   };
 };
