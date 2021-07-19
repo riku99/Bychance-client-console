@@ -22,14 +22,14 @@ export const Posts = React.memo(() => {
       }}
     >
       <Tab.Screen
+        name="Now"
+        component={Now}
+        options={{ tabBarLabel: "表示中の投稿" }}
+      />
+      <Tab.Screen
         name="Past"
         component={Past}
         options={{ tabBarLabel: "過去の投稿" }}
-      />
-      <Tab.Screen
-        name="Now"
-        component={Now}
-        options={{ tabBarLabel: "現在表示されている投稿" }}
       />
     </Tab.Navigator>
   );
