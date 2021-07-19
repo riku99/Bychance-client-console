@@ -71,7 +71,7 @@ export const useCreatePost = () => {
   };
 };
 
-export const useGetPosts = () => {
+export const useGetPosts = (type: "now" | "past" = "past") => {
   const { getIdToken, handleError } = useApikit();
 
   const [data, setData] = useState<ApiRecommendation[]>();
@@ -83,7 +83,9 @@ export const useGetPosts = () => {
 
       try {
         const result = await axios.get<ApiRecommendation[]>(
-          `${baseUrl}/recommendations/client`,
+          type === "now"
+            ? `${baseUrl}/recommendations/client?type=now`
+            : `${baseUrl}/recommendations/client`,
           addBearer(idToken)
         );
 
