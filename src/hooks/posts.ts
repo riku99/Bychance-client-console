@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import fs from "react-native-fs";
 import { default as axios } from "axios";
+import { Recommendation } from "bychance-components";
 
 import { useApikit } from "./apikit";
 import { getExtention } from "~/utils";
@@ -74,7 +75,7 @@ export const useCreatePost = () => {
 export const useGetPosts = (type: "now" | "past" = "past") => {
   const { getIdToken, handleError } = useApikit();
 
-  const [data, setData] = useState<ApiRecommendation[]>();
+  const [data, setData] = useState<Recommendation[]>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -89,7 +90,28 @@ export const useGetPosts = (type: "now" | "past" = "past") => {
           addBearer(idToken)
         );
 
-        setData(result.data);
+        const formated = result.data.map((r) => {
+          const { id, title, text, images, coupon, client } = r;
+          const imagesData = images.map((d) => d.url);
+
+          return {
+            id,
+            title,
+            text,
+            images: imagesData,
+            coupon,
+            name: client.name,
+            address: client.address,
+            lat: client.lat,
+            lng: client.lng,
+            instagram: client.instagram,
+            twitter: client.twitter,
+            url: client.url,
+            avatar: client.image,
+          };
+        });
+
+        setData(formated);
       } catch (e) {
         handleError(e);
       } finally {
