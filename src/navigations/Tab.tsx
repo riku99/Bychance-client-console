@@ -34,7 +34,7 @@ export const Tabs = React.memo(() => {
           tabBarIcon: ({ color }) => (
             <Icon name="wysiwyg" size={27} color={color} />
           ),
-          tabBarLabel: "過去の投稿",
+          tabBarLabel: "投稿データ",
         }}
       />
       <Tab.Screen
