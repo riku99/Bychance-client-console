@@ -1,12 +1,16 @@
 import React, { useCallback, useMemo } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RecommendationList, Recommendation } from "bychance-components";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 import { useGetPosts } from "~/hooks/posts";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-elements";
+
+const Tab = createMaterialTopTabNavigator();
 
 export const Posts = React.memo(() => {
   const navigation = useNavigation<PostsNavigationProp<"list">>();
@@ -42,6 +46,20 @@ export const Posts = React.memo(() => {
     navigation.navigate("detail", data);
   }, []);
 
+  const Past = useCallback(() => {
+    return (
+      <View style={styles.container}>
+        {listData ? (
+          <RecommendationList listData={listData} onItemPress={onItemPress} />
+        ) : (
+          <Text>データが存在しません</Text>
+        )}
+      </View>
+    );
+  }, [listData, onItemPress]);
+
+  const { top } = useSafeAreaInsets();
+
   if (loading) {
     return (
       <ActivityIndicator
@@ -51,13 +69,10 @@ export const Posts = React.memo(() => {
   }
 
   return (
-    <View style={styles.container}>
-      {listData ? (
-        <RecommendationList listData={listData} onItemPress={onItemPress} />
-      ) : (
-        <Text>データが存在しません</Text>
-      )}
-    </View>
+    <Tab.Navigator style={{ marginTop: top }}>
+      <Tab.Screen name="Past" component={Past} />
+      <Tab.Screen name="Now" component={Past} />
+    </Tab.Navigator>
   );
 });
 
