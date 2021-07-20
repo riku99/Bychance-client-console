@@ -8,7 +8,7 @@ import { defaultTheme } from "~/styles";
 import { ToastLoading } from "~/components/utils/ToastLoading";
 
 export const Now = React.memo(() => {
-  const { data, loading, getData } = useGetPosts("now");
+  const { data, loading, getData, setData } = useGetPosts("now");
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -20,8 +20,15 @@ export const Now = React.memo(() => {
 
   const { hidePost, loading: hideLoading } = useHidePost();
 
-  const onHideButtonPress = (id: number) => {
-    hidePost({ id });
+  const onHideButtonPress = async (id: number) => {
+    const result = await hidePost({ id });
+    if (result) {
+      setData((c) => {
+        if (c) {
+          return c.filter((data) => data.id !== result);
+        }
+      });
+    }
   };
 
   return (

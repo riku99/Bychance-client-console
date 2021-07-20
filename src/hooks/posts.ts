@@ -127,12 +127,13 @@ export const useGetPosts = (type: "now" | "past" = "past") => {
     data,
     loading,
     getData,
+    setData,
   };
 };
 
 export const useHidePost = () => {
   const [loading, setLoading] = useState(false);
-  const { toast, getIdToken, handleError, navigation } = useApikit();
+  const { toast, getIdToken, handleError } = useApikit();
 
   const hidePost = useCallback(
     async ({ id }: { id: number }) => {
@@ -147,6 +148,7 @@ export const useHidePost = () => {
         );
 
         toast.show("非表示にしました", { type: "success" });
+        return id;
       } catch (e) {
         handleError(e);
       } finally {
