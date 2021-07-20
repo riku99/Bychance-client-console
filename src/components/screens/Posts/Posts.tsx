@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   RefreshControl,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RecommendationList, Recommendation } from "bychance-components/src";
@@ -45,7 +46,14 @@ export const Posts = React.memo(
             }
           />
         ) : (
-          <Text>データが存在しません</Text>
+          <ScrollView
+            style={{ marginTop: 50 }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
+            <Text style={{ marginTop: 20 }}>データが存在しません</Text>
+          </ScrollView>
         )}
       </View>
     );
