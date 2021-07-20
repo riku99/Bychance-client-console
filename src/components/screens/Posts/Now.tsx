@@ -2,8 +2,9 @@ import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 
-import { useGetPosts } from "~/hooks/posts";
+import { useGetPosts, useHidePost } from "~/hooks/posts";
 import { Posts } from "./Posts";
+import { defaultTheme } from "~/styles";
 
 export const Now = React.memo(() => {
   const { data, loading, getData } = useGetPosts("now");
@@ -15,6 +16,12 @@ export const Now = React.memo(() => {
     await getData();
     setRefreshing(false);
   }, []);
+
+  const { hidePost, loading: hideLoading } = useHidePost();
+
+  const onHideButtonPress = (id: number) => {
+    hidePost({ id });
+  };
 
   return (
     <View style={{ width: "100%", height: "100%", backgroundColor: "white" }}>
@@ -28,7 +35,13 @@ export const Now = React.memo(() => {
         />
       </View>
       {!loading && !!data?.length && (
-        <Button title="非表示にする" buttonStyle={styles.button} />
+        <Button
+          title="非表示にする"
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+          activeOpacity={1}
+          onPress={() => onHideButtonPress(data[0].id)}
+        />
       )}
     </View>
   );
@@ -43,5 +56,9 @@ const styles = StyleSheet.create({
   button: {
     width: "80%",
     alignSelf: "center",
+    backgroundColor: defaultTheme.mainColor,
+  },
+  buttonTitle: {
+    fontWeight: "bold",
   },
 });

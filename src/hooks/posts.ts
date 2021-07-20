@@ -8,6 +8,7 @@ import { getExtention } from "~/utils";
 import { baseUrl } from "~/constants";
 import { addBearer } from "~/helpers/api";
 import { ApiRecommendation } from "types";
+import { id } from "date-fns/locale";
 
 type CreateRecommendation = {
   title: string;
@@ -126,5 +127,37 @@ export const useGetPosts = (type: "now" | "past" = "past") => {
     data,
     loading,
     getData,
+  };
+};
+
+export const useHidePost = () => {
+  const [loading, setLoading] = useState(false);
+  const { toast, getIdToken, handleError, navigation } = useApikit();
+
+  const hidePost = useCallback(
+    async ({ id }: { id: number }) => {
+      setLoading(true);
+
+      const idToken = await getIdToken();
+
+      try {
+        await axios.get(
+          `${baseUrl}/recommendations/hide/${id}`,
+          addBearer(idToken)
+        );
+
+        toast.show("非表示にしました", { type: "success" });
+      } catch (e) {
+        handleError(e);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [id]
+  );
+
+  return {
+    loading,
+    hidePost,
   };
 };
