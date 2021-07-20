@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList, Recommendation } from "bychance-components/src";
+import { RecommendationList, Recommendation } from "bychance-components";
 
 import { PostsNavigationProp } from "~/navigations/Posts";
 

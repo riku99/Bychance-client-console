@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { Button } from "react-native-elements";
 
 import { useGetPosts, useHidePost } from "~/hooks/posts";
@@ -21,14 +21,29 @@ export const Now = React.memo(() => {
   const { hidePost, loading: hideLoading } = useHidePost();
 
   const onHideButtonPress = async (id: number) => {
-    const result = await hidePost({ id });
-    if (result) {
-      setData((c) => {
-        if (c) {
-          return c.filter((data) => data.id !== result);
-        }
-      });
-    }
+    Alert.alert(
+      "この投稿を非表示にしますか?",
+      "ユーザーにこの投稿が表示されなくなります。再度表示させることはできません",
+      [
+        {
+          text: "非表示にする",
+          style: "destructive",
+          onPress: async () => {
+            const result = await hidePost({ id });
+            if (result) {
+              setData((c) => {
+                if (c) {
+                  return c.filter((data) => data.id !== result);
+                }
+              });
+            }
+          },
+        },
+        {
+          text: "キャンセル",
+        },
+      ]
+    );
   };
 
   return (
