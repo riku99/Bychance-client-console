@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/stack";
 import { Recommendation } from "bychance-components";
 
-import { Posts } from "~/components/screens/Posts";
+import { PostData } from "~/components/screens/PostData";
 import { Detail } from "~/components/screens/PostDetail";
 
 export type PostsParamList = {
@@ -18,12 +18,12 @@ export type PostsNavigationProp<T extends keyof PostsParamList> =
 
 const Stack = createStackNavigator<PostsParamList>();
 
-export const PostsStackScreen = React.memo(() => {
+export const PostDataStackScreen = React.memo(() => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="list"
-        component={Posts}
+        component={PostData}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet } from "react-native";
 import { RecommendationDetail } from "bychance-components/src";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
-import { PostsParamList } from "~/navigations/Posts";
+import { PostsParamList } from "~/navigations/PostData";
 
 export const Detail = React.memo(() => {
   const data = useRoute<RouteProp<PostsParamList, "detail">>();

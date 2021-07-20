@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { defaultTheme } from "~/styles";
 import { HomeStackScreen } from "./Home";
-import { PostsStackScreen } from "./Posts";
+import { PostDataStackScreen } from "./PostData";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +29,7 @@ export const Tabs = React.memo(() => {
       /> */}
       <Tab.Screen
         name="posts"
-        component={PostsStackScreen}
+        component={PostDataStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="wysiwyg" size={27} color={color} />

@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { Text, Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -97,7 +97,7 @@ export const Post = React.memo(() => {
         <View style={styles.endTimeContainer}>
           <Text style={styles.title}>表示終了日時</Text>
           <Text style={styles.title}>
-            ※指定しない場合は削除するまで表示され続けます
+            ※指定しない場合は非表示にするまで表示され続けます
           </Text>
           <View style={styles.endTime}>
             {endTime ? (

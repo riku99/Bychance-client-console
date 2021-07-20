@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,7 +8,7 @@ import { Now } from "./Now";
 
 const Tab = createMaterialTopTabNavigator();
 
-export const Posts = React.memo(() => {
+export const PostData = React.memo(() => {
   const { top } = useSafeAreaInsets();
 
   return (
@@ -33,14 +32,4 @@ export const Posts = React.memo(() => {
       />
     </Tab.Navigator>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
 });

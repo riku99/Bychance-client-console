@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 
 import { useGetPosts, useHidePost } from "~/hooks/posts";
@@ -47,25 +47,27 @@ export const Now = React.memo(() => {
   };
 
   return (
-    <View style={{ width: "100%", height: "100%", backgroundColor: "white" }}>
+    <View
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "white",
+        paddingHorizontal: 10,
+      }}
+    >
       <Text style={styles.t}>現在ユーザーに表示されている投稿です</Text>
-      <View style={{ height: 430 }}>
-        <Posts
-          data={data}
-          loading={loading}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      </View>
-      {!loading && !!data?.length && (
-        <Button
-          title="非表示にする"
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonTitle}
-          activeOpacity={1}
-          onPress={() => onHideButtonPress(data[0].id)}
-        />
-      )}
+      <ScrollView contentContainerStyle={{ marginTop: 20, paddingBottom: 30 }}>
+        <Posts data={data} loading={loading} type="now" />
+        {!loading && !!data?.length && (
+          <Button
+            title="非表示にする"
+            buttonStyle={styles.button}
+            titleStyle={styles.buttonTitle}
+            activeOpacity={1}
+            onPress={() => onHideButtonPress(data[0].id)}
+          />
+        )}
+      </ScrollView>
       {hideLoading && <ToastLoading />}
     </View>
   );
@@ -81,6 +83,7 @@ const styles = StyleSheet.create({
     width: "80%",
     alignSelf: "center",
     backgroundColor: defaultTheme.mainColor,
+    marginTop: 20,
   },
   buttonTitle: {
     fontWeight: "bold",

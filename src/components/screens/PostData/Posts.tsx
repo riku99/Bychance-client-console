@@ -8,19 +8,24 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RecommendationList, Recommendation } from "bychance-components";
+import {
+  RecommendationList,
+  Recommendation,
+  RecommendationItem,
+} from "bychance-components";
 
-import { PostsNavigationProp } from "~/navigations/Posts";
+import { PostsNavigationProp } from "~/navigations/PostData";
 
 type Props = {
   data?: Recommendation[];
   loading: boolean;
-  refreshing: boolean;
-  onRefresh: () => void;
+  refreshing?: boolean;
+  onRefresh?: () => void;
+  type?: "now" | "past";
 };
 
 export const Posts = React.memo(
-  ({ data, loading, refreshing, onRefresh }: Props) => {
+  ({ data, loading, refreshing, onRefresh, type = "past" }: Props) => {
     const navigation = useNavigation<PostsNavigationProp<"list">>();
 
     const onItemPress = useCallback((data: Recommendation) => {
@@ -38,18 +43,28 @@ export const Posts = React.memo(
     return (
       <View style={styles.container}>
         {data && !!data.length ? (
-          <RecommendationList
-            listData={data}
-            onItemPress={onItemPress}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          />
+          type === "now" ? (
+            <RecommendationItem
+              onItemPress={() => onItemPress(data[0])}
+              item={data[0]}
+            />
+          ) : (
+            <RecommendationList
+              listData={data}
+              onItemPress={onItemPress}
+              refreshControl={
+                <RefreshControl
+                  refreshing={!!refreshing}
+                  onRefresh={onRefresh}
+                />
+              }
+            />
+          )
         ) : (
           <ScrollView
             style={{ marginTop: 50 }}
             refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              <RefreshControl refreshing={!!refreshing} onRefresh={onRefresh} />
             }
           >
             <Text style={{ marginTop: 20 }}>データが存在しません</Text>
@@ -62,9 +77,8 @@ export const Posts = React.memo(
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    // height: "100%",
     width: "100%",
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
   },
