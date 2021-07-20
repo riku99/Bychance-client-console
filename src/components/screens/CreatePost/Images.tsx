@@ -57,7 +57,7 @@ export const Images = React.memo(({ images, setImages }: Props) => {
     <View style={styles.container}>
       <Text style={{ color: "gray" }}>最低1枚、最大4枚まで選択可能です</Text>
       <Text style={{ color: "gray" }}>
-        画像は3:4(縦:横)の比率に調整されます
+        画像は2:3(縦:横)の比率に調整されます
       </Text>
       <View style={styles.images}>{showList()}</View>
     </View>

@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Text, Button } from "react-native-elements";
+import { Text, Button, Input } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -40,7 +40,12 @@ export const Post = React.memo(() => {
           <Images images={images} setImages={setImages} />
         </View>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>タイトル</Text>
+          <Text style={styles.title}>
+            タイトル{"  "}
+            {title.length > 35 && (
+              <Text style={{ color: "red" }}>35文字以下で入力してください</Text>
+            )}
+          </Text>
           <TextInput
             style={styles.titleInput}
             onChangeText={(t) => setTitle(t)}
@@ -129,7 +134,7 @@ export const Post = React.memo(() => {
           titleStyle={{ fontWeight: "bold" }}
           activeOpacity={1}
           onPress={onPostButtonPress}
-          disabled={!title || !images.length}
+          disabled={!title || title.length > 35 || !images.length}
         />
       </ScrollView>
       <DateTimePickerModal

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { RecommendationDetail } from "bychance-components";
+import { RecommendationDetail } from "bychance-components/src";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
 import { PostsParamList } from "~/navigations/Posts";
