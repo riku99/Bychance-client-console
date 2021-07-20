@@ -1,5 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import { Button } from "react-native-elements";
 
 import { useGetPosts, useHidePost } from "~/hooks/posts";
@@ -56,7 +63,12 @@ export const Now = React.memo(() => {
       }}
     >
       <Text style={styles.t}>現在ユーザーに表示されている投稿です</Text>
-      <ScrollView contentContainerStyle={{ marginTop: 20, paddingBottom: 30 }}>
+      <ScrollView
+        contentContainerStyle={{ marginTop: 20, paddingBottom: 30 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Posts data={data} loading={loading} type="now" />
         {!loading && !!data?.length && (
           <Button
