@@ -124,7 +124,7 @@ export const Post = React.memo(() => {
         </View>
         <Button
           title="掲載する"
-          containerStyle={{ marginTop: 40 }}
+          containerStyle={{ marginTop: 40, paddingBottom: 20 }}
           buttonStyle={{ backgroundColor: defaultTheme.mainColor }}
           titleStyle={{ fontWeight: "bold" }}
           activeOpacity={1}
