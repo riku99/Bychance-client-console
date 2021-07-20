@@ -5,6 +5,7 @@ import { Button } from "react-native-elements";
 import { useGetPosts, useHidePost } from "~/hooks/posts";
 import { Posts } from "./Posts";
 import { defaultTheme } from "~/styles";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 export const Now = React.memo(() => {
   const { data, loading, getData } = useGetPosts("now");
@@ -43,6 +44,7 @@ export const Now = React.memo(() => {
           onPress={() => onHideButtonPress(data[0].id)}
         />
       )}
+      {hideLoading && <ToastLoading />}
     </View>
   );
 });
