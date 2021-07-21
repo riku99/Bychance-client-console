@@ -1,15 +1,30 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 import { defaultTheme } from "~/styles";
 import { MainNavigationProp } from "~/navigations/Main";
+import { RootState } from "~/stores";
 
 export const CreateButton = React.memo(() => {
   const navigation = useNavigation<MainNavigationProp<"Tab">>();
 
+  const name = useSelector((state: RootState) => state.usersReducer.user?.name);
+  const address = useSelector(
+    (state: RootState) => state.usersReducer.user?.address
+  );
+  const position = useSelector((state: RootState) => {
+    const { lat, lng } = state.usersReducer.user!;
+    return lat && lng;
+  });
+
   const onPress = () => {
+    if (!name || !address || !position) {
+      Alert.alert("名前、住所が未設定です", "名前、住所を設定してください");
+      return;
+    }
     navigation.navigate("Post");
   };
 
