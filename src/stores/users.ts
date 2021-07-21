@@ -11,6 +11,7 @@ export type User = {
   twitter?: string | null;
   url?: string | null;
   enablePushNotification?: boolean;
+  showedPostModal?: boolean;
 };
 
 type InitialState = {

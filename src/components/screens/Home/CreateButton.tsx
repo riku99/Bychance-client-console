@@ -23,10 +23,14 @@ export const CreateButton = React.memo(({ setModalVisible }: Props) => {
     const { lat, lng } = state.usersReducer.user!;
     return lat && lng;
   });
+  const showedModal = useSelector(
+    (state: RootState) => state.usersReducer.user?.showedPostModal
+  );
 
   const onPress = () => {
-    setModalVisible(true);
-    return;
+    if (!showedModal) {
+      setModalVisible(true);
+    }
     if (!name || !address || !position) {
       Alert.alert("名前、住所が未設定です", "名前、住所を設定してください");
       return;
