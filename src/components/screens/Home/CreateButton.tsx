@@ -8,7 +8,11 @@ import { defaultTheme } from "~/styles";
 import { MainNavigationProp } from "~/navigations/Main";
 import { RootState } from "~/stores";
 
-export const CreateButton = React.memo(() => {
+type Props = {
+  setModalVisible: (b: boolean) => void;
+};
+
+export const CreateButton = React.memo(({ setModalVisible }: Props) => {
   const navigation = useNavigation<MainNavigationProp<"Tab">>();
 
   const name = useSelector((state: RootState) => state.usersReducer.user?.name);
@@ -21,6 +25,8 @@ export const CreateButton = React.memo(() => {
   });
 
   const onPress = () => {
+    setModalVisible(true);
+    return;
     if (!name || !address || !position) {
       Alert.alert("名前、住所が未設定です", "名前、住所を設定してください");
       return;

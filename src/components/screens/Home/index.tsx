@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { Profile } from "./Profile";
 import { CreateButton } from "./CreateButton";
+import { CrateAlertModal } from "./CreateAlertModal";
 
 export const Home = React.memo(() => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Profile />
       </View>
       <View style={styles.createButton}>
-        <CreateButton />
+        <CreateButton setModalVisible={setModalVisible} />
       </View>
+      <CrateAlertModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </View>
   );
 });
