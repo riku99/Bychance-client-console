@@ -30,9 +30,16 @@ const usersSlice = createSlice({
       ...state,
       user: action.payload,
     }),
+    setShowdPostModal: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      user: {
+        ...state.user!,
+        showedPostModal: action.payload,
+      },
+    }),
   },
 });
 
 export const usersReducer = usersSlice.reducer;
 
-export const { setUser } = usersSlice.actions;
+export const { setUser, setShowdPostModal } = usersSlice.actions;

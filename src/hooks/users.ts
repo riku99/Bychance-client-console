@@ -9,7 +9,8 @@ import { useHandleApiErrors } from "./errors";
 import { useCustomDispatch } from "./stores";
 import { addBearer } from "~/helpers/api";
 import { baseUrl } from "~/constants";
-import { setUser, User } from "~/stores/users";
+import { setUser, User, setShowdPostModal } from "~/stores/users";
+import { useApikit } from "./apikit";
 
 type UserEdit = Pick<
   User,
@@ -87,5 +88,26 @@ export const useEditUser = () => {
   return {
     editUser,
     isLoading,
+  };
+};
+
+export const useChangeShowedPostModal = () => {
+  const { getIdToken, dispatch } = useApikit();
+
+  const change = useCallback(async () => {
+    const token = await getIdToken();
+    try {
+      await axios.patch(
+        `${baseUrl}/recommendationClients/showedPostModal`,
+        {},
+        addBearer(token)
+      );
+
+      dispatch(setShowdPostModal(true));
+    } catch (e) {}
+  }, []);
+
+  return {
+    change,
   };
 };

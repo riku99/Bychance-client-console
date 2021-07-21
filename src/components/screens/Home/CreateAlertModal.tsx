@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import Modal from "react-native-modal";
 
 import { defaultTheme } from "~/styles";
+import { useChangeShowedPostModal } from "~/hooks/users";
 
 type Props = {
   modalVisible: boolean;
@@ -11,6 +12,13 @@ type Props = {
 
 export const CrateAlertModal = React.memo(
   ({ modalVisible, setModalVisible }: Props) => {
+    const { change } = useChangeShowedPostModal();
+
+    const onCloseButtonPress = () => {
+      setModalVisible(false);
+      change();
+    };
+
     return (
       <Modal isVisible={modalVisible}>
         <View style={styles.modalContainer}>
@@ -21,10 +29,7 @@ export const CrateAlertModal = React.memo(
               タブの「投稿データ」から非表示にして新しく投稿してください。{"\n"}
               この注意は今後表示されません。
             </Text>
-            <Pressable
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
+            <Pressable style={styles.closeButton} onPress={onCloseButtonPress}>
               <Text style={styles.closeButtonTitle}>閉じる</Text>
             </Pressable>
           </View>
