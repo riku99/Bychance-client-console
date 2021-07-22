@@ -4,6 +4,8 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
+import { Settings } from "~/components/screens/Settings";
+
 type SettingsPatamList = {
   main: undefined;
 };
@@ -18,7 +20,7 @@ export const SettingsStackScreen = React.memo(() => {
     <Stack.Navigator>
       <Stack.Screen
         name="main"
-        component={() => null}
+        component={Settings}
         options={{ headerTitle: "設定" }}
       />
     </Stack.Navigator>
