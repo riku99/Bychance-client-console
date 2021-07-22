@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { defaultTheme } from "~/styles";
 import { HomeStackScreen } from "./Home";
 import { PostDataStackScreen } from "./PostData";
+import { SettingsStackScreen } from "./Setting";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,16 +18,16 @@ export const Tabs = React.memo(() => {
         activeTintColor: defaultTheme.mainColor,
       }}
     >
-      {/* <Tab.Screen
+      <Tab.Screen
         name="setting"
-        component={() => null}
+        component={SettingsStackScreen}
         options={{
           tabBarLabel: "設定",
           tabBarIcon: ({ color }) => (
             <Icon name="settings" size={27} color={color} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="posts"
         component={PostDataStackScreen}

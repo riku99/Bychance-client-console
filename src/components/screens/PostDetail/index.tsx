@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { RecommendationDetail } from "bychance-components/src";
+import { RecommendationDetail } from "bychance-components";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
 import { PostsParamList } from "~/navigations/PostData";
@@ -10,9 +10,7 @@ export const Detail = React.memo(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
-        <RecommendationDetail data={data.params} />
-      </ScrollView>
+      <RecommendationDetail data={data.params} />
     </View>
   );
 });
