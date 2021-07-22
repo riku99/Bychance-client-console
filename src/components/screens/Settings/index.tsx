@@ -1,13 +1,19 @@
 import React, { useMemo } from "react";
-import { View, StyleSheet } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
+import { View, StyleSheet, Alert } from "react-native";
+import { ListItem } from "react-native-elements";
+
+import { useLogout } from "~/hooks/auth";
 
 export const Settings = React.memo(() => {
+  const { logout } = useLogout();
+
   const list = useMemo(() => {
     return [
       {
         title: "ログアウト",
-        color: "red",
+        onPress: () => {
+          logout();
+        },
         style: { color: "red" },
       },
     ];
@@ -16,7 +22,7 @@ export const Settings = React.memo(() => {
     <View style={styles.container}>
       <View style={styles.contents}>
         {list.map((l, i) => (
-          <ListItem key={i} bottomDivider>
+          <ListItem key={i} bottomDivider onPress={l.onPress}>
             <ListItem.Content>
               <ListItem.Title style={l.style}>{l.title}</ListItem.Title>
             </ListItem.Content>

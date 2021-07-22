@@ -10,6 +10,7 @@ import { baseUrl } from "~/constants";
 import { addBearer } from "~/helpers/api";
 import { useHandleApiErrors } from "./errors";
 import { setUser, User } from "~/stores/users";
+import { useApikit } from "./apikit";
 
 export const useSessionLogin = () => {
   const { handleError } = useHandleApiErrors();
@@ -144,5 +145,37 @@ export const useIdToken = () => {
 
   return {
     getIdToken,
+  };
+};
+
+export const useLogout = () => {
+  const { toast, dispatch } = useApikit();
+  const logout = useCallback(() => {
+    Alert.alert(
+      "ログアウトしますか?",
+      "表示中の投稿がある場合はそのまま表示され続けます",
+      [
+        {
+          text: "ログアウト",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await auth().signOut();
+              dispatch(setLogin(false));
+              dispatch(setUser(undefined));
+            } catch (e) {
+              toast.show("何らかのエラーが発生しました", { type: "danger" });
+            }
+          },
+        },
+        {
+          text: "キャンセル",
+        },
+      ]
+    );
+  }, []);
+
+  return {
+    logout,
   };
 };
