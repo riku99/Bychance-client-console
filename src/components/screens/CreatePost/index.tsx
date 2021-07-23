@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { Text, Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -41,18 +42,28 @@ export const Post = React.memo(() => {
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
-            タイトル{"  "}
-            {title.length > 35 && (
-              <Text style={{ color: "red" }}>35文字以下で入力してください</Text>
-            )}
+            タイトル{"    "}
+            <Pressable onPress={() => console.log("ok")}>
+              <Text style={styles.exapmleTitle}>タイトルの例</Text>
+            </Pressable>
           </Text>
+          {title.length > 35 && (
+            <Text style={{ color: "red", marginTop: 5 }}>
+              35文字以下で入力してください
+            </Text>
+          )}
           <TextInput
             style={styles.titleInput}
             onChangeText={(t) => setTitle(t)}
           />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>本文</Text>
+          <Text style={styles.title}>
+            本文{"    "}
+            <Pressable onPress={() => console.log("ok")}>
+              <Text style={styles.exapmleTitle}>本文の例</Text>
+            </Pressable>
+          </Text>
           <TextInput
             style={styles.textInput}
             multiline={true}
@@ -60,7 +71,12 @@ export const Post = React.memo(() => {
           />
         </View>
         <View style={styles.couponContainer}>
-          <Text style={styles.title}>クーポンの有無</Text>
+          <Text style={styles.title}>
+            クーポンの有無　{"  "}
+            <Pressable onPress={() => console.log("ok")}>
+              <Text style={styles.exapmleTitle}>クーポンの有無とは?</Text>
+            </Pressable>
+          </Text>
           <View style={styles.couponSelect}>
             <Button
               title="あり"
@@ -223,5 +239,9 @@ const styles = StyleSheet.create({
   et: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  exapmleTitle: {
+    color: defaultTheme.linkColor,
+    textDecorationLine: "underline",
   },
 });
