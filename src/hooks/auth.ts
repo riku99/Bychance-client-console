@@ -49,8 +49,12 @@ export const useSignup = () => {
 
   const dispatch = useCustomDispatch();
 
+  const [isLoading, setIsloading] = useState(false);
+
   const createUser = useCallback(
     async (email: string, password: string, name: string) => {
+      setIsloading(true);
+
       try {
         const { user: firebaseUser } =
           await auth().createUserWithEmailAndPassword(email, password);
@@ -63,12 +67,15 @@ export const useSignup = () => {
             addBearer(idToken)
           );
 
+          setIsloading(false);
           dispatch(setUser(result.data));
           dispatch(setLogin(true));
         } catch (e) {
           handleError(e);
+          setIsloading(false);
         }
       } catch (error) {
+        setIsloading(false);
         if (error.code === "auth/email-already-in-use") {
           toast.show("メールアドレスは既に使用されています", {
             type: "danger",
@@ -94,6 +101,7 @@ export const useSignup = () => {
 
   return {
     createUser,
+    isLoading,
   };
 };
 

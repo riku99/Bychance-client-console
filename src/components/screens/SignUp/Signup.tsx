@@ -11,9 +11,10 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
 import { useSignup } from "~/hooks/auth";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 export const Signup = React.memo(() => {
-  const { createUser } = useSignup();
+  const { createUser, isLoading } = useSignup();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,33 +33,36 @@ export const Signup = React.memo(() => {
   }, [email, password, name]);
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <View style={styles.formContainer}>
-            <EmailForm setInputText={setEmail} input={email} />
+    <>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <View style={styles.formContainer}>
+              <EmailForm setInputText={setEmail} input={email} />
+            </View>
+            <View style={styles.formContainer}>
+              <PasswordForm setInputText={setPassword} input={password} />
+            </View>
+            <View style={styles.formContainer}>
+              <Input
+                placeholder="名前"
+                leftIcon={<Icon name="account-box" size={20} color="gray" />}
+                onChangeText={setName}
+                errorMessage={!name ? "入力してください" : undefined}
+              />
+            </View>
           </View>
-          <View style={styles.formContainer}>
-            <PasswordForm setInputText={setPassword} input={password} />
-          </View>
-          <View style={styles.formContainer}>
-            <Input
-              placeholder="名前"
-              leftIcon={<Icon name="account-box" size={20} color="gray" />}
-              onChangeText={setName}
-              errorMessage={!name ? "入力してください" : undefined}
-            />
-          </View>
+          <Button
+            title="登録する"
+            titleStyle={styles.buttonTitle}
+            containerStyle={styles.buttonContainer}
+            onPress={onRegisterButtonPress}
+            disabled={error}
+          />
         </View>
-        <Button
-          title="登録する"
-          titleStyle={styles.buttonTitle}
-          containerStyle={styles.buttonContainer}
-          onPress={onRegisterButtonPress}
-          disabled={error}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+      {isLoading && <ToastLoading />}
+    </>
   );
 });
 

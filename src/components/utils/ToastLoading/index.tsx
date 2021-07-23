@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
+    transform: [{ translateY: -30 }], // もしかしたら消すかも
   },
 });
