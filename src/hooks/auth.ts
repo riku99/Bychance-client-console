@@ -102,7 +102,10 @@ export const useSignin = () => {
 
   const dispatch = useCustomDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const signin = useCallback(async (email: string, password: string) => {
+    setIsLoading(true);
     try {
       const { user: firebaseUser } = await auth().signInWithEmailAndPassword(
         email,
@@ -117,18 +120,24 @@ export const useSignin = () => {
           addBearer(idToken)
         );
 
+        setIsLoading(false);
         dispatch(setUser(result.data));
         dispatch(setLogin(true));
       } catch (e) {
         handleError(e);
+      } finally {
+        setIsLoading(false);
       }
     } catch (e) {
       Alert.alert("エラー", "メールアドレスまたはパスワードが間違っています");
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
   return {
     signin,
+    isLoading,
   };
 };
 

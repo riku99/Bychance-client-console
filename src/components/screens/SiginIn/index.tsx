@@ -5,12 +5,13 @@ import { Button } from "react-native-elements";
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
 import { useSignin } from "~/hooks/auth";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 export const Signin = React.memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signin } = useSignin();
+  const { signin, isLoading } = useSignin();
 
   const onLoginButtonPress = () => {
     signin(email, password);
@@ -34,6 +35,7 @@ export const Signin = React.memo(() => {
         onPress={onLoginButtonPress}
         activeOpacity={1}
       />
+      {isLoading && <ToastLoading />}
     </View>
   );
 });
