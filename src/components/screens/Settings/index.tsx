@@ -3,9 +3,10 @@ import { View, StyleSheet, Alert } from "react-native";
 import { ListItem } from "react-native-elements";
 
 import { useLogout } from "~/hooks/auth";
+import { ToastLoading } from "~/components/utils/ToastLoading";
 
 export const Settings = React.memo(() => {
-  const { logout } = useLogout();
+  const { logout, isLoading } = useLogout();
 
   const list = useMemo(() => {
     return [
@@ -29,6 +30,7 @@ export const Settings = React.memo(() => {
           </ListItem>
         ))}
       </View>
+      {isLoading && <ToastLoading />}
     </View>
   );
 });

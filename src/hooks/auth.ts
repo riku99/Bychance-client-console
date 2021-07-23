@@ -159,6 +159,8 @@ export const useIdToken = () => {
 
 export const useLogout = () => {
   const { toast, dispatch } = useApikit();
+  const [isLoading, setIsloading] = useState(false);
+
   const logout = useCallback(() => {
     Alert.alert(
       "ログアウトしますか?",
@@ -168,12 +170,16 @@ export const useLogout = () => {
           text: "ログアウト",
           style: "destructive",
           onPress: async () => {
+            setIsloading(true);
             try {
               await auth().signOut();
+
+              setIsloading(false);
               dispatch(setLogin(false));
               dispatch(setUser(undefined));
             } catch (e) {
               toast.show("何らかのエラーが発生しました", { type: "danger" });
+              setIsloading(false);
             }
           },
         },
@@ -186,5 +192,6 @@ export const useLogout = () => {
 
   return {
     logout,
+    isLoading,
   };
 };
