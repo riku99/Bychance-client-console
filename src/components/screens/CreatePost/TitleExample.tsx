@@ -1,8 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
-import Modal from "react-native-modal";
+import { StyleSheet, View, Text } from "react-native";
 
-import { defaultTheme } from "~/styles";
 import { CustomModal } from "~/components/utils/CustomModal";
 
 type Props = {
@@ -29,11 +27,6 @@ export const TitleExample = React.memo(({ isVisible, setIsVisible }: Props) => (
 ));
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   contents: {
     backgroundColor: "white",
     width: "90%",
