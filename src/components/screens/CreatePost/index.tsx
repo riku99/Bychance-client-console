@@ -18,6 +18,7 @@ import { useCreatePost } from "~/hooks/posts";
 import { ToastLoading } from "~/components/utils/ToastLoading";
 import { TitleExample } from "./TitleExample";
 import { TextExample } from "./TextExample";
+import { CouponDesc } from "./CouponDesc";
 
 Icon.loadFont();
 
@@ -31,6 +32,7 @@ export const Post = React.memo(() => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [titleExVisible, setTitleExVisible] = useState(false);
   const [textExvisible, setTextExVisible] = useState(false);
+  const [couponDescVisible, setCouponDescVisible] = useState(false);
 
   const { createPost, loading } = useCreatePost();
 
@@ -77,7 +79,7 @@ export const Post = React.memo(() => {
         <View style={styles.couponContainer}>
           <Text style={styles.title}>
             クーポンの有無　{"  "}
-            <Pressable onPress={() => console.log("ok")}>
+            <Pressable onPress={() => setCouponDescVisible(true)}>
               <Text style={styles.exapmleTitle}>クーポンの有無とは?</Text>
             </Pressable>
           </Text>
@@ -174,6 +176,10 @@ export const Post = React.memo(() => {
         setIsVisible={setTitleExVisible}
       />
       <TextExample isVisible={textExvisible} setIsVisible={setTextExVisible} />
+      <CouponDesc
+        isVisible={couponDescVisible}
+        setIsVisible={setCouponDescVisible}
+      />
       {loading && <ToastLoading />}
     </View>
   );

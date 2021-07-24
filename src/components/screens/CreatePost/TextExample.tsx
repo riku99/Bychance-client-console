@@ -12,8 +12,10 @@ export const TextExample = React.memo(({ isVisible, setIsVisible }: Props) => (
   <CustomModal isVisible={isVisible} setIsVisible={setIsVisible}>
     <View style={styles.contents}>
       <Text>
-        最近できた美味しいラテが自慢のカフェです!☕️
-        最近暑いのでアイスで飲んでいかれる方が多いです☺️{"\n"}
+        最近できた美味しいラテが自慢のカフェです!
+        {"\n"}
+        最近暑いのでアイスで飲んでいかれる方が多いです☺️
+        {"\n"}
         当店のオススメは抹茶ラテのアイスとオリジナルドーナッツの組み合わせです!!
         {"\n"}
         ぜひ立ち寄ってみてください😊
