@@ -16,6 +16,7 @@ import { Images } from "./Images";
 import { defaultTheme } from "~/styles";
 import { useCreatePost } from "~/hooks/posts";
 import { ToastLoading } from "~/components/utils/ToastLoading";
+import { TitleExample } from "./TitleExample";
 
 Icon.loadFont();
 
@@ -27,6 +28,7 @@ export const Post = React.memo(() => {
   const [endTime, setEndTime] = useState<Date>();
 
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [titleExVisible, setTitleExVisible] = useState(false);
 
   const { createPost, loading } = useCreatePost();
 
@@ -43,7 +45,7 @@ export const Post = React.memo(() => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
             タイトル{"    "}
-            <Pressable onPress={() => console.log("ok")}>
+            <Pressable onPress={() => setTitleExVisible(true)}>
               <Text style={styles.exapmleTitle}>タイトルの例</Text>
             </Pressable>
           </Text>
@@ -164,6 +166,10 @@ export const Post = React.memo(() => {
           setDatePickerVisible(false);
         }}
         onCancel={() => setDatePickerVisible(false)}
+      />
+      <TitleExample
+        isVisible={titleExVisible}
+        setIsVisible={setTitleExVisible}
       />
       {loading && <ToastLoading />}
     </View>
