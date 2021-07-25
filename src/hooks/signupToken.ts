@@ -45,7 +45,7 @@ export const useCreateSignupToken = () => {
         addBearer(idToken)
       );
 
-      return result;
+      return result.data;
     } catch (e) {
       handleError(e);
     } finally {
