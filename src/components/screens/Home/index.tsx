@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 import { Profile } from "./Profile";
 import { CreateButton } from "./CreateButton";
 import { CrateAlertModal } from "./CreateAlertModal";
 import { TokenButton } from "./TokenButton";
+import { RootState } from "~/stores";
 
 export const Home = React.memo(() => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const admin = useSelector(
+    (state: RootState) => state.usersReducer!.user?.admin
+  );
 
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Profile />
       </View>
-      <View style={styles.tokenButtonContaienr}>
-        <TokenButton />
-      </View>
+      {admin && (
+        <View style={styles.tokenButtonContaienr}>
+          <TokenButton />
+        </View>
+      )}
       <View style={styles.createButton}>
         <CreateButton setModalVisible={setModalVisible} />
       </View>
