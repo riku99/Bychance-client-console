@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { Profile } from "./Profile";
 import { CreateButton } from "./CreateButton";
 import { CrateAlertModal } from "./CreateAlertModal";
+import { TokenButton } from "./TokenButton";
 
 export const Home = React.memo(() => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -12,6 +13,9 @@ export const Home = React.memo(() => {
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Profile />
+      </View>
+      <View style={styles.tokenButtonContaienr}>
+        <TokenButton />
       </View>
       <View style={styles.createButton}>
         <CreateButton setModalVisible={setModalVisible} />
@@ -40,5 +44,11 @@ const styles = StyleSheet.create({
     width: 55,
     justifyContent: "center",
     alignItems: "center",
+  },
+  tokenButtonContaienr: {
+    marginTop: 50,
+    width: "90%",
+    height: 30,
+    alignSelf: "center",
   },
 });
