@@ -1,12 +1,15 @@
 import React, { useMemo } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
 
 import { useLogout } from "~/hooks/auth";
 import { ToastLoading } from "~/components/utils/ToastLoading";
+import { useDeleteUser } from "~/hooks/users";
 
 export const Settings = React.memo(() => {
   const { logout, isLoading } = useLogout();
+
+  const { _delete } = useDeleteUser();
 
   const list = useMemo(() => {
     return [
@@ -15,6 +18,11 @@ export const Settings = React.memo(() => {
         onPress: () => {
           logout();
         },
+        style: { color: "red" },
+      },
+      {
+        title: "アカウント削除",
+        onPress: _delete,
         style: { color: "red" },
       },
     ];

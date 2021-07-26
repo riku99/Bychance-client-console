@@ -11,6 +11,7 @@ import { addBearer } from "~/helpers/api";
 import { baseUrl } from "~/constants";
 import { setUser, User, setShowdPostModal } from "~/stores/users";
 import { useApikit } from "./apikit";
+import { Alert } from "react-native";
 
 type UserEdit = Pick<
   User,
@@ -109,5 +110,67 @@ export const useChangeShowedPostModal = () => {
 
   return {
     change,
+  };
+};
+
+export const useDeleteUser = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  console.log(email);
+  console.log(password);
+
+  const inputPassword = useCallback(() => {
+    Alert.prompt(
+      "パスワードを入力してください",
+      "",
+      [
+        {
+          text: "OK",
+          onPress: (t) => {
+            if (t) {
+              setPassword(t);
+            }
+          },
+        },
+        {
+          text: "キャンセル",
+          onPress: () => {
+            setEmail("");
+            setPassword("");
+          },
+        },
+      ],
+      "secure-text"
+    );
+  }, []);
+
+  const inputEmail = useCallback(() => {
+    Alert.prompt("メールアドレスを入力してください", "", [
+      {
+        text: "OK",
+        onPress: (t) => {
+          if (t) {
+            setEmail(t);
+          }
+          inputPassword();
+        },
+      },
+      {
+        text: "キャンセル",
+        onPress: () => {
+          setEmail("");
+          setPassword("");
+        },
+      },
+    ]);
+  }, []);
+
+  const _delete = useCallback(() => {
+    inputEmail();
+  }, []);
+
+  return {
+    _delete,
   };
 };

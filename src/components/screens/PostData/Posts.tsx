@@ -62,7 +62,7 @@ export const Posts = React.memo(
           )
         ) : (
           <ScrollView
-            style={{ marginTop: 50 }}
+            style={{ marginTop: 50, height: "100%" }}
             refreshControl={
               <RefreshControl refreshing={!!refreshing} onRefresh={onRefresh} />
             }
