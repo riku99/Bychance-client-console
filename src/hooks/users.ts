@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import fs from "react-native-fs";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
+import auth from "@react-native-firebase/auth";
 
 import { getExtention } from "~/utils";
 import { useIdToken } from "./auth";
@@ -114,63 +115,79 @@ export const useChangeShowedPostModal = () => {
 };
 
 export const useDeleteUser = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { dispatch, getIdToken, handleError } = useApikit();
 
-  console.log(email);
-  console.log(password);
+  const [isLoading, setIsloading] = useState(false);
 
-  const inputPassword = useCallback(() => {
-    Alert.prompt(
-      "パスワードを入力してください",
-      "",
-      [
+  const inputPassword = useCallback((): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      Alert.prompt(
+        "パスワードを入力してください",
+        "",
+        [
+          {
+            text: "OK",
+            onPress: (t) => {
+              resolve(t);
+            },
+          },
+          {
+            text: "キャンセル",
+            onPress: () => {
+              reject();
+            },
+          },
+        ],
+        "secure-text"
+      );
+    });
+  }, []);
+
+  const inputEmail = useCallback((): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      Alert.prompt("メールアドレスを入力してください", "", [
         {
           text: "OK",
           onPress: (t) => {
-            if (t) {
-              setPassword(t);
-            }
+            resolve(t);
           },
         },
         {
           text: "キャンセル",
           onPress: () => {
-            setEmail("");
-            setPassword("");
+            reject();
           },
         },
-      ],
-      "secure-text"
-    );
+      ]);
+    });
   }, []);
 
-  const inputEmail = useCallback(() => {
-    Alert.prompt("メールアドレスを入力してください", "", [
-      {
-        text: "OK",
-        onPress: (t) => {
-          if (t) {
-            setEmail(t);
-          }
-          inputPassword();
-        },
-      },
-      {
-        text: "キャンセル",
-        onPress: () => {
-          setEmail("");
-          setPassword("");
-        },
-      },
-    ]);
-  }, []);
+  const _delete = useCallback(async () => {
+    try {
+      const email = await inputEmail();
+      const password = await inputPassword();
 
-  const _delete = useCallback(() => {
-    inputEmail();
+      try {
+        setIsloading(true);
+        await auth().signInWithEmailAndPassword(email, password);
+        try {
+          const idToken = await getIdToken();
+          await axios.delete(
+            `${baseUrl}/recommendationClients`,
+            addBearer(idToken)
+          );
+        } catch (e) {
+          handleError(e);
+        }
+      } catch (e) {
+        Alert.alert("エラー", "メールアドレスまたはパスワードが間違っています");
+      }
+    } catch (e) {}
+    setIsloading(false);
   }, []);
 
   return {
     _delete,
+    isLoading,
   };
 };

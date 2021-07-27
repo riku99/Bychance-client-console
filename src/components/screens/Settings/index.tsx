@@ -9,7 +9,7 @@ import { useDeleteUser } from "~/hooks/users";
 export const Settings = React.memo(() => {
   const { logout, isLoading } = useLogout();
 
-  const { _delete } = useDeleteUser();
+  const { _delete, isLoading: deleteLoading } = useDeleteUser();
 
   const list = useMemo(() => {
     return [
@@ -38,7 +38,7 @@ export const Settings = React.memo(() => {
           </ListItem>
         ))}
       </View>
-      {isLoading && <ToastLoading />}
+      {(isLoading || deleteLoading) && <ToastLoading />}
     </View>
   );
 });
