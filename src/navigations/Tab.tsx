@@ -6,6 +6,7 @@ import { defaultTheme } from "~/styles";
 import { HomeStackScreen } from "./Home";
 import { PostDataStackScreen } from "./PostData";
 import { SettingsStackScreen } from "./Setting";
+import { NotificationsStackScreen } from "./Notifications";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +26,16 @@ export const Tabs = React.memo(() => {
           tabBarLabel: "設定",
           tabBarIcon: ({ color }) => (
             <Icon name="settings" size={27} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="notification"
+        component={NotificationsStackScreen}
+        options={{
+          tabBarLabel: "お知らせ",
+          tabBarIcon: ({ color }) => (
+            <Icon name="notifications" size={27} color={color} />
           ),
         }}
       />

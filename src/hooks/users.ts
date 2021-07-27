@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { Alert } from "react-native";
 import fs from "react-native-fs";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
@@ -12,7 +13,7 @@ import { addBearer } from "~/helpers/api";
 import { baseUrl } from "~/constants";
 import { setUser, User, setShowdPostModal } from "~/stores/users";
 import { useApikit } from "./apikit";
-import { Alert } from "react-native";
+import { setLogin } from "~/stores/sessions";
 
 type UserEdit = Pick<
   User,
@@ -170,11 +171,32 @@ export const useDeleteUser = () => {
       try {
         setIsloading(true);
         await auth().signInWithEmailAndPassword(email, password);
+        setIsloading(false);
         try {
-          const idToken = await getIdToken();
-          await axios.delete(
-            `${baseUrl}/recommendationClients`,
-            addBearer(idToken)
+          Alert.alert(
+            "アカウントを削除してよろしいですか?",
+            "復旧させることはできません",
+            [
+              {
+                text: "削除",
+                style: "destructive",
+                onPress: async () => {
+                  setIsloading(true);
+                  const idToken = await getIdToken();
+                  await axios.delete(
+                    `${baseUrl}/recommendationClients`,
+                    addBearer(idToken)
+                  );
+                  await auth().signOut();
+                  setIsloading(false);
+                  dispatch(setLogin(false));
+                  dispatch(setUser());
+                },
+              },
+              {
+                text: "キャンセル",
+              },
+            ]
           );
         } catch (e) {
           handleError(e);
