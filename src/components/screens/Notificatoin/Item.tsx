@@ -1,20 +1,23 @@
 import React from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import { Divider } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 
-export type Item = {
-  id: number;
-  title: string;
-  createdAt: string;
-};
+import { NotificationsItem } from "~/types";
+import { NotificationsNavigationProp } from "~/navigations/Notifications";
 
-type Props = Item;
+type Props = NotificationsItem;
 
 export const NotificationItem = React.memo(
-  ({ id, title, createdAt }: Props) => {
+  ({ id, title, createdAt, alreadyRead }: Props) => {
+    const navigation = useNavigation<NotificationsNavigationProp<"List">>();
+
     const onPress = () => {
-      console.log(id);
+      navigation.navigate("Detail", {
+        id,
+      });
     };
+
     return (
       <>
         <View style={styles.item}>

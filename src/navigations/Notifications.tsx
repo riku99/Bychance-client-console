@@ -5,9 +5,12 @@ import {
 } from "@react-navigation/stack";
 
 import { Notifications } from "~/components/screens/Notificatoin";
+import { NotificationDetail } from "~/components/screens/NotificationDetail";
+import { NotificationDetail as NotificationDetailType } from "~/types";
 
 export type NotificationStackParamList = {
   List: undefined;
+  Detail: { id: number };
 };
 
 export type NotificationsNavigationProp<
@@ -22,6 +25,11 @@ export const NotificationsStackScreen = React.memo(() => {
       <Stack.Screen
         name="List"
         component={Notifications}
+        options={{ headerTitle: "お知らせ" }}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={NotificationDetail}
         options={{ headerTitle: "お知らせ" }}
       />
     </Stack.Navigator>

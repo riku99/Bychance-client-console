@@ -26,3 +26,12 @@ export type ApiRecommendation = {
     lng: number | null;
   };
 };
+
+export type NotificationsItem = {
+  id: number;
+  title: string;
+  createdAt: string;
+  alreadyRead: boolean;
+};
+
+export type NotificationDetail = NotificationsItem & { text: string };
