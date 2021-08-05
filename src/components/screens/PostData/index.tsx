@@ -18,6 +18,11 @@ export const PostData = React.memo(() => {
         indicatorStyle: {
           backgroundColor: defaultTheme.mainColor,
         },
+        activeTintColor: defaultTheme.mainColor,
+        inactiveTintColor: "gray",
+        labelStyle: {
+          fontWeight: "bold",
+        },
       }}
     >
       <Tab.Screen
