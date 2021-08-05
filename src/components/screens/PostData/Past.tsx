@@ -17,20 +17,21 @@ export const Past = React.memo(() => {
   }, []);
 
   return (
-    // <Posts
-    //   data={data}
-    //   loading={loading}
-    //   refreshing={refreshing}
-    //   onRefresh={onRefresh}
-    // />
-    <View>
+    <>
+      <Posts
+        data={data}
+        loading={loading}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
       <Blink
         duration={1200}
         onAnimationEnd={() => console.log("finish!")}
         iterations={2}
+        styles={{ position: "absolute" }}
       >
         <Text>引っ張って更新</Text>
       </Blink>
-    </View>
+    </>
   );
 });
