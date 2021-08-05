@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
+import { View, Text } from "react-native";
 
 import { useGetPosts } from "~/hooks/posts";
 import { Posts } from "./Posts";
+import { Blink } from "~/components/utils/Blink";
 
 export const Past = React.memo(() => {
   const { data, loading, getData } = useGetPosts();
@@ -15,11 +17,20 @@ export const Past = React.memo(() => {
   }, []);
 
   return (
-    <Posts
-      data={data}
-      loading={loading}
-      refreshing={refreshing}
-      onRefresh={onRefresh}
-    />
+    // <Posts
+    //   data={data}
+    //   loading={loading}
+    //   refreshing={refreshing}
+    //   onRefresh={onRefresh}
+    // />
+    <View>
+      <Blink
+        duration={1200}
+        onAnimationEnd={() => console.log("finish!")}
+        iterations={2}
+      >
+        <Text>引っ張って更新</Text>
+      </Blink>
+    </View>
   );
 });
