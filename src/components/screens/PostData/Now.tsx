@@ -13,7 +13,7 @@ import { useGetPosts, useHidePost } from "~/hooks/posts";
 import { Posts } from "./Posts";
 import { defaultTheme } from "~/styles";
 import { ToastLoading } from "~/components/utils/ToastLoading";
-import { Blink } from "~/components/utils/Blink";
+import { RefreshBlink } from "./RefreshBlink";
 
 export const Now = React.memo(() => {
   const { data, loading, getData, setData } = useGetPosts("now");
@@ -85,36 +85,10 @@ export const Now = React.memo(() => {
           />
         )}
       </ScrollView>
-      {!loading && !data?.length && (
-        <Blink
-          duration={1000}
-          onAnimationEnd={onBlinkEnd}
-          iterations={2}
-          styles={{ position: "absolute", top: "42%", alignSelf: "center" }}
-          isVisible={blinkVisible}
-        >
-          <Text
-            style={{
-              color: "#bdbdbd",
-              fontSize: 19,
-              fontWeight: "bold",
-            }}
-          >
-            引っ張って更新
-          </Text>
-          <Text
-            style={{
-              color: "#bdbdbd",
-              fontSize: 19,
-              fontWeight: "bold",
-              alignSelf: "center",
-              marginTop: 3,
-            }}
-          >
-            ↓
-          </Text>
-        </Blink>
-      )}
+      <RefreshBlink
+        isVisible={!loading && !data?.length && blinkVisible}
+        onBlinkEnd={onBlinkEnd}
+      />
       {hideLoading && <ToastLoading />}
     </View>
   );

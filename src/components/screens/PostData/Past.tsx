@@ -1,14 +1,17 @@
 import React, { useState, useCallback } from "react";
-import { View, Text } from "react-native";
 
 import { useGetPosts } from "~/hooks/posts";
 import { Posts } from "./Posts";
-import { Blink } from "~/components/utils/Blink";
+import { RefreshBlink } from "./RefreshBlink";
 
 export const Past = React.memo(() => {
   const { data, loading, getData } = useGetPosts();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [blinkVisible, setBlinkVisible] = useState(true);
+  const onBlinkEnd = useCallback(() => {
+    setBlinkVisible(false);
+  }, []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -23,6 +26,10 @@ export const Past = React.memo(() => {
         loading={loading}
         refreshing={refreshing}
         onRefresh={onRefresh}
+      />
+      <RefreshBlink
+        isVisible={!loading && !data?.length && blinkVisible}
+        onBlinkEnd={onBlinkEnd}
       />
     </>
   );

@@ -14,6 +14,7 @@ export const PostData = React.memo(() => {
   return (
     <Tab.Navigator
       style={{ marginTop: top }}
+      lazy
       tabBarOptions={{
         indicatorStyle: {
           backgroundColor: defaultTheme.mainColor,
