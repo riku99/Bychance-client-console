@@ -24,14 +24,6 @@ export const Past = React.memo(() => {
         refreshing={refreshing}
         onRefresh={onRefresh}
       />
-      <Blink
-        duration={1200}
-        onAnimationEnd={() => console.log("finish!")}
-        iterations={2}
-        styles={{ position: "absolute" }}
-      >
-        <Text>引っ張って更新</Text>
-      </Blink>
     </>
   );
 });

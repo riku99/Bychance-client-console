@@ -7,21 +7,29 @@ type Props = {
   duration: number;
   iterations: number;
   styles?: StyleProp<ViewStyle>;
+  isVisible: boolean;
 };
 
 export const Blink = React.memo(
-  ({ children, onAnimationEnd, duration, iterations, styles }: Props) => {
-    const value = useRef(new Animated.Value(1)).current;
+  ({
+    children,
+    onAnimationEnd,
+    duration,
+    iterations,
+    styles,
+    isVisible,
+  }: Props) => {
+    const value = useRef(new Animated.Value(0)).current;
     useEffect(() => {
       Animated.loop(
         Animated.sequence([
           Animated.timing(value, {
-            toValue: 0,
+            toValue: 1,
             duration,
             useNativeDriver: false,
           }),
           Animated.timing(value, {
-            toValue: 1,
+            toValue: 0,
             duration,
             useNativeDriver: false,
           }),
@@ -35,9 +43,13 @@ export const Blink = React.memo(
     }, []);
 
     return (
-      <Animated.View style={[styles, { opacity: value }]}>
-        {children}
-      </Animated.View>
+      <>
+        {isVisible && (
+          <Animated.View style={[styles, { opacity: value }]}>
+            {children}
+          </Animated.View>
+        )}
+      </>
     );
   }
 );
