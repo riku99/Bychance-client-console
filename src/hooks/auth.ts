@@ -31,6 +31,7 @@ export const useSessionLogin = () => {
           dispatch(setUser(result.data));
           dispatch(setLogin(true));
         } catch (e) {
+          console.log(e);
           handleError(e);
         }
       }
