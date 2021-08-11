@@ -6,15 +6,21 @@ import { useNavigation } from "@react-navigation/native";
 import { NotificationsItem } from "~/types";
 import { NotificationsNavigationProp } from "~/navigations/Notifications";
 
-type Props = NotificationsItem;
+type Props = {
+  id: number;
+  title: string;
+  createdAt: string;
+};
 
 export const NotificationItem = React.memo(
-  ({ id, title, createdAt, alreadyRead }: Props) => {
+  ({ id, title, createdAt }: Props) => {
     const navigation = useNavigation<NotificationsNavigationProp<"List">>();
 
     const onPress = () => {
       navigation.navigate("Detail", {
         id,
+        title,
+        createdAt,
       });
     };
 

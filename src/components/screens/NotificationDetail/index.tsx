@@ -1,13 +1,19 @@
 import React from "react";
 import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
 import { Divider } from "react-native-elements";
+import { useRoute, RouteProp } from "@react-navigation/native";
+
+import { NotificationStackParamList } from "~/navigations/Notifications";
 
 export const NotificationDetail = React.memo(() => {
+  const { id, title, createdAt } =
+    useRoute<RouteProp<NotificationStackParamList, "Detail">>().params;
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contents}>
-        <Text style={styles.title}>投稿方法が変更されました</Text>
-        <Text style={styles.timestamp}>2021/07/27</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.timestamp}>{createdAt}</Text>
         <Divider style={styles.divider} />
         <Text style={styles.text}>
           いつも本サービスをご利用いただきありがとうございます。

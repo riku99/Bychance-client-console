@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useIdToken } from "./auth";
 import { useHandleApiErrors } from "./errors";
 import { useCustomDispatch } from "./stores";
+import { addBearer } from "~/helpers/api";
 
 export const useApikit = () => {
   const toast = useToast();
@@ -18,5 +19,6 @@ export const useApikit = () => {
     getIdToken,
     handleError,
     navigation,
+    addBearer,
   };
 };

@@ -1,34 +1,34 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { format } from "date-fns";
+
 import { NotificationsItem } from "~/types";
-
 import { NotificationItem } from "./Item";
-
-const _list = [
-  {
-    id: 1,
-    title: "投稿方法が変更されました",
-    createdAt: "2021/07/27",
-    alreadyRead: false,
-  },
-  {
-    id: 2,
-    title: "メンテナンスのお知らせ",
-    createdAt: "2021/07/25",
-    alreadyRead: true,
-  },
-];
+import { useGetNotificatoins } from "~/hooks/notifications";
 
 export const Notifications = React.memo(() => {
+  // カスタムフックからお知らせデータ取得
+  const { result, isLoading } = useGetNotificatoins();
+  console.log(result);
+  const listData = useMemo(
+    () =>
+      result.map((d) => ({
+        ...d,
+        createdAt: format(new Date(d.createdAt), "yyyy/MM/dd"),
+      })),
+    [result]
+  );
+
   const renderItem = useCallback(
-    ({ id, title, createdAt, alreadyRead }: NotificationsItem) => (
-      <NotificationItem
-        id={id}
-        title={title}
-        createdAt={createdAt}
-        alreadyRead={alreadyRead}
-      />
-    ),
+    ({
+      id,
+      title,
+      createdAt,
+    }: {
+      id: number;
+      title: string;
+      createdAt: string;
+    }) => <NotificationItem id={id} title={title} createdAt={createdAt} />,
     []
   );
 
@@ -37,13 +37,12 @@ export const Notifications = React.memo(() => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={_list}
+        data={listData}
         renderItem={({ item }) =>
           renderItem({
             id: item.id,
             title: item.title,
             createdAt: item.createdAt,
-            alreadyRead: item.alreadyRead,
           })
         }
         keyExtractor={(item) => keyExtractor(item.id)}

@@ -10,7 +10,7 @@ import { defaultTheme } from "~/styles";
 
 export type NotificationStackParamList = {
   List: undefined;
-  Detail: { id: number };
+  Detail: { id: number; title: string; createdAt: string };
 };
 
 export type NotificationsNavigationProp<
