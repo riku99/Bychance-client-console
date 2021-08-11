@@ -2,7 +2,6 @@ import React, { useCallback, useMemo } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { format } from "date-fns";
 
-import { NotificationsItem } from "~/types";
 import { NotificationItem } from "./Item";
 import { useGetNotificatoins } from "~/hooks/notifications";
 
@@ -24,11 +23,20 @@ export const Notifications = React.memo(() => {
       id,
       title,
       createdAt,
+      text,
     }: {
       id: number;
       title: string;
       createdAt: string;
-    }) => <NotificationItem id={id} title={title} createdAt={createdAt} />,
+      text: string;
+    }) => (
+      <NotificationItem
+        id={id}
+        title={title}
+        createdAt={createdAt}
+        text={text}
+      />
+    ),
     []
   );
 
@@ -43,6 +51,7 @@ export const Notifications = React.memo(() => {
             id: item.id,
             title: item.title,
             createdAt: item.createdAt,
+            text: item.text,
           })
         }
         keyExtractor={(item) => keyExtractor(item.id)}

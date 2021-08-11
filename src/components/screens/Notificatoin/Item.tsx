@@ -10,10 +10,11 @@ type Props = {
   id: number;
   title: string;
   createdAt: string;
+  text: string;
 };
 
 export const NotificationItem = React.memo(
-  ({ id, title, createdAt }: Props) => {
+  ({ id, title, createdAt, text }: Props) => {
     const navigation = useNavigation<NotificationsNavigationProp<"List">>();
 
     const onPress = () => {
@@ -21,6 +22,7 @@ export const NotificationItem = React.memo(
         id,
         title,
         createdAt,
+        text,
       });
     };
 
