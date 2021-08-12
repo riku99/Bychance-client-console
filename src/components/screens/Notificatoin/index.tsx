@@ -3,7 +3,10 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { format } from "date-fns";
 
 import { NotificationItem } from "./Item";
-import { useGetNotificatoins } from "~/hooks/notifications";
+import {
+  useGetNotificatoins,
+  useCreateReadNotifications,
+} from "~/hooks/notifications";
 
 export const Notifications = React.memo(() => {
   // カスタムフックからお知らせデータ取得
@@ -16,6 +19,8 @@ export const Notifications = React.memo(() => {
       })),
     [result]
   );
+
+  useCreateReadNotifications();
 
   const renderItem = useCallback(
     ({

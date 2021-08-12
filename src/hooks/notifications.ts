@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useApikit } from "./apikit";
 import { NotificationsResponse, UnreadData } from "~/types/api/notifications";
 import axios from "axios";
 import { baseUrl } from "~/constants";
 import { setUnredNotifications } from "~/stores/notifications";
+import { RootState } from "~/stores";
 
 export const useGetNotificatoins = () => {
   const { getIdToken, handleError, addBearer } = useApikit();
@@ -58,4 +60,35 @@ export const useGetUnreadNotifications = () => {
   return {
     getUnreadNotifications,
   };
+};
+
+export const useCreateReadNotifications = () => {
+  const { addBearer, getIdToken, dispatch } = useApikit();
+
+  const unreadData = useSelector(
+    (state: RootState) => state.notificationsReducer.unread,
+    shallowEqual
+  );
+
+  const ids = useMemo(() => unreadData.map((d) => d.id), [unreadData]);
+
+  useEffect(() => {
+    const _create = async () => {
+      try {
+        const token = await getIdToken();
+        await axios.post(
+          `${baseUrl}/recommendationClient/notifications/read`,
+          {
+            ids,
+          },
+          addBearer(token)
+        );
+
+        dispatch(setUnredNotifications([]));
+      } catch (e) {}
+    };
+    if (ids.length) {
+      _create();
+    }
+  }, []);
 };

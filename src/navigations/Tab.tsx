@@ -20,15 +20,14 @@ export const Tabs = React.memo(() => {
   );
   const { getUnreadNotifications } = useGetUnreadNotifications();
 
+  // 初回起動時にはactiveハンドラは動かないのでこっちで動かす
   useEffect(() => {
-    console.log("active!! get");
     getUnreadNotifications();
   }, []);
 
   useEffect(() => {
     const onActive = (nextAppState: AppStateStatus) => {
       if (nextAppState === "active") {
-        console.log("active!! get");
         getUnreadNotifications();
       }
     };
@@ -62,7 +61,9 @@ export const Tabs = React.memo(() => {
         component={NotificationsStackScreen}
         options={{
           tabBarLabel: "お知らせ",
-          tabBarBadge: unreadNotificationsNumber && unreadNotificationsNumber,
+          tabBarBadge: unreadNotificationsNumber
+            ? unreadNotificationsNumber
+            : undefined,
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" size={27} color={color} />
           ),
