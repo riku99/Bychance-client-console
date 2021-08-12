@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { AppState, AppStateStatus } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -11,6 +12,25 @@ import { NotificationsStackScreen } from "./Notifications";
 const Tab = createBottomTabNavigator();
 
 export const Tabs = React.memo(() => {
+  const [notificationBadge, setNotificationBadge] = useState(0);
+
+  useEffect(() => {
+    console.log("active!! get");
+  }, []);
+
+  useEffect(() => {
+    const onActive = async (nextAppState: AppStateStatus) => {
+      if (nextAppState === "active") {
+        console.log("active!! get");
+      }
+    };
+    AppState.addEventListener("change", onActive);
+
+    return () => {
+      AppState.removeEventListener("change", onActive);
+    };
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="home"

@@ -9,8 +9,9 @@ import { setLogin } from "~/stores/sessions";
 import { baseUrl } from "~/constants";
 import { addBearer } from "~/helpers/api";
 import { useHandleApiErrors } from "./errors";
-import { setUser, User } from "~/stores/users";
+import { setUser } from "~/stores/users";
 import { useApikit } from "./apikit";
+import { GetUserResponse } from "~/types/api/users";
 
 export const useSessionLogin = () => {
   const { handleError } = useHandleApiErrors();
@@ -24,14 +25,13 @@ export const useSessionLogin = () => {
       if (user) {
         const idToken = await user.getIdToken();
         try {
-          const result = await axios.get<User>(
+          const result = await axios.get<GetUserResponse>(
             `${baseUrl}/recommendationClient`,
             addBearer(idToken)
           );
           dispatch(setUser(result.data));
           dispatch(setLogin(true));
         } catch (e) {
-          console.log(e);
           handleError(e);
         }
       }
@@ -124,7 +124,7 @@ export const useSignin = () => {
       const idToken = await firebaseUser.getIdToken();
 
       try {
-        const result = await axios.get<User>(
+        const result = await axios.get<GetUserResponse>(
           `${baseUrl}/recommendationClient`,
           addBearer(idToken)
         );

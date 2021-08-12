@@ -8,7 +8,6 @@ import { useGetNotificatoins } from "~/hooks/notifications";
 export const Notifications = React.memo(() => {
   // カスタムフックからお知らせデータ取得
   const { result, isLoading } = useGetNotificatoins();
-  console.log(result);
   const listData = useMemo(
     () =>
       result.map((d) => ({

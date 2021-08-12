@@ -20,7 +20,6 @@ export const useGetNotificatoins = () => {
           addBearer(token)
         );
 
-        console.log(response.data);
         setResult(response.data);
       } catch (e) {
         handleError(e);
