@@ -2,26 +2,34 @@ import React, { useEffect, useState } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { defaultTheme } from "~/styles";
 import { HomeStackScreen } from "./Home";
 import { PostDataStackScreen } from "./PostData";
 import { SettingsStackScreen } from "./Setting";
 import { NotificationsStackScreen } from "./Notifications";
+import { useGetUnreadNotifications } from "~/hooks/notifications";
+import { RootState } from "~/stores";
 
 const Tab = createBottomTabNavigator();
 
 export const Tabs = React.memo(() => {
-  const [notificationBadge, setNotificationBadge] = useState(0);
+  const unreadNotificationsNumber = useSelector(
+    (state: RootState) => state.notificationsReducer.unread.length
+  );
+  const { getUnreadNotifications } = useGetUnreadNotifications();
 
   useEffect(() => {
     console.log("active!! get");
+    getUnreadNotifications();
   }, []);
 
   useEffect(() => {
-    const onActive = async (nextAppState: AppStateStatus) => {
+    const onActive = (nextAppState: AppStateStatus) => {
       if (nextAppState === "active") {
         console.log("active!! get");
+        getUnreadNotifications();
       }
     };
     AppState.addEventListener("change", onActive);
@@ -54,6 +62,7 @@ export const Tabs = React.memo(() => {
         component={NotificationsStackScreen}
         options={{
           tabBarLabel: "お知らせ",
+          tabBarBadge: unreadNotificationsNumber && unreadNotificationsNumber,
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" size={27} color={color} />
           ),

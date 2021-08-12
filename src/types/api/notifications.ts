@@ -6,3 +6,4 @@ type Notification = {
 };
 
 export type NotificationsResponse = Notification[];
+export type UnreadData = { id: number }[];
