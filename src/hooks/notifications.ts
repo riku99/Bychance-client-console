@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useApikit } from "./apikit";
@@ -7,35 +7,50 @@ import axios from "axios";
 import { baseUrl } from "~/constants";
 import { setUnredNotifications } from "~/stores/notifications";
 import { RootState } from "~/stores";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const useGetNotificatoins = () => {
   const { getIdToken, handleError, addBearer } = useApikit();
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<NotificationsResponse>([]);
+  const unreadNumebr = useSelector(
+    (state: RootState) => state.notificationsReducer.unread.length
+  );
+  const doneFirstRender = useRef(false);
 
-  useEffect(() => {
-    const _get = async () => {
-      const token = await getIdToken();
+  const getNotificatoins = useCallback(async () => {
+    const token = await getIdToken();
 
-      try {
-        const response = await axios.get<NotificationsResponse>(
-          `${baseUrl}/recommendationClientNotifications`,
-          addBearer(token)
-        );
+    try {
+      const response = await axios.get<NotificationsResponse>(
+        `${baseUrl}/recommendationClientNotifications`,
+        addBearer(token)
+      );
 
-        setResult(response.data);
-      } catch (e) {
-        handleError(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    _get();
+      setResult(response.data);
+    } catch (e) {
+      handleError(e);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (unreadNumebr || !doneFirstRender.current) {
+        console.log("focusEffect");
+        getNotificatoins();
+        if (!doneFirstRender.current) {
+          doneFirstRender.current = true;
+        }
+      }
+    }, [unreadNumebr])
+  );
 
   return {
     isLoading,
     result,
+    getNotificatoins,
   };
 };
 
@@ -51,6 +66,7 @@ export const useGetUnreadNotifications = () => {
         addBearer(token)
       );
 
+      console.log(response.data);
       dispatch(setUnredNotifications(response.data));
     } catch (e) {
       // handleError(e);
@@ -72,23 +88,34 @@ export const useCreateReadNotifications = () => {
 
   const ids = useMemo(() => unreadData.map((d) => d.id), [unreadData]);
 
-  useEffect(() => {
-    const _create = async () => {
-      try {
-        const token = await getIdToken();
-        await axios.post(
-          `${baseUrl}/recommendationClient/notifications/read`,
-          {
-            ids,
-          },
-          addBearer(token)
-        );
+  const createReadNotifications = useCallback(async () => {
+    try {
+      const token = await getIdToken();
+      await axios.post(
+        `${baseUrl}/recommendationClient/notifications/read`,
+        {
+          ids,
+        },
+        addBearer(token)
+      );
 
-        dispatch(setUnredNotifications([]));
-      } catch (e) {}
-    };
-    if (ids.length) {
-      _create();
+      dispatch(setUnredNotifications([]));
+    } catch (e) {
+      console.log(e);
     }
-  }, []);
+  }, [ids]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (ids.length) {
+        console.log("read");
+        console.log(ids);
+        createReadNotifications();
+      }
+    }, [ids])
+  );
+
+  return {
+    createReadNotifications,
+  };
 };

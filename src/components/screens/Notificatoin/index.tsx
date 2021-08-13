@@ -1,5 +1,11 @@
-import React, { useCallback, useMemo } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useCallback, useEffect, useMemo } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  AppState,
+  AppStateStatus,
+} from "react-native";
 import { format } from "date-fns";
 
 import { NotificationItem } from "./Item";
@@ -9,8 +15,8 @@ import {
 } from "~/hooks/notifications";
 
 export const Notifications = React.memo(() => {
-  // カスタムフックからお知らせデータ取得
-  const { result, isLoading } = useGetNotificatoins();
+  const { result, isLoading, getNotificatoins } = useGetNotificatoins();
+  const { createReadNotifications } = useCreateReadNotifications();
   const listData = useMemo(
     () =>
       result.map((d) => ({
@@ -19,8 +25,6 @@ export const Notifications = React.memo(() => {
       })),
     [result]
   );
-
-  useCreateReadNotifications();
 
   const renderItem = useCallback(
     ({
