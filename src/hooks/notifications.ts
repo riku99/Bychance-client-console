@@ -30,25 +30,29 @@ export const useGetNotificatoins = () => {
       setResult(response.data);
     } catch (e) {
       handleError(e);
-    } finally {
-      setIsLoading(false);
     }
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      if (unreadNumebr || !doneFirstRender.current) {
-        getNotificatoins();
-        if (!doneFirstRender.current) {
-          doneFirstRender.current = true;
+      const c = async () => {
+        if (unreadNumebr || !doneFirstRender.current) {
+          setIsLoading(true);
+          await getNotificatoins();
+          setIsLoading(false);
+          if (!doneFirstRender.current) {
+            doneFirstRender.current = true;
+          }
         }
-      }
+      };
+      c();
     }, [unreadNumebr])
   );
 
   return {
     isLoading,
     result,
+    getNotificatoins,
   };
 };
 

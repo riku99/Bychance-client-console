@@ -1,5 +1,11 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
 import { format } from "date-fns";
 
 import { NotificationItem } from "./Item";
@@ -9,7 +15,7 @@ import {
 } from "~/hooks/notifications";
 
 export const Notifications = React.memo(() => {
-  const { result, isLoading } = useGetNotificatoins();
+  const { result, isLoading, getNotificatoins } = useGetNotificatoins();
   useCreateReadNotifications();
   const listData = useMemo(
     () =>
@@ -19,6 +25,12 @@ export const Notifications = React.memo(() => {
       })),
     [result]
   );
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getNotificatoins();
+    setRefreshing(false);
+  };
 
   const renderItem = useCallback(
     ({
@@ -61,6 +73,9 @@ export const Notifications = React.memo(() => {
           })
         }
         keyExtractor={(item) => keyExtractor(item.id)}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );
