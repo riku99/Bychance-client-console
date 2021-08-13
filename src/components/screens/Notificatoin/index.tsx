@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  AppState,
-  AppStateStatus,
-} from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { format } from "date-fns";
 
 import { NotificationItem } from "./Item";
@@ -15,8 +9,8 @@ import {
 } from "~/hooks/notifications";
 
 export const Notifications = React.memo(() => {
-  const { result, isLoading, getNotificatoins } = useGetNotificatoins();
-  const { createReadNotifications } = useCreateReadNotifications();
+  const { result, isLoading } = useGetNotificatoins();
+  useCreateReadNotifications();
   const listData = useMemo(
     () =>
       result.map((d) => ({
@@ -49,6 +43,10 @@ export const Notifications = React.memo(() => {
   );
 
   const keyExtractor = useCallback((id: number) => id.toString(), []);
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <View style={styles.container}>

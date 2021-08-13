@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { useCallback, useMemo, useState, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useApikit } from "./apikit";
@@ -49,7 +49,6 @@ export const useGetNotificatoins = () => {
   return {
     isLoading,
     result,
-    getNotificatoins,
   };
 };
 
@@ -108,8 +107,4 @@ export const useCreateReadNotifications = () => {
       }
     }, [ids])
   );
-
-  return {
-    createReadNotifications,
-  };
 };
