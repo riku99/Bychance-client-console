@@ -38,7 +38,6 @@ export const useGetNotificatoins = () => {
   useFocusEffect(
     useCallback(() => {
       if (unreadNumebr || !doneFirstRender.current) {
-        console.log("focusEffect");
         getNotificatoins();
         if (!doneFirstRender.current) {
           doneFirstRender.current = true;
@@ -66,7 +65,6 @@ export const useGetUnreadNotifications = () => {
         addBearer(token)
       );
 
-      console.log(response.data);
       dispatch(setUnredNotifications(response.data));
     } catch (e) {
       // handleError(e);
@@ -100,16 +98,12 @@ export const useCreateReadNotifications = () => {
       );
 
       dispatch(setUnredNotifications([]));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }, [ids]);
 
   useFocusEffect(
     useCallback(() => {
       if (ids.length) {
-        console.log("read");
-        console.log(ids);
         createReadNotifications();
       }
     }, [ids])
