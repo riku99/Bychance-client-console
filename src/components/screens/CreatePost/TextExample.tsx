@@ -23,6 +23,9 @@ export const TextExample = React.memo(({ isVisible, setIsVisible }: Props) => (
         この画面を表示していただいた場合お一人様100円引きさせて頂きます。
         {"\n"}
         なお、お1人様1回限りとさせていただきます。
+        {"\n"}
+        {"\n"}
+        <Text style={{ color: "blue" }}>#カフェ #おしゃれ #ラテ #ランチ</Text>
       </Text>
     </View>
   </CustomModal>

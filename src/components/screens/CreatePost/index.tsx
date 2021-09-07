@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,8 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Text,
 } from "react-native";
-import { Text, Button } from "react-native-elements";
+import { Button } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -40,6 +41,33 @@ export const Post = React.memo(() => {
     await createPost({ title, text, coupon, endTime, images });
   };
 
+  const [viewedText, setViewedText] = useState<any[]>([]);
+  useEffect(() => {
+    setViewedText(() => {
+      if (text) {
+        return text.split(/(\s)/g).map((item, i) => {
+          if (
+            /[#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー._-]+/gm.test(item)
+          ) {
+            return (
+              <Text key={i} style={{ color: "green" }}>
+                {item}
+              </Text>
+            );
+          } else {
+            return item;
+          }
+        });
+      } else {
+        return [""];
+      }
+    });
+  }, [text]);
+
+  useEffect(() => {
+    console.log("rerender");
+  });
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -61,6 +89,7 @@ export const Post = React.memo(() => {
           <TextInput
             style={styles.titleInput}
             onChangeText={(t) => setTitle(t)}
+            placeholder="タイトルを入力"
           />
         </View>
         <View style={styles.textContainer}>
@@ -74,6 +103,7 @@ export const Post = React.memo(() => {
             style={styles.textInput}
             multiline={true}
             onChangeText={(t) => setText(t)}
+            placeholder={`本文やハッシュタグを入力`}
           />
         </View>
         <View style={styles.couponContainer}>
@@ -219,7 +249,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   textInput: {
-    height: 70,
+    height: 80,
     backgroundColor: "white",
     marginTop: 10,
     textAlignVertical: "top",
