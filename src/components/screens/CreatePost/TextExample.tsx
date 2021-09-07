@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { CustomModal } from "~/components//utils/CustomModal";
+import { defaultTheme } from "~/styles";
 
 type Props = {
   isVisible: boolean;
@@ -25,7 +26,9 @@ export const TextExample = React.memo(({ isVisible, setIsVisible }: Props) => (
         なお、お1人様1回限りとさせていただきます。
         {"\n"}
         {"\n"}
-        <Text style={{ color: "blue" }}>#カフェ #おしゃれ #ラテ #ランチ</Text>
+        <Text style={{ color: defaultTheme.hashtagColor }}>
+          #カフェ #おしゃれ #ラテ #ランチ
+        </Text>
       </Text>
     </View>
   </CustomModal>

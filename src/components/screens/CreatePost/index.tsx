@@ -64,10 +64,6 @@ export const Post = React.memo(() => {
     });
   }, [text]);
 
-  useEffect(() => {
-    console.log("rerender");
-  });
-
   return (
     <View style={styles.container}>
       <ScrollView>
