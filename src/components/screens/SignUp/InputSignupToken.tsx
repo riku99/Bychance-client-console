@@ -4,12 +4,15 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   View,
+  TextInput,
 } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { Button, Text } from "react-native-elements";
 import { useToast } from "react-native-fast-toast";
 
 import { useSignupToken } from "~/hooks/signupToken";
 import { ToastLoading } from "~/components/utils/ToastLoading";
+import { defaultTheme } from "~/styles";
+import { ToSignin } from "./ToSignin";
 
 type Props = {
   setEnabledSignup: (v: boolean) => void;
@@ -22,7 +25,7 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
 
   const { verifySignupToken, isLoading } = useSignupToken();
 
-  const onSend = async () => {
+  const onSendButtonPress = async () => {
     const result = await verifySignupToken(input);
 
     if (result) {
@@ -34,21 +37,22 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={{ width: "100%", height: "100%" }}>
-          <Input
-            label="登録のための暗号を入力してください"
-            containerStyle={styles.inputContainer}
-            onChangeText={(t) => setInput(t)}
-            errorMessage={!input ? "入力してください" : undefined}
-          />
-          <Button
-            title="送信"
-            containerStyle={styles.buttonContainer}
-            titleStyle={styles.buttonTitle}
-            activeOpacity={1}
-            onPress={onSend}
-            disabled={!input}
-          />
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <Text style={styles.text}>
+              登録のためのトークンを入力してください
+            </Text>
+            <TextInput style={styles.input} onChangeText={(t) => setInput(t)} />
+            <Button
+              title="送信"
+              buttonStyle={styles.button}
+              containerStyle={styles.buttonContainer}
+              titleStyle={styles.buttonTitle}
+              activeOpacity={1}
+              onPress={onSendButtonPress}
+            />
+            <ToSignin containerStyle={styles.toSiginIn} />
+          </View>
         </View>
       </TouchableWithoutFeedback>
       {isLoading && <ToastLoading />}
@@ -57,15 +61,46 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
 });
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    marginTop: "50%",
+  container: {
+    width: "100%",
+    height: "100%",
   },
-  buttonContainer: {
-    marginTop: 40,
-    width: "80%",
+  content: {
+    height: 260,
+    backgroundColor: "white",
+    borderRadius: 30,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
     alignSelf: "center",
+    marginTop: 80,
+    width: "90%",
+  },
+  text: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "gray",
+  },
+  input: {
+    width: "100%",
+    height: 30,
+    marginTop: 30,
+    fontSize: 15,
+    borderBottomWidth: 1,
+    borderColor: "#e8e8e8",
   },
   buttonTitle: {
-    fontWeight: "500",
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#5773ff",
+    paddingVertical: 2,
+  },
+  buttonContainer: {
+    width: 75,
+    marginTop: 30,
+    alignSelf: "center",
+  },
+  toSiginIn: {
+    marginTop: 58,
   },
 });

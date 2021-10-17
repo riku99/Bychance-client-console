@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { Provider, useSelector } from "react-redux";
 import { ToastProvider } from "react-native-fast-toast";
 
@@ -13,7 +13,7 @@ export const App = () => {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <NavigationContainer>
+        <NavigationContainer theme={myNavigationTheme}>
           <ToastProvider
             placement="bottom"
             offset={bottomToastOffset}
@@ -26,6 +26,14 @@ export const App = () => {
       </Provider>
     </SafeAreaProvider>
   );
+};
+
+const myNavigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#f2f5ff",
+  },
 };
 
 const { height, width } = Dimensions.get("screen");

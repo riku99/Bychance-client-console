@@ -1,10 +1,21 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  ViewStyle,
+  StyleProp,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { defaultTheme } from "~/styles";
 
-export const ToSignin = React.memo(() => {
+type Props = {
+  containerStyle?: StyleProp<ViewStyle>;
+};
+
+export const ToSignin = React.memo(({ containerStyle }: Props) => {
   const navigation = useNavigation();
 
   const onLoginPress = () => {
@@ -12,13 +23,21 @@ export const ToSignin = React.memo(() => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>既に登録済みの方</Text>
-      <TouchableOpacity activeOpacity={1}>
-        <Text style={styles.link} onPress={onLoginPress}>
-          ログイン
-        </Text>
-      </TouchableOpacity>
+    // <View style={styles.container}>
+    //   <Text style={styles.title}>既に登録済みの方</Text>
+    //   <TouchableOpacity activeOpacity={1}>
+    //     <Text style={styles.link} onPress={onLoginPress}>
+    //       ログイン
+    //     </Text>
+    //   </TouchableOpacity>
+    // </View>
+    <View style={containerStyle}>
+      <View style={styles.content}>
+        <Text>既に登録済みの方</Text>
+        <Pressable onPress={onLoginPress}>
+          <Text style={styles.link}>ログイン</Text>
+        </Pressable>
+      </View>
     </View>
   );
 });
@@ -26,18 +45,11 @@ export const ToSignin = React.memo(() => {
 const fontSize = 17;
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
+  content: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  title: {
-    fontSize,
+    justifyContent: "space-evenly",
   },
   link: {
-    fontSize,
     color: defaultTheme.linkColor,
     textDecorationLine: "underline",
   },
