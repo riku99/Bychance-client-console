@@ -5,6 +5,7 @@ import { Button, Text } from "react-native-elements";
 
 import { UserEditParamList } from "~/navigations/UserEdit";
 import { MapForAddress } from "./MapForAddress";
+import { defaultTheme } from "~/styles";
 
 export const EditItem = React.memo(() => {
   const route = useRoute<RouteProp<UserEditParamList, "EditItem">>();
@@ -56,6 +57,7 @@ export const EditItem = React.memo(() => {
         containerStyle={styles.buttonContainer}
         title="保存"
         titleStyle={styles.buttonTitle}
+        buttonStyle={styles.button}
         onPress={onPress}
         activeOpacity={1}
       />
@@ -85,6 +87,9 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 15,
     fontWeight: "500",
+  },
+  button: {
+    backgroundColor: defaultTheme.main,
   },
   mapContainer: {
     width: "100%",

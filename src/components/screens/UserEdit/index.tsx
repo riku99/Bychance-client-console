@@ -123,7 +123,7 @@ export const UserEdit = React.memo(() => {
         <Button
           title="完了"
           buttonStyle={{ backgroundColor: "transparent" }}
-          titleStyle={{ color: defaultTheme.mainColor, fontWeight: "500" }}
+          titleStyle={{ color: defaultTheme.main, fontWeight: "500" }}
           activeOpacity={1}
           onPress={onCompButtonPress}
         />
@@ -176,6 +176,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 15,
     paddingBottom: 15,
+    width: "95%",
+    alignSelf: "center",
+    height: 370,
   },
   EditItemsContaner: {
     marginTop: 20,
@@ -185,7 +188,7 @@ const styles = StyleSheet.create({
   EditItem: {
     flexDirection: "row",
     width: "80%",
-    marginTop: 20,
+    marginTop: 25,
   },
   EditItemTitle: {
     fontSize: 15,
