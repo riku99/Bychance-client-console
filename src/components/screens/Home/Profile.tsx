@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  ScrollView,
-  StyleProp,
-  ViewStyle,
-} from "react-native";
+import { View, StyleSheet, Text, StyleProp, ViewStyle } from "react-native";
 import { Button } from "react-native-elements";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -36,8 +29,10 @@ export const Profile = React.memo(({ containerStyle }: Props) => {
 
   return (
     <View style={containerStyle}>
-      <Section style={{ height: 370, alignItems: "center" }}>
-        <ProfileImage containerStyle={{ marginTop: 20 }} />
+      <Section
+        style={{ height: 390, paddingVertical: 20, alignItems: "center" }}
+      >
+        <ProfileImage />
         <Text style={styles.name}>{profile.name}</Text>
 
         <View style={{ width: "100%", alignItems: "center", marginTop: 20 }}>
@@ -77,36 +72,6 @@ export const Profile = React.memo(({ containerStyle }: Props) => {
           onPress={onEditPress}
         />
       </Section>
-      {/* <Section
-        style={{
-          marginTop: 5,
-          alignItems: "center",
-          paddingTop: 5,
-          paddingBottom: 5,
-        }}
-      >
-        <View style={styles.imageContainer}>
-          <ProfileImage />
-        </View>
-        <Text style={styles.nameContainer}>{profile.name}</Text>
-        <View style={{ marginTop: 10 }} />
-        <InfoItems title="住所" value={profile.address} />
-        <InfoItems title="URL" value={profile.url} />
-        <InfoItems title="instagram" value={profile.instagram} />
-        <InfoItems title="twitter" value={profile.twitter} />
-        <InfoItems
-          title="プッシュ通知"
-          value={profile.enablePushNotification ? "可" : "不可"}
-        />
-        // <Button
-        //   activeOpacity={1}
-        //   containerStyle={styles.editButtonContainer}
-        //   buttonStyle={styles.editButton}
-        //   title="編集"
-        //   titleStyle={styles.editTitle}
-        //   onPress={onEditPress}
-        // />
-      </Section> */}
     </View>
   );
 });
@@ -119,5 +84,17 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     marginTop: 15,
+  },
+  editButtonContainer: {
+    marginTop: 28,
+  },
+  editButton: {
+    width: "100%",
+    paddingVertical: 5,
+    backgroundColor: defaultTheme.main,
+  },
+  editTitle: {
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
