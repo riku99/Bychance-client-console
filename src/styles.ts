@@ -4,4 +4,5 @@ export const defaultTheme = {
   mainColor: "#36a4f7",
   hashtagColor: "#00376b",
   main: "#5773ff",
+  formInput: "#b8b8b8",
 };

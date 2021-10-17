@@ -6,6 +6,7 @@ import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
 import { useSignin } from "~/hooks/auth";
 import { ToastLoading } from "~/components/utils/ToastLoading";
+import { defaultTheme } from "~/styles";
 
 export const Signin = React.memo(() => {
   const [email, setEmail] = useState("");
@@ -20,21 +21,18 @@ export const Signin = React.memo(() => {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <View style={styles.formContainer}>
-          <EmailForm input={email} setInputText={setEmail} />
-        </View>
-        <View style={styles.formContainer}>
-          <PasswordForm input={password} setInputText={setPassword} />
-        </View>
+        <EmailForm input={email} setInputText={setEmail} />
+        <PasswordForm input={password} setInputText={setPassword} />
+        <Button
+          title="ログイン"
+          disabled={!email || !password || password.length < 8}
+          onPress={onLoginButtonPress}
+          activeOpacity={1}
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+        />
       </View>
-      <Button
-        title="ログイン"
-        titleStyle={styles.buttonTitle}
-        containerStyle={styles.buttonContainer}
-        disabled={!email || !password || password.length < 8}
-        onPress={onLoginButtonPress}
-        activeOpacity={1}
-      />
       {isLoading && <ToastLoading />}
     </View>
   );
@@ -42,26 +40,27 @@ export const Signin = React.memo(() => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
+    flex: 1,
   },
   section: {
-    width: "100%",
+    width: "90%",
+    alignSelf: "center",
+    height: 300,
+    borderRadius: 20,
     backgroundColor: "white",
     marginTop: 40,
-    alignItems: "center",
-    padding: 5,
-  },
-  formContainer: {
-    height: 80,
-    width: "100%",
+    padding: 15,
   },
   buttonTitle: {
     fontWeight: "500",
   },
   buttonContainer: {
     width: "80%",
-    marginTop: 40,
+    marginTop: 50,
+    alignSelf: "center",
+  },
+  button: {
+    backgroundColor: defaultTheme.main,
+    paddingVertical: 5,
   },
 });

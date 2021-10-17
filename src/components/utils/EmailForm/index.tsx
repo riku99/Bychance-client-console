@@ -3,6 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
+import { defaultTheme } from "~/styles";
+
 Icon.loadFont();
 
 type Props = {
@@ -15,9 +17,13 @@ export const EmailForm = React.memo(({ setInputText, input }: Props) => {
     <View style={styles.container}>
       <Input
         placeholder="メールアドレス"
-        leftIcon={<Icon name="email" size={20} color="gray" />}
+        leftIcon={
+          <Icon name="email" size={20} color={defaultTheme.formInput} />
+        }
+        placeholderTextColor={defaultTheme.formInput}
         onChangeText={setInputText}
-        errorMessage={!input ? "入力してください" : undefined}
+        inputContainerStyle={{ borderBottomColor: defaultTheme.formInput }}
+        // errorMessage={!input ? "入力してください" : undefined}
       />
     </View>
   );
@@ -25,6 +31,6 @@ export const EmailForm = React.memo(({ setInputText, input }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
 });
