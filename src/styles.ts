@@ -3,4 +3,5 @@ export const defaultTheme = {
   inactiveTabTintColor: "#b8b8b8",
   mainColor: "#36a4f7",
   hashtagColor: "#00376b",
+  main: "#5773ff",
 };

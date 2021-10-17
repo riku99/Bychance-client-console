@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    backgroundColor: "#5773ff",
+    backgroundColor: defaultTheme.main,
     paddingVertical: 2,
   },
   buttonContainer: {

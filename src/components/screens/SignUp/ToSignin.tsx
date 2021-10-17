@@ -23,14 +23,6 @@ export const ToSignin = React.memo(({ containerStyle }: Props) => {
   };
 
   return (
-    // <View style={styles.container}>
-    //   <Text style={styles.title}>既に登録済みの方</Text>
-    //   <TouchableOpacity activeOpacity={1}>
-    //     <Text style={styles.link} onPress={onLoginPress}>
-    //       ログイン
-    //     </Text>
-    //   </TouchableOpacity>
-    // </View>
     <View style={containerStyle}>
       <View style={styles.content}>
         <Text>既に登録済みの方</Text>

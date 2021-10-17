@@ -5,6 +5,7 @@ import "react-native-gesture-handler";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { Provider, useSelector } from "react-redux";
 import { ToastProvider } from "react-native-fast-toast";
+import { defaultTheme } from "~/styles";
 
 import { store } from "~/stores";
 import { Root } from "./Root";
@@ -33,6 +34,7 @@ const myNavigationTheme = {
   colors: {
     ...DefaultTheme.colors,
     background: "#f2f5ff",
+    primary: defaultTheme.main,
   },
 };
 
