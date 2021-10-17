@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 
 import { Profile } from "./Profile";
@@ -17,10 +17,12 @@ export const Home = React.memo(() => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.profileContainer}>
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 25 }}
+      >
         <Profile />
-      </View>
-      {admin && (
+      </ScrollView>
+      {/* {admin && (
         <View style={styles.tokenButtonContaienr}>
           <TokenButton />
         </View>
@@ -31,18 +33,14 @@ export const Home = React.memo(() => {
       <CrateAlertModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-      />
+      /> */}
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    width: "100%",
-  },
-  profileContainer: {
-    marginTop: 25,
+    flex: 1,
   },
   createButton: {
     position: "absolute",

@@ -1,6 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Avatar } from "react-native-elements";
+import { View, StyleProp, ViewStyle } from "react-native";
 import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -9,8 +8,16 @@ import { CustomAvatar } from "~/components/utils/CustomAvatar";
 
 Icon.loadFont();
 
-export const ProfileImage = React.memo(() => {
+type Props = {
+  containerStyle?: StyleProp<ViewStyle>;
+};
+
+export const ProfileImage = React.memo(({ containerStyle }: Props) => {
   const url = useSelector((state: RootState) => state.usersReducer.user?.image);
 
-  return <CustomAvatar url={url} />;
+  return (
+    <View style={containerStyle}>
+      <CustomAvatar url={url} />
+    </View>
+  );
 });

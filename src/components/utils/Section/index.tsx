@@ -13,5 +13,6 @@ export const Section = React.memo(({ children, style }: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
+    borderRadius: 20,
   },
 });
