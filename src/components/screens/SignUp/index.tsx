@@ -16,9 +16,6 @@ export const SignUp = React.memo(() => {
       ) : (
         <InputSignupToken setEnabledSignup={setEnabledSignup} />
       )}
-      {/* <View style={styles.toSigninContainer}>
-        <ToSignin />
-      </View> */}
     </View>
   );
 });

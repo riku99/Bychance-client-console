@@ -50,6 +50,7 @@ export const InputSignupToken = React.memo(({ setEnabledSignup }: Props) => {
               titleStyle={styles.buttonTitle}
               activeOpacity={1}
               onPress={onSendButtonPress}
+              disabled={!input}
             />
             <ToSignin containerStyle={styles.toSiginIn} />
           </View>

@@ -12,6 +12,7 @@ import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
 import { useSignup } from "~/hooks/auth";
 import { ToastLoading } from "~/components/utils/ToastLoading";
+import { defaultTheme } from "~/styles";
 
 export const Signup = React.memo(() => {
   const { createUser, isLoading } = useSignup();
@@ -35,29 +36,30 @@ export const Signup = React.memo(() => {
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <View style={styles.section}>
-            <View style={styles.formContainer}>
-              <EmailForm setInputText={setEmail} input={email} />
-            </View>
-            <View style={styles.formContainer}>
-              <PasswordForm setInputText={setPassword} input={password} />
-            </View>
-            <View style={styles.formContainer}>
-              <Input
-                placeholder="名前"
-                leftIcon={<Icon name="account-box" size={20} color="gray" />}
-                onChangeText={setName}
-                errorMessage={!name ? "入力してください" : undefined}
+        <View style={styles.section}>
+          <EmailForm setInputText={setEmail} input={email} />
+          <PasswordForm setInputText={setPassword} input={password} />
+          <Input
+            placeholder="名前"
+            leftIcon={
+              <Icon
+                name="account-box"
+                size={20}
+                color={defaultTheme.formInput}
               />
-            </View>
-          </View>
+            }
+            placeholderTextColor={defaultTheme.formInput}
+            inputContainerStyle={{ borderBottomColor: defaultTheme.formInput }}
+            onChangeText={setName}
+            containerStyle={{ marginTop: 10 }}
+          />
           <Button
             title="登録する"
             titleStyle={styles.buttonTitle}
             containerStyle={styles.buttonContainer}
             onPress={onRegisterButtonPress}
             disabled={error}
+            buttonStyle={styles.button}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -73,21 +75,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section: {
-    width: "100%",
+    width: "90%",
+    alignSelf: "center",
+    height: 330,
+    borderRadius: 20,
     backgroundColor: "white",
     marginTop: 40,
-    alignItems: "center",
-    padding: 5,
+    padding: 15,
   },
   buttonTitle: {
-    fontWeight: "500",
+    fontWeight: "bold",
   },
   buttonContainer: {
     width: "80%",
-    marginTop: 40,
+    alignSelf: "center",
   },
-  formContainer: {
-    height: 70,
-    width: "100%",
+  button: {
+    backgroundColor: defaultTheme.main,
+    paddingVertical: 5,
   },
 });
