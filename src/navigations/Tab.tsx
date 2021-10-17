@@ -43,7 +43,7 @@ export const Tabs = React.memo(() => {
       initialRouteName="home"
       tabBarOptions={{
         inactiveTintColor: defaultTheme.inactiveTabTintColor,
-        activeTintColor: defaultTheme.mainColor,
+        activeTintColor: defaultTheme.main,
       }}
     >
       <Tab.Screen
