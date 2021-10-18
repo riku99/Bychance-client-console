@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   button: {
     width: "80%",
     alignSelf: "center",
-    backgroundColor: defaultTheme.mainColor,
+    backgroundColor: defaultTheme.main,
     marginTop: 20,
   },
   buttonTitle: {

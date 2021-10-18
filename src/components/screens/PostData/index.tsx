@@ -13,13 +13,13 @@ export const PostData = React.memo(() => {
 
   return (
     <Tab.Navigator
-      style={{ marginTop: top }}
+      style={{ paddingTop: top, backgroundColor: "white" }}
       lazy
       tabBarOptions={{
         indicatorStyle: {
-          backgroundColor: defaultTheme.mainColor,
+          backgroundColor: defaultTheme.main,
         },
-        activeTintColor: defaultTheme.mainColor,
+        activeTintColor: "black",
         inactiveTintColor: "gray",
         labelStyle: {
           fontWeight: "bold",
