@@ -69,7 +69,7 @@ export const MapForAddress = React.memo(({ setValue, setPosition }: Props) => {
       </Text>
       <Section style={{ marginTop: 10 }}>
         <MapView
-          region={region}
+          initialRegion={region}
           onMapReady={() => {
             Platform.OS === "android"
               ? PermissionsAndroid.request(

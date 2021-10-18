@@ -9,7 +9,7 @@ type Props = {
 
 export const ProfileItem = ({ containerStyle, label, value }: Props) => {
   return (
-    <View style={[{ width: "72%" }, containerStyle]}>
+    <View style={[{ width: "90%" }, containerStyle]}>
       <View style={styles.item}>
         <Text>{label}</Text>
         <Text>{value ?? "未設定"}</Text>
