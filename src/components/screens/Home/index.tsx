@@ -22,7 +22,7 @@ export const Home = React.memo(() => {
       >
         <Profile />
       </ScrollView>
-      {/* {admin && (
+      {admin && (
         <View style={styles.tokenButtonContaienr}>
           <TokenButton />
         </View>
@@ -33,7 +33,7 @@ export const Home = React.memo(() => {
       <CrateAlertModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-      /> */}
+      />
     </View>
   );
 });

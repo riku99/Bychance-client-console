@@ -25,7 +25,7 @@ export const CrateAlertModal = React.memo(
           <View style={styles.contennts}>
             <Text style={styles.modalTitle}>※ 投稿に関する注意</Text>
             <Text style={styles.modalText}>
-              同時に表示できる投稿は1件のみです。既に表示中ものがある場合は
+              同時に表示できる投稿は1件のみです。既に表示中のものがある場合は
               タブの「投稿データ」から非表示にして新しく投稿してください。{"\n"}
               この注意は今後表示されません。
             </Text>

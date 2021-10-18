@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
   button: {
     height: "100%",
     borderRadius: 50,
-    backgroundColor: defaultTheme.mainColor,
+    backgroundColor: defaultTheme.main,
   },
 });

@@ -178,7 +178,7 @@ export const Post = React.memo(() => {
         <Button
           title="掲載する"
           containerStyle={{ marginTop: 40, paddingBottom: 20 }}
-          buttonStyle={{ backgroundColor: defaultTheme.mainColor }}
+          buttonStyle={{ backgroundColor: defaultTheme.main }}
           titleStyle={{ fontWeight: "bold" }}
           activeOpacity={1}
           onPress={onPostButtonPress}
