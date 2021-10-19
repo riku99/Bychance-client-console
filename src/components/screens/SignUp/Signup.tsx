@@ -59,6 +59,7 @@ export const Signup = React.memo(() => {
             onPress={onRegisterButtonPress}
             // disabled={error}
             buttonStyle={styles.button}
+            activeOpacity={1}
           />
         </View>
       </TouchableWithoutFeedback>
