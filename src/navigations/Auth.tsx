@@ -6,7 +6,7 @@ import {
 
 import { SignUp } from "~/components/screens/SignUp";
 import { Signin } from "~/components/screens/SiginIn";
-import { AuthCode } from "~/components/screens/AuthCode";
+import { VerifyEmailAuthCode } from "~/components/screens/VerifyEmailAuthCode";
 
 export type AuthStackParamList = {
   SignUp: undefined;
@@ -31,7 +31,7 @@ export const AuthStackScreen = React.memo(() => {
       />
       <AuthStack.Screen
         name="AuthCode"
-        component={AuthCode}
+        component={VerifyEmailAuthCode}
         options={{ headerTitle: "認証コード入力" }}
       />
     </AuthStack.Navigator>

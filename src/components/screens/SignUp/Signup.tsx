@@ -5,8 +5,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { Button, Input } from "react-native-elements";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { Button } from "react-native-elements";
 
 import { EmailForm } from "~/components/utils/EmailForm";
 import { PasswordForm } from "~/components/utils/PasswordForm";
@@ -38,26 +37,12 @@ export const Signup = React.memo(() => {
         <View style={styles.section}>
           <EmailForm setInputText={setEmail} input={email} />
           <PasswordForm setInputText={setPassword} input={password} />
-          {/* <Input
-            placeholder="名前"
-            leftIcon={
-              <Icon
-                name="account-box"
-                size={20}
-                color={defaultTheme.formInput}
-              />
-            }
-            placeholderTextColor={defaultTheme.formInput}
-            inputContainerStyle={{ borderBottomColor: defaultTheme.formInput }}
-            onChangeText={setName}
-            containerStyle={{ marginTop: 10 }}
-          /> */}
           <Button
             title="登録"
             titleStyle={styles.buttonTitle}
             containerStyle={styles.buttonContainer}
             onPress={onRegisterButtonPress}
-            // disabled={error}
+            disabled={error}
             buttonStyle={styles.button}
             activeOpacity={1}
           />

@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { Button } from "react-native-elements";
 import { defaultTheme } from "~/styles";
+import { useVerifyEmail } from "~/hooks/auth";
 
-export const AuthCode = () => {
+type Props = {
+  onSendButtonPress: (str: string) => void;
+};
+
+export const AuthCode = ({ onSendButtonPress }: Props) => {
+  const [code, setCode] = useState<string>("");
+
   return (
     <View style={styles.container}>
       <Text style={styles.desc}>
         メールアドレスに送信された
         {"\n"}
-        認証コードを入力してください
+        4桁の認証コードを入力してください
       </Text>
-      <TextInput style={styles.input} />
+      <TextInput style={styles.input} onChangeText={(t) => setCode(t)} />
       <Button
         title="送信"
         titleStyle={styles.buttonTitle}
         buttonStyle={styles.button}
         containerStyle={styles.buttonContainer}
         activeOpacity={1}
+        onPress={() => {
+          onSendButtonPress(code);
+        }}
       />
     </View>
   );

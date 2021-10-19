@@ -3,15 +3,13 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { InputSignupToken } from "./InputSignupToken";
 import { Signup } from "./Signup";
-import { ToSignin } from "./ToSignin";
-import { defaultTheme } from "~/styles";
 
 export const SignUp = React.memo(() => {
   const [enabledSignup, setEnabledSignup] = useState(false);
 
   return (
     <View style={styles.container}>
-      {!enabledSignup ? (
+      {enabledSignup ? (
         <Signup />
       ) : (
         <InputSignupToken setEnabledSignup={setEnabledSignup} />

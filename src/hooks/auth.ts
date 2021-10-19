@@ -52,26 +52,26 @@ export const useSignup = () => {
   const [isLoading, setIsloading] = useState(false);
 
   const createUser = useCallback(async (email: string, password: string) => {
-    navigation.navigate("AuthCode");
-    // setIsloading(true);
+    setIsloading(true);
 
     try {
-      // const { user: firebaseUser } =
-      //   await auth().createUserWithEmailAndPassword(email, password);
-      // const idToken = await firebaseUser.getIdToken();
-      // try {
-      //   const result = await axios.post<{ id: string; name: string }>(
-      //     `${baseUrl}/recommendationClients`,
-      //     {},
-      //     addBearer(idToken)
-      //   );
-      //   setIsloading(false);
-      //   dispatch(setUser(result.data));
-      //   // dispatch(setLogin(true)); ログインは認証コードの検証が終わった後なのでここではしない
-      // } catch (e) {
-      //   handleError(e);
-      //   setIsloading(false);
-      // }
+      const { user: firebaseUser } =
+        await auth().createUserWithEmailAndPassword(email, password);
+      const idToken = await firebaseUser.getIdToken();
+      try {
+        const result = await axios.post<{ id: string; name: string }>(
+          `${baseUrl}/recommendationClients`,
+          {},
+          addBearer(idToken)
+        );
+        setIsloading(false);
+        dispatch(setUser(result.data));
+        navigation.navigate("AuthCode");
+        // dispatch(setLogin(true)); ログインは認証コードの検証が終わった後なのでここではしない
+      } catch (e) {
+        handleError(e);
+        setIsloading(false);
+      }
     } catch (error) {
       setIsloading(false);
       if (error.code === "auth/email-already-in-use") {
@@ -196,6 +196,38 @@ export const useLogout = () => {
 
   return {
     logout,
+    isLoading,
+  };
+};
+
+export const useVerifyEmail = () => {
+  const dispatch = useCustomDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast, getIdToken, handleError } = useApikit();
+
+  const verifyEmailWithAuthCode = useCallback(
+    async ({ code }: { code: number }) => {
+      try {
+        const idToken = await getIdToken();
+        await axios.patch(
+          `${baseUrl}/recommendation_clients/verified_email`,
+          { code },
+          addBearer(idToken)
+        );
+
+        dispatch(setLogin(true));
+        toast.show("認証しました", { type: "success" });
+      } catch (e) {
+        handleError(e);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
+  return {
+    verifyEmailWithAuthCode,
     isLoading,
   };
 };
