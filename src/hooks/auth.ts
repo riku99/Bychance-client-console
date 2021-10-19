@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { useToast } from "react-native-fast-toast";
 import { default as axios } from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import { useCustomDispatch } from "./stores";
 import { setLogin } from "~/stores/sessions";
@@ -45,60 +46,54 @@ export const useSessionLogin = () => {
 
 export const useSignup = () => {
   const toast = useToast();
-
   const { handleError } = useHandleApiErrors();
-
   const dispatch = useCustomDispatch();
-
+  const navigation = useNavigation();
   const [isLoading, setIsloading] = useState(false);
 
-  const createUser = useCallback(
-    async (email: string, password: string, name: string) => {
-      setIsloading(true);
+  const createUser = useCallback(async (email: string, password: string) => {
+    navigation.navigate("AuthCode");
+    // setIsloading(true);
 
-      try {
-        const { user: firebaseUser } =
-          await auth().createUserWithEmailAndPassword(email, password);
-        const idToken = await firebaseUser.getIdToken();
-
-        try {
-          const result = await axios.post<{ id: string; name: string }>(
-            `${baseUrl}/recommendationClients`,
-            { name },
-            addBearer(idToken)
-          );
-
-          setIsloading(false);
-          dispatch(setUser(result.data));
-          dispatch(setLogin(true));
-        } catch (e) {
-          handleError(e);
-          setIsloading(false);
-        }
-      } catch (error) {
-        setIsloading(false);
-        if (error.code === "auth/email-already-in-use") {
-          toast.show("メールアドレスは既に使用されています", {
-            type: "danger",
-          });
-          return;
-        }
-
-        if (error.code === "auth/invalid-email") {
-          toast.show("無効なアドレスです", { type: "danger" });
-          return;
-        }
-
-        if (error.code === "auth/weak-password") {
-          toast.show("パスワードは8文字以上にしてください");
-          return;
-        }
-
-        toast.show("何らかのエラーが発生しました", { type: "danger" });
+    try {
+      // const { user: firebaseUser } =
+      //   await auth().createUserWithEmailAndPassword(email, password);
+      // const idToken = await firebaseUser.getIdToken();
+      // try {
+      //   const result = await axios.post<{ id: string; name: string }>(
+      //     `${baseUrl}/recommendationClients`,
+      //     {},
+      //     addBearer(idToken)
+      //   );
+      //   setIsloading(false);
+      //   dispatch(setUser(result.data));
+      //   // dispatch(setLogin(true)); ログインは認証コードの検証が終わった後なのでここではしない
+      // } catch (e) {
+      //   handleError(e);
+      //   setIsloading(false);
+      // }
+    } catch (error) {
+      setIsloading(false);
+      if (error.code === "auth/email-already-in-use") {
+        toast.show("メールアドレスは既に使用されています", {
+          type: "danger",
+        });
+        return;
       }
-    },
-    []
-  );
+
+      if (error.code === "auth/invalid-email") {
+        toast.show("無効なアドレスです", { type: "danger" });
+        return;
+      }
+
+      if (error.code === "auth/weak-password") {
+        toast.show("パスワードは8文字以上にしてください");
+        return;
+      }
+
+      toast.show("何らかのエラーが発生しました", { type: "danger" });
+    }
+  }, []);
 
   return {
     createUser,

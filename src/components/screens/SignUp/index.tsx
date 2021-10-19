@@ -11,7 +11,7 @@ export const SignUp = React.memo(() => {
 
   return (
     <View style={styles.container}>
-      {enabledSignup ? (
+      {!enabledSignup ? (
         <Signup />
       ) : (
         <InputSignupToken setEnabledSignup={setEnabledSignup} />

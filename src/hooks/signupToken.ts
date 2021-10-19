@@ -14,7 +14,7 @@ export const useSignupToken = () => {
   const verifySignupToken = useCallback(async (token: string) => {
     setIsloading(true);
     try {
-      return await axios.get(`${baseUrl}/clientSignupToken/${token}`);
+      return await axios.get(`${baseUrl}/client_signup_token/${token}`);
     } catch (e) {
       handleError(e);
     } finally {
@@ -28,33 +28,33 @@ export const useSignupToken = () => {
   };
 };
 
-export const useCreateSignupToken = () => {
-  const [isLoading, setIsloading] = useState(false);
+// export const useCreateSignupToken = () => {
+//   const [isLoading, setIsloading] = useState(false);
 
-  const { getIdToken, handleError } = useApikit();
+//   const { getIdToken, handleError } = useApikit();
 
-  const create = useCallback(async () => {
-    setIsloading(true);
+//   const create = useCallback(async () => {
+//     setIsloading(true);
 
-    const idToken = await getIdToken();
+//     const idToken = await getIdToken();
 
-    try {
-      const result = await axios.post<string>(
-        `${baseUrl}/clientSignupToken`,
-        {},
-        addBearer(idToken)
-      );
+//     try {
+//       const result = await axios.post<string>(
+//         `${baseUrl}/clientSignupToken`,
+//         {},
+//         addBearer(idToken)
+//       );
 
-      return result.data;
-    } catch (e) {
-      handleError(e);
-    } finally {
-      setIsloading(false);
-    }
-  }, []);
+//       return result.data;
+//     } catch (e) {
+//       handleError(e);
+//     } finally {
+//       setIsloading(false);
+//     }
+//   }, []);
 
-  return {
-    create,
-    isLoading,
-  };
-};
+//   return {
+//     create,
+//     isLoading,
+//   };
+// };

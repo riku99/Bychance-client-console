@@ -19,19 +19,18 @@ export const Signup = React.memo(() => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
 
   const onRegisterButtonPress = () => {
-    createUser(email, password, name);
+    createUser(email, password);
   };
 
   const error = useMemo(() => {
-    if (!email || !password || password.length < 8 || !name) {
+    if (!email || !password || password.length < 8) {
       return true;
     } else {
       return false;
     }
-  }, [email, password, name]);
+  }, [email, password]);
 
   return (
     <>
@@ -39,7 +38,7 @@ export const Signup = React.memo(() => {
         <View style={styles.section}>
           <EmailForm setInputText={setEmail} input={email} />
           <PasswordForm setInputText={setPassword} input={password} />
-          <Input
+          {/* <Input
             placeholder="名前"
             leftIcon={
               <Icon
@@ -52,13 +51,13 @@ export const Signup = React.memo(() => {
             inputContainerStyle={{ borderBottomColor: defaultTheme.formInput }}
             onChangeText={setName}
             containerStyle={{ marginTop: 10 }}
-          />
+          /> */}
           <Button
-            title="登録する"
+            title="登録"
             titleStyle={styles.buttonTitle}
             containerStyle={styles.buttonContainer}
             onPress={onRegisterButtonPress}
-            disabled={error}
+            // disabled={error}
             buttonStyle={styles.button}
           />
         </View>
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   section: {
     width: "90%",
     alignSelf: "center",
-    height: 330,
+    height: 260,
     borderRadius: 20,
     backgroundColor: "white",
     marginTop: 40,
@@ -93,5 +92,6 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: defaultTheme.main,
     paddingVertical: 5,
+    marginTop: 40,
   },
 });
