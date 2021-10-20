@@ -6,7 +6,6 @@ import {
 
 import { Notifications } from "~/components/screens/Notificatoin";
 import { NotificationDetail } from "~/components/screens/NotificationDetail";
-import { defaultTheme } from "~/styles";
 
 export type NotificationStackParamList = {
   List: undefined;
@@ -33,10 +32,6 @@ export const NotificationsStackScreen = React.memo(() => {
         options={{
           headerTitle: "お知らせ",
           headerBackTitleVisible: false,
-          headerTintColor: defaultTheme.mainColor,
-          headerTitleStyle: {
-            color: "black",
-          },
         }}
       />
     </Stack.Navigator>
