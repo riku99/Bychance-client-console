@@ -26,10 +26,10 @@ export const Settings = React.memo(() => {
               {
                 text: "はい",
                 onPress: async () => {
-                  navigation.navigate("passwordResetAuthCode");
-                  // const result = await createAuthCodeForPasswordReset();
-                  // if (result) {
-                  // }
+                  const result = await createAuthCodeForPasswordReset();
+                  if (result) {
+                    navigation.navigate("passwordResetAuthCode");
+                  }
                 },
               },
               {
