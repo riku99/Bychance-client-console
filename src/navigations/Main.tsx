@@ -3,13 +3,15 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
-import { Post } from "~/components/screens/CreatePost";
 
+import { Post } from "~/components/screens/CreatePost";
 import { Tabs } from "./Tab";
+import { PasswordUpadte } from "~/components/screens/PasswordUpdate";
 
 export type MainStackParamList = {
   Tab: undefined;
   Post: undefined;
+  PasswordUpdate: undefined;
 };
 
 export type MainNavigationProp<T extends keyof MainStackParamList> =
@@ -29,6 +31,14 @@ export const MainStackScreen = React.memo(() => {
         name="Post"
         component={Post}
         options={{ headerTitle: "掲載", headerBackTitleVisible: false }}
+      />
+      <MainStack.Screen
+        name="PasswordUpdate"
+        component={PasswordUpadte}
+        options={{
+          headerTitle: "パスワード変更",
+          headerBackTitleVisible: false,
+        }}
       />
     </MainStack.Navigator>
   );

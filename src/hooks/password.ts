@@ -1,5 +1,8 @@
 import { useCallback } from "react";
 import { default as axios } from "axios";
+import { Alert } from "react-native";
+import auth from "@react-native-firebase/auth";
+import { useToast } from "react-native-fast-toast";
 
 import { useApikit } from "./apikit";
 import { baseUrl } from "~/constants";
@@ -47,5 +50,20 @@ export const useVerifyAuthCodeForPasswordReset = () => {
 
   return {
     verifyAuthCodeForPasswordReset,
+  };
+};
+
+export const useSendPasswordResetLink = () => {
+  const sendLink = useCallback(async () => {
+    const user = auth().currentUser;
+    if (!user?.email) {
+      Alert.alert("エラーが発生しました");
+      return;
+    }
+    await auth().sendPasswordResetEmail(user.email);
+  }, []);
+
+  return {
+    sendLink,
   };
 };
