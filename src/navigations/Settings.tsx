@@ -5,11 +5,9 @@ import {
 } from "@react-navigation/stack";
 
 import { Settings } from "~/components/screens/Settings";
-import { PasswordResetAuthCode } from "~/components/screens/PasswordResetAuthCode";
 
 type SettingsPatamList = {
   main: undefined;
-  passwordResetAuthCode: undefined;
 };
 
 export type SettingsNavigationProp<T extends keyof SettingsPatamList> =
@@ -24,13 +22,6 @@ export const SettingsStackScreen = React.memo(() => {
         name="main"
         component={Settings}
         options={{ headerTitle: "設定" }}
-      />
-      <Stack.Screen
-        name="passwordResetAuthCode"
-        component={PasswordResetAuthCode}
-        options={{
-          headerTitle: "認証コード入力",
-        }}
       />
     </Stack.Navigator>
   );
