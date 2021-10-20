@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { Button } from "react-native-elements";
 import { defaultTheme } from "~/styles";
-import { useVerifyEmail } from "~/hooks/auth";
 
 type Props = {
   onSendButtonPress: (str: string) => void;

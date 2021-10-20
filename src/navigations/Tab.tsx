@@ -7,7 +7,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { defaultTheme } from "~/styles";
 import { HomeStackScreen } from "./Home";
 import { PostDataStackScreen } from "./PostData";
-import { SettingsStackScreen } from "./Setting";
+import { SettingsStackScreen } from "./Settings";
 import { NotificationsStackScreen } from "./Notifications";
 import { useGetUnreadNotifications } from "~/hooks/notifications";
 import { RootState } from "~/stores";

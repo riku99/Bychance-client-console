@@ -3,9 +3,9 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
-import { AuthCode } from "~/components/utils/AuthCode";
 
 import { Settings } from "~/components/screens/Settings";
+import { PasswordResetAuthCode } from "~/components/screens/PasswordResetAuthCode";
 
 type SettingsPatamList = {
   main: undefined;
@@ -27,7 +27,7 @@ export const SettingsStackScreen = React.memo(() => {
       />
       <Stack.Screen
         name="passwordResetAuthCode"
-        component={AuthCode}
+        component={PasswordResetAuthCode}
         options={{
           headerTitle: "認証コード入力",
         }}
