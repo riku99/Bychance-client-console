@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>19075552326-ek25b4gt2jrmkajb9rad2j7442ojpo45.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.19075552326-ek25b4gt2jrmkajb9rad2j7442ojpo45</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB4HNbZR_REa17N0cjW3hW5aGbH_-da5K0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>19075552326</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bychance.bychanceclientapp-Stg</string>
+	<key>PROJECT_ID</key>
+	<string>bychance-client-stg</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bychance-client-stg.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:19075552326:ios:6420746f50f8e6e38a6647</string>
+</dict>
+</plist>

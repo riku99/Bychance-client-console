@@ -3,14 +3,15 @@ import { Dimensions } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { ToastProvider } from "react-native-fast-toast";
 import { defaultTheme } from "~/styles";
-
+import Config from "react-native-config";
 import { store } from "~/stores";
 import { Root } from "./Root";
 
 export const App = () => {
+  console.log("🌍 env is " + Config.ENV);
   return (
     <SafeAreaProvider>
       <Provider store={store}>
